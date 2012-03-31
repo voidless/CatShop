@@ -22,9 +22,8 @@
 
 - (IBAction)backButton
 {
-    [delegate kittenTableReturnClicked];
+    [delegate kittenTableReturnClicked:selectedIndexPath];
 }
-
 
 #pragma mark - Table view data source
 
@@ -87,10 +86,24 @@
             UIBarButtonItem *b = [[UIBarButtonItem alloc] initWithTitle:@"Вернуться"
                                                                   style:UIBarButtonItemStyleBordered
                                                                  target:self
-                                                                 action:@selector(dismissModalViewControllerAnimated:)];
+                                                                 action:@selector(dismissKittenPhotoController)];
             kdc.navigationItem.leftBarButtonItem = b;
         }
     }
+}
+
+- (void)dismissKittenPhotoController
+{
+    [self dismissModalViewControllerAnimated:YES];
+    
+    [self markRowAtIndex:self.tableView.indexPathForSelectedRow];
+}
+
+- (void)markRowAtIndex:(NSIndexPath*)indexPath
+{
+    [self.tableView selectRowAtIndexPath:indexPath
+                                animated:YES
+                          scrollPosition:UITableViewScrollPositionMiddle];
 }
 
 #pragma mark Lifetime

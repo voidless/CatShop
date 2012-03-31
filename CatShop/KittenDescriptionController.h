@@ -4,8 +4,6 @@
 
 @interface KittenDescriptionController : UIViewController <KittenPhotoClickDelegate>
 
-- (void)showKitten:(Kitten*)k;
-
 #pragma mark - IBOutlet
 
 @property (weak) IBOutlet UIImageView *kittenView;

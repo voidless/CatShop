@@ -4,6 +4,8 @@
 
 @interface KittenDescriptionController ()
 
+- (void)showKitten:(Kitten*)k;
+
 @end
 
 
@@ -106,7 +108,6 @@
 
 
 #pragma mark - Lifetime
-
 
 - (void)viewDidLoad
 {

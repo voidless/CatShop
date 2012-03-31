@@ -17,7 +17,6 @@
 		D9BAC55E151A1A4D004EB018 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BAC55D151A1A4D004EB018 /* main.m */; };
 		D9BAC562151A1A4D004EB018 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BAC561151A1A4D004EB018 /* AppDelegate.m */; };
 		D9BAC565151A1A4D004EB018 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BAC563151A1A4D004EB018 /* MainStoryboard.storyboard */; };
-		D9BAC568151A1A4D004EB018 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BAC567151A1A4D004EB018 /* ViewController.m */; };
 		D9BAC573151A1CAF004EB018 /* catlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9BAC572151A1CAF004EB018 /* catlist.plist */; };
 		D9BAC57F151A1D43004EB018 /* cat1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9BAC57C151A1D43004EB018 /* cat1.jpeg */; };
 		D9BAC580151A1D43004EB018 /* cat2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9BAC57D151A1D43004EB018 /* cat2.jpeg */; };
@@ -48,8 +47,6 @@
 		D9BAC560151A1A4D004EB018 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D9BAC561151A1A4D004EB018 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D9BAC564151A1A4D004EB018 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		D9BAC566151A1A4D004EB018 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D9BAC567151A1A4D004EB018 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D9BAC572151A1CAF004EB018 /* catlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = catlist.plist; sourceTree = "<group>"; };
 		D9BAC57C151A1D43004EB018 /* cat1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat1.jpeg; sourceTree = "<group>"; };
 		D9BAC57D151A1D43004EB018 /* cat2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat2.jpeg; sourceTree = "<group>"; };
@@ -101,8 +98,6 @@
 				D9BAC560151A1A4D004EB018 /* AppDelegate.h */,
 				D9BAC561151A1A4D004EB018 /* AppDelegate.m */,
 				D9BAC563151A1A4D004EB018 /* MainStoryboard.storyboard */,
-				D9BAC566151A1A4D004EB018 /* ViewController.h */,
-				D9BAC567151A1A4D004EB018 /* ViewController.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -158,13 +153,13 @@
 			children = (
 				D95BAEE2152623D20042C26E /* TableView */,
 				D95BAEDD15260D8B0042C26E /* ScrollView */,
-				8472A784151B5A8A0004C5D8 /* Model */,
-				D9BAC57B151A1D3A004EB018 /* cats */,
-				8472A787151B5ACD0004C5D8 /* Main */,
-				D9BAC572151A1CAF004EB018 /* catlist.plist */,
-				D9BAC58D151A3173004EB018 /* gender.plist */,
 				D9CC0A0F1522135A00184556 /* KittenDescription */,
 				8472A786151B5AAC0004C5D8 /* Enlarge */,
+				8472A784151B5A8A0004C5D8 /* Model */,
+				8472A787151B5ACD0004C5D8 /* Main */,
+				D9BAC57B151A1D3A004EB018 /* cats */,
+				D9BAC572151A1CAF004EB018 /* catlist.plist */,
+				D9BAC58D151A3173004EB018 /* gender.plist */,
 				D9BAC558151A1A4D004EB018 /* Supporting Files */,
 			);
 			path = CatShop;
@@ -271,7 +266,6 @@
 			files = (
 				D9BAC55E151A1A4D004EB018 /* main.m in Sources */,
 				D9BAC562151A1A4D004EB018 /* AppDelegate.m in Sources */,
-				D9BAC568151A1A4D004EB018 /* ViewController.m in Sources */,
 				D9BAC588151A2AF4004EB018 /* Kitten.m in Sources */,
 				8472A781151B5A080004C5D8 /* KittenPhotoController.m in Sources */,
 				D9CC0A0D1522135600184556 /* KittenDescriptionController.m in Sources */,

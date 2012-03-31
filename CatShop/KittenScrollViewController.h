@@ -7,6 +7,7 @@
 
 @property (weak) IBOutlet UIScrollView *scrollViewOutlet;
 
-@property unsigned cacheNextViewsAmount;
+// cacheNextViewsAmount must be positive
+@property NSInteger cacheNextViewsAmount;
 
 @end

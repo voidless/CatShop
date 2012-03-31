@@ -5,76 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
     </dependencies>
     <scenes>
-        <scene sceneID="Cgs-35-l4J">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DhH-Un-9zR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="bigView" id="TvK-70-RkS" customClass="ViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="omu-hL-b6L">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0dU-Aq-Cjf">
-                                <rect key="frame" x="20" y="403" width="128" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="&lt;-">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="prevKitten" destination="TvK-70-RkS" eventType="touchUpInside" id="hTf-eL-Jeh"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1Td-yr-zUz">
-                                <rect key="frame" x="186" y="403" width="114" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="->">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextKitten" destination="TvK-70-RkS" eventType="touchUpInside" id="iKU-HL-f5h"/>
-                                </connections>
-                            </button>
-                            <view clipsSubviews="YES" contentMode="scaleAspectFit" id="uKp-Iw-6Ah">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gue-cO-wzt">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="ZAV-AM-mHH" kind="modal" identifier="modalDescSegue" id="rQJ-eG-D3M"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="imageContainerView" destination="uKp-Iw-6Ah" id="eUS-6O-ndE"/>
-                        <outlet property="next" destination="1Td-yr-zUz" id="Nar-SS-a1y"/>
-                        <outlet property="prev" destination="0dU-Aq-Cjf" id="UYA-fb-h6B"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="726" y="1090"/>
-        </scene>
         <scene sceneID="5">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -203,7 +133,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="926" y="129"/>
+            <point key="canvasLocation" x="995" y="696"/>
         </scene>
         <scene sceneID="0sH-Cw-63i">
             <objects>
@@ -277,7 +207,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="170" y="764"/>
+            <point key="canvasLocation" x="605" y="129"/>
         </scene>
         <scene sceneID="GV9-pg-XcD">
             <objects>
@@ -296,7 +226,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="726" y="486"/>
+            <point key="canvasLocation" x="605" y="696"/>
         </scene>
         <scene sceneID="agg-oR-Lt2">
             <objects>
@@ -333,7 +263,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1369" y="129"/>
+            <point key="canvasLocation" x="1403" y="696"/>
         </scene>
     </scenes>
     <classes>
@@ -365,16 +295,6 @@
         </class>
         <class className="KittenTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/KittenTableViewController.h"/>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="nextKitten"/>
-                <relationship kind="action" name="prevKitten"/>
-                <relationship kind="outlet" name="imageContainerView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="next" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="prev" candidateClass="UIButton"/>
-            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

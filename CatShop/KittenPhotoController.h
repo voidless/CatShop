@@ -3,8 +3,6 @@
 
 @interface KittenPhotoController : UIViewController
 
-- (id)initWithKittenImage:(UIImage*)img;
-
 - (void)setKitten:(UIImage*)img;
 
 #pragma mark - Outlet

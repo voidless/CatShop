@@ -2,6 +2,6 @@
 
 @protocol KittenTableReturnDelegate <NSObject>
 
-- (void)kittenTableReturnClicked;
+- (void)kittenTableReturnClicked:(NSIndexPath*)indexPath;
 
 @end
