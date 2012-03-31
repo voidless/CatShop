@@ -103,7 +103,7 @@
 
 - (void)kittenPhotoClicked
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

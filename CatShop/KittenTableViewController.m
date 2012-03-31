@@ -92,7 +92,7 @@
 
 - (void)dismissKittenPhotoController
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
     [self markRowAtIndex:self.tableView.indexPathForSelectedRow];
 }

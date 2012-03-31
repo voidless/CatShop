@@ -134,7 +134,12 @@
         [self scrollToPage:indexPath.row];
     }
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)kittenDescriptionReturnClocked
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Segue
@@ -153,7 +158,7 @@
         {
             kdc.kitten = [kittens objectAtIndex:currentPage];
             
-            UIBarButtonItem *b = [[UIBarButtonItem alloc] initWithTitle:@"Вернуться" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissModalViewControllerAnimated:)];
+            UIBarButtonItem *b = [[UIBarButtonItem alloc] initWithTitle:@"Вернуться" style:UIBarButtonItemStyleBordered target:self action:@selector(kittenDescriptionReturnClocked)];
             kdc.navigationItem.leftBarButtonItem = b;
         }
     }
