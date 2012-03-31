@@ -144,6 +144,8 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+    
     [self attachSwipeRecognizerWithDirection:UISwipeGestureRecognizerDirectionLeft];
     [self attachSwipeRecognizerWithDirection:UISwipeGestureRecognizerDirectionRight];
 }

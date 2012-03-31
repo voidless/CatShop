@@ -6,23 +6,43 @@
 	<array>
 		<dict>
 			<key>father</key>
+			<integer>4</integer>
+			<key>mother</key>
+			<integer>0</integer>
+			<key>id</key>
+			<integer>3</integer>
+			<key>birth</key>
+			<date>2011-12-31T17:14:58Z</date>
+			<key>price</key>
+			<integer>-1</integer>
+			<key>breed</key>
+			<string>Сиамская</string>
+			<key>gender</key>
+			<false/>
+			<key>name</key>
+			<string>Маша</string>
+			<key>image</key>
+			<string>cat3.jpeg</string>
+		</dict>
+		<dict>
+			<key>father</key>
 			<integer>0</integer>
 			<key>mother</key>
-			<integer>3</integer>
+			<integer>0</integer>
 			<key>id</key>
-			<integer>1</integer>
+			<integer>2</integer>
 			<key>birth</key>
-			<date>2011-03-11T18:14:58Z</date>
+			<date>2012-03-21T17:14:51Z</date>
 			<key>price</key>
-			<integer>750</integer>
+			<integer>1000</integer>
 			<key>breed</key>
-			<string>Далматин</string>
+			<string>Греческий</string>
 			<key>gender</key>
 			<true/>
 			<key>name</key>
-			<string>Петя</string>
+			<string>Вася</string>
 			<key>image</key>
-			<string>cat2.jpeg</string>
+			<string>cat1.jpeg</string>
 		</dict>
 		<dict>
 			<key>father</key>
@@ -48,19 +68,59 @@
 			<key>father</key>
 			<integer>0</integer>
 			<key>mother</key>
-			<integer>0</integer>
+			<integer>3</integer>
 			<key>id</key>
-			<integer>2</integer>
+			<integer>1</integer>
 			<key>birth</key>
-			<date>2012-03-21T17:14:51Z</date>
+			<date>2011-03-11T18:14:58Z</date>
 			<key>price</key>
-			<integer>1000</integer>
+			<integer>750</integer>
 			<key>breed</key>
-			<string>Греческий</string>
+			<string>Далматин</string>
 			<key>gender</key>
 			<true/>
 			<key>name</key>
-			<string>Вася</string>
+			<string>Петя</string>
+			<key>image</key>
+			<string>cat2.jpeg</string>
+		</dict>
+		<dict>
+			<key>father</key>
+			<integer>4</integer>
+			<key>mother</key>
+			<integer>0</integer>
+			<key>id</key>
+			<integer>3</integer>
+			<key>birth</key>
+			<date>2011-12-31T17:14:58Z</date>
+			<key>price</key>
+			<integer>500000</integer>
+			<key>breed</key>
+			<string>Сиамская</string>
+			<key>gender</key>
+			<false/>
+			<key>name</key>
+			<string>Гэри 1</string>
+			<key>image</key>
+			<string>cat3.jpeg</string>
+		</dict>
+		<dict>
+			<key>father</key>
+			<integer>4</integer>
+			<key>mother</key>
+			<integer>0</integer>
+			<key>id</key>
+			<integer>3</integer>
+			<key>birth</key>
+			<date>2011-12-31T17:14:58Z</date>
+			<key>price</key>
+			<integer>87</integer>
+			<key>breed</key>
+			<string>Сиамская</string>
+			<key>gender</key>
+			<false/>
+			<key>name</key>
+			<string>Гэри 2</string>
 			<key>image</key>
 			<string>cat1.jpeg</string>
 		</dict>
@@ -74,13 +134,93 @@
 			<key>birth</key>
 			<date>2011-12-31T17:14:58Z</date>
 			<key>price</key>
-			<integer>-1</integer>
+			<integer>222</integer>
 			<key>breed</key>
 			<string>Сиамская</string>
 			<key>gender</key>
 			<false/>
 			<key>name</key>
-			<string>Маша</string>
+			<string>Гэри 3</string>
+			<key>image</key>
+			<string>cat2.jpeg</string>
+		</dict>
+		<dict>
+			<key>father</key>
+			<integer>4</integer>
+			<key>mother</key>
+			<integer>0</integer>
+			<key>id</key>
+			<integer>3</integer>
+			<key>birth</key>
+			<date>2011-12-31T17:14:58Z</date>
+			<key>price</key>
+			<integer>111</integer>
+			<key>breed</key>
+			<string>Сиамская</string>
+			<key>gender</key>
+			<false/>
+			<key>name</key>
+			<string>Гэри 4</string>
+			<key>image</key>
+			<string>cat3.jpeg</string>
+		</dict>
+		<dict>
+			<key>father</key>
+			<integer>4</integer>
+			<key>mother</key>
+			<integer>0</integer>
+			<key>id</key>
+			<integer>3</integer>
+			<key>birth</key>
+			<date>2011-12-31T17:14:58Z</date>
+			<key>price</key>
+			<integer>213</integer>
+			<key>breed</key>
+			<string>Сиамская</string>
+			<key>gender</key>
+			<false/>
+			<key>name</key>
+			<string>Гэри 5</string>
+			<key>image</key>
+			<string>cat4.jpeg</string>
+		</dict>
+		<dict>
+			<key>father</key>
+			<integer>4</integer>
+			<key>mother</key>
+			<integer>0</integer>
+			<key>id</key>
+			<integer>3</integer>
+			<key>birth</key>
+			<date>2011-12-31T17:14:58Z</date>
+			<key>price</key>
+			<integer>654</integer>
+			<key>breed</key>
+			<string>Сиамская</string>
+			<key>gender</key>
+			<false/>
+			<key>name</key>
+			<string>Гэри 6</string>
+			<key>image</key>
+			<string>cat2.jpeg</string>
+		</dict>
+		<dict>
+			<key>father</key>
+			<integer>4</integer>
+			<key>mother</key>
+			<integer>0</integer>
+			<key>id</key>
+			<integer>3</integer>
+			<key>birth</key>
+			<date>2011-12-31T17:14:58Z</date>
+			<key>price</key>
+			<integer>3245</integer>
+			<key>breed</key>
+			<string>Сиамская</string>
+			<key>gender</key>
+			<false/>
+			<key>name</key>
+			<string>Гэри 6</string>
 			<key>image</key>
 			<string>cat3.jpeg</string>
 		</dict>
