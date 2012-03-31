@@ -39,22 +39,20 @@
     
     Kitten *k = [kittens objectAtIndex:indexPath.row];
     
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                      reuseIdentifier:cellId];
-    }
+//    if (cell == nil)
+//    {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+//                                      reuseIdentifier:cellId];
+//    }
     
     cell.textLabel.text = k.name;
     
     if (k.price > 0)
     {
-        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"Цена: $%d", k.price];
+        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"$%d", k.price];
     } else {
         cell.detailTextLabel.text = @"Не продается";
     }
-    
-//    NSLog(@"maked row %d: %@",row, k.name);
     
     return cell;
 }
