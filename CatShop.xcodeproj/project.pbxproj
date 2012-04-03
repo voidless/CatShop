@@ -23,6 +23,7 @@
 		D9BAC581151A1D43004EB018 /* cat3.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9BAC57E151A1D43004EB018 /* cat3.jpeg */; };
 		D9BAC588151A2AF4004EB018 /* Kitten.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BAC587151A2AF4004EB018 /* Kitten.m */; };
 		D9BAC58E151A3173004EB018 /* gender.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9BAC58D151A3173004EB018 /* gender.plist */; };
+		D9C2524B152B4503002387EB /* FlipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C2524A152B4503002387EB /* FlipViewController.m */; };
 		D9C7D82315235937008FEEAD /* cat4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9C7D82215235937008FEEAD /* cat4.jpeg */; };
 		D9CC0A0D1522135600184556 /* KittenDescriptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CC0A0C1522135600184556 /* KittenDescriptionController.m */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,8 @@
 		D95BAEE015260DBD0042C26E /* KittenScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KittenScrollViewController.m; sourceTree = "<group>"; };
 		D95BAEE3152623FB0042C26E /* KittenTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenTableViewController.h; sourceTree = "<group>"; };
 		D95BAEE4152623FB0042C26E /* KittenTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KittenTableViewController.m; sourceTree = "<group>"; };
+		D9623FE9152B4EE10078182E /* KittenFlipperDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KittenFlipperDelegate.h; sourceTree = "<group>"; };
+		D9623FEA152B4F1D0078182E /* KittenFlipperDelegateHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KittenFlipperDelegateHolder.h; sourceTree = "<group>"; };
 		D9BAC54D151A1A4D004EB018 /* CatShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BAC551151A1A4D004EB018 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D9BAC553151A1A4D004EB018 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -54,6 +57,8 @@
 		D9BAC586151A2AF4004EB018 /* Kitten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kitten.h; sourceTree = "<group>"; };
 		D9BAC587151A2AF4004EB018 /* Kitten.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kitten.m; sourceTree = "<group>"; };
 		D9BAC58D151A3173004EB018 /* gender.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = gender.plist; path = ../gender.plist; sourceTree = "<group>"; };
+		D9C25249152B4503002387EB /* FlipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipViewController.h; sourceTree = "<group>"; };
+		D9C2524A152B4503002387EB /* FlipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipViewController.m; sourceTree = "<group>"; };
 		D9C7D82215235937008FEEAD /* cat4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat4.jpeg; sourceTree = "<group>"; };
 		D9CC0A0B1522135600184556 /* KittenDescriptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenDescriptionController.h; sourceTree = "<group>"; };
 		D9CC0A0C1522135600184556 /* KittenDescriptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KittenDescriptionController.m; sourceTree = "<group>"; };
@@ -151,6 +156,7 @@
 		D9BAC557151A1A4D004EB018 /* CatShop */ = {
 			isa = PBXGroup;
 			children = (
+				D9C25247152B44C3002387EB /* FlipController */,
 				D95BAEE2152623D20042C26E /* TableView */,
 				D95BAEDD15260D8B0042C26E /* ScrollView */,
 				D9CC0A0F1522135A00184556 /* KittenDescription */,
@@ -185,6 +191,17 @@
 				D9BAC57E151A1D43004EB018 /* cat3.jpeg */,
 			);
 			name = cats;
+			sourceTree = "<group>";
+		};
+		D9C25247152B44C3002387EB /* FlipController */ = {
+			isa = PBXGroup;
+			children = (
+				D9623FE9152B4EE10078182E /* KittenFlipperDelegate.h */,
+				D9623FEA152B4F1D0078182E /* KittenFlipperDelegateHolder.h */,
+				D9C25249152B4503002387EB /* FlipViewController.h */,
+				D9C2524A152B4503002387EB /* FlipViewController.m */,
+			);
+			name = FlipController;
 			sourceTree = "<group>";
 		};
 		D9CC0A0F1522135A00184556 /* KittenDescription */ = {
@@ -271,6 +288,7 @@
 				D9CC0A0D1522135600184556 /* KittenDescriptionController.m in Sources */,
 				D95BAEE115260DBD0042C26E /* KittenScrollViewController.m in Sources */,
 				D95BAEE5152623FB0042C26E /* KittenTableViewController.m in Sources */,
+				D9C2524B152B4503002387EB /* FlipViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

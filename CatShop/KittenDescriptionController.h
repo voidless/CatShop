@@ -1,8 +1,10 @@
 #import <UIKit/UIKit.h>
 #import "KittenPhotoClickDelegate.h"
+#import "KittenFlipperDelegateHolder.h"
 #import "Kitten.h"
 
-@interface KittenDescriptionController : UIViewController <KittenPhotoClickDelegate>
+@interface KittenDescriptionController : UIViewController
+<KittenPhotoClickDelegate>
 
 #pragma mark - IBOutlet
 

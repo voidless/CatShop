@@ -26,6 +26,8 @@
 
 @synthesize kitten;
 
+//@synthesize delegate;
+
 #pragma mark - Kitten Business
 
 
@@ -116,5 +118,9 @@
     [self showKitten:kitten];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 
 @end

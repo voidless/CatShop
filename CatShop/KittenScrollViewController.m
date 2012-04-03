@@ -16,8 +16,9 @@
 
 @implementation KittenScrollViewController
 
-@synthesize scrollViewOutlet;
+@synthesize scrollView;
 @synthesize cacheNextViewsAmount;
+@synthesize delegate;
 
 @synthesize kittens;
 @synthesize viewControllers;
@@ -45,10 +46,10 @@
         
         [viewControllers replaceObjectAtIndex:page withObject:kpc];
         
-        [self addChildViewController:kpc];        
-        [scrollViewOutlet addSubview:kpc.view];
+        [self addChildViewController:kpc];
+        [scrollView addSubview:kpc.view];
         
-        CGRect frame = scrollViewOutlet.frame;
+        CGRect frame = scrollView.frame;
         frame.origin.x = frame.size.width * page;
         kpc.view.frame = frame;
     }
@@ -99,20 +100,20 @@
 
 - (void)scrollToPage:(NSInteger)page
 {
-    CGPoint contentOffset = scrollViewOutlet.contentOffset;
-    CGFloat pageWidth = scrollViewOutlet.frame.size.width;
+    CGPoint contentOffset = scrollView.contentOffset;
+    CGFloat pageWidth = scrollView.frame.size.width;
     
     contentOffset.x = pageWidth * page;
     
-    [scrollViewOutlet setContentOffset:contentOffset animated:NO];
+    [scrollView setContentOffset:contentOffset animated:NO];
 }
 
 #pragma mark - Events
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)scrollViewDidScroll:(UIScrollView *)source
 {
-    CGFloat pageWidth = scrollView.frame.size.width;
-    int page = (scrollView.contentOffset.x - pageWidth/2) / pageWidth + 1;
+    CGFloat pageWidth = source.frame.size.width;
+    int page = (source.contentOffset.x - pageWidth/2) / pageWidth + 1;
     if (currentPage != page)
     {
         [self loadPage:page];
@@ -123,55 +124,58 @@
 
 - (void)kittenPhotoClicked
 {
-    [self performSegueWithIdentifier:@"modalDescSegue" sender:self];
+    [self performSegueWithIdentifier:@"DescSegue" sender:self];
 }
 
-- (void)kittenTableReturnClicked:(NSIndexPath*)indexPath
+- (IBAction)kittenInfoClicked
 {
-    if (indexPath)
-    {        
-        [self loadPage:indexPath.row];
-        [self scrollToPage:indexPath.row];
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [delegate kittenFlipWithIndex:currentPage];
 }
 
-- (void)kittenDescriptionReturnClocked
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+
+//- (void)kittenTableReturnClicked:(NSIndexPath*)indexPath
+//{
+//    if (indexPath)
+//    {        
+//        [self loadPage:indexPath.row];
+//        [self scrollToPage:indexPath.row];
+//    }
+//    
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
+
+//- (void)kittenDescriptionReturnClicked
+//{
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 
 #pragma mark - Segue
 
-//    TODO: refactor this?
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    UINavigationController *nc = segue.destinationViewController;
+    KittenDescriptionController *kdc = segue.destinationViewController;
+    BOOL isDescrCont = [kdc isKindOfClass:[KittenDescriptionController class]];
     
-    BOOL isNavCont = [nc isKindOfClass:[UINavigationController class]];
-    
-    if (isNavCont && [segue.identifier isEqualToString:@"modalDescSegue"])
-    {
-        KittenDescriptionController *kdc = [nc.viewControllers objectAtIndex:0];
-        if ([kdc isKindOfClass:[KittenDescriptionController class]])
-        {
-            kdc.kitten = [kittens objectAtIndex:currentPage];
-            
-            UIBarButtonItem *b = [[UIBarButtonItem alloc] initWithTitle:@"Вернуться" style:UIBarButtonItemStyleBordered target:self action:@selector(kittenDescriptionReturnClocked)];
-            kdc.navigationItem.leftBarButtonItem = b;
-        }
+    if (isDescrCont && [segue.identifier isEqualToString:@"DescSegue"])
+    {   
+        kdc.kitten = [kittens objectAtIndex:currentPage];
     }
     
-    KittenTableViewController *tvc = segue.destinationViewController;
-    BOOL isTableCont = [tvc isKindOfClass:[KittenTableViewController class]];
-    
-    if (isTableCont && [segue.identifier isEqualToString:@"modalTableSegue"])
-    {
-        tvc.delegate = self;
-        
-        [tvc markRowAtIndex:[NSIndexPath indexPathForRow:currentPage inSection:0]];
-    }
+//    KittenTableViewController *tvc = segue.destinationViewController;
+//    BOOL isTableCont = [tvc isKindOfClass:[KittenTableViewController class]];
+//    
+//    if (isTableCont && [segue.identifier isEqualToString:@"modalTableSegue"])
+//    {
+////        tvc.delegate = self;
+//        
+//        [tvc markRowAtIndex:[NSIndexPath indexPathForRow:currentPage inSection:0]];
+//    }
+}
+
+- (void)selectKittenAtIndex:(NSInteger)index;
+{
+    [self loadPage:index];
+    [self scrollToPage:index];
 }
 
 #pragma mark - Lifetime
@@ -196,11 +200,18 @@
 {
     [super viewDidLoad];
     
-    scrollViewOutlet.contentSize = CGSizeMake(scrollViewOutlet.frame.size.width * kittens.count,
-                                        scrollViewOutlet.frame.size.height);
-    scrollViewOutlet.delegate = self;
+    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * kittens.count,
+                                        scrollView.frame.size.height);
+    scrollView.delegate = self;
     
     [self loadPage:0];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 @end

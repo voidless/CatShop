@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2177" systemVersion="11D50d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="0Qr-bF-5nz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2177" systemVersion="11D50d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="ZAV-AM-mHH">
     <dependencies>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1173"/>
@@ -11,7 +11,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="descrView" id="2" customClass="KittenDescriptionController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="NTu-q9-iYK">
@@ -134,13 +134,28 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="995" y="696"/>
+            <point key="canvasLocation" x="172" y="720"/>
+        </scene>
+        <!--Flip View Controller-->
+        <scene sceneID="afs-zQ-yne">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Pg-wB-8ZT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="xyk-0L-Mdo" customClass="FlipViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0ux-wo-8wx">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="sVR-dC-xdI"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="148" y="4"/>
         </scene>
         <!--Kitten Scroll View Controller-->
         <scene sceneID="0sH-Cw-63i">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uVO-l5-OSB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="0Qr-bF-5nz" customClass="KittenScrollViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="KittenScrollVC" id="0Qr-bF-5nz" customClass="KittenScrollViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BS8-yE-NOA">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -161,25 +176,26 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="dXQ-FW-k6e" kind="modal" identifier="modalTableSegue" modalTransitionStyle="flipHorizontal" id="BGb-W3-Al0"/>
+                                    <action selector="kittenInfoClicked" destination="0Qr-bF-5nz" eventType="touchUpInside" id="09F-bK-yl4"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="bIs-TW-PsZ"/>
                     <connections>
-                        <outlet property="scrollViewOutlet" destination="yPL-jX-rwC" id="sZv-TX-Gd6"/>
-                        <segue destination="ZAV-AM-mHH" kind="modal" identifier="modalDescSegue" id="Z0K-Y6-fmC"/>
+                        <outlet property="scrollView" destination="yPL-jX-rwC" id="nsK-Lo-Tyy"/>
+                        <segue destination="2" kind="push" identifier="DescSegue" id="DPx-5J-p6M"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="170" y="129"/>
+            <point key="canvasLocation" x="540" y="4"/>
         </scene>
         <!--Kitten Table View Controller-->
         <scene sceneID="F6D-bh-8MJ">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TEm-Qx-IW2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="dXQ-FW-k6e" customClass="KittenTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="KittenTableVC" clearsSelectionOnViewWillAppear="NO" id="dXQ-FW-k6e" customClass="KittenTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="W4E-GU-8vE">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -234,17 +250,17 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="ZAV-AM-mHH" kind="modal" identifier="modalDescSegue" id="HYC-yc-9AQ"/>
+                        <segue destination="2" kind="push" identifier="DescSegue" id="gVx-pg-3Kx"/>
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="605" y="129"/>
+            <point key="canvasLocation" x="975" y="4"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GV9-pg-XcD">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2E-0p-CCX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController storyboardIdentifier="navControl" definesPresentationContext="YES" id="ZAV-AM-mHH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navControl" definesPresentationContext="YES" navigationBarHidden="YES" id="ZAV-AM-mHH" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Ymx-tq-rsy"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="WB1-6t-vWy">
                         <autoresizingMask key="autoresizingMask"/>
@@ -254,11 +270,11 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="2" kind="relationship" relationship="rootViewController" id="dzl-yb-dzf"/>
+                        <segue destination="xyk-0L-Mdo" kind="relationship" relationship="rootViewController" id="RF3-rj-6Sb"/>
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="605" y="696"/>
+            <point key="canvasLocation" x="-286" y="4"/>
         </scene>
         <!--Kitten Photo Controller-->
         <scene sceneID="agg-oR-Lt2">
@@ -296,10 +312,13 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1403" y="696"/>
+            <point key="canvasLocation" x="605" y="720"/>
         </scene>
     </scenes>
     <classes>
+        <class className="FlipViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlipViewController.h"/>
+        </class>
         <class className="KittenDescriptionController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/KittenDescriptionController.h"/>
             <relationships>
@@ -323,7 +342,7 @@
         <class className="KittenScrollViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/KittenScrollViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="scrollViewOutlet" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>
         <class className="KittenTableViewController" superclassName="UITableViewController">
@@ -336,6 +355,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Z0K-Y6-fmC"/>
+        <segue reference="gVx-pg-3Kx"/>
     </inferredMetricsTieBreakers>
 </document>

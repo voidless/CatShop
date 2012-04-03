@@ -1,10 +1,9 @@
 #import <UIKit/UIKit.h>
-#import "KittenTableReturnDelegate.h"
+#import "KittenFlipperDelegateHolder.h"
 
 @interface KittenTableViewController : UITableViewController
+<KittenFlipperDelegateHolder>
 
 - (void)markRowAtIndex:(NSIndexPath*)indexPath;
-
-@property (weak) id<KittenTableReturnDelegate> delegate;
 
 @end
