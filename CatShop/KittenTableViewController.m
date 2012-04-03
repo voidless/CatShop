@@ -100,7 +100,7 @@
 - (void)markRowAtIndex:(NSIndexPath*)indexPath
 {
     [self.tableView selectRowAtIndexPath:indexPath
-                                animated:YES
+                                animated:NO
                           scrollPosition:UITableViewScrollPositionMiddle];
 }
 
