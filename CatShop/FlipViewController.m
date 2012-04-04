@@ -27,6 +27,8 @@
 
 - (void)flipToVCWithId:(NSString*)newVCId andIndex:(NSInteger)index
 {
+    frontSide = !frontSide;
+    
     UIViewController<KittenFlipperDelegateHolder> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
     [self addChildViewController:newVC];
     
@@ -43,6 +45,10 @@
         [presentingController removeFromParentViewController];
         presentingController = newVC;
         presentingController.delegate = self;
+        
+//        NSLog(@"flipvc self: %@", self.view);
+//        NSLog(@"flipvc sub: %@", presentingController.view);
+//        presentingController.view.frame = self.view.frame;
     }];
 }
 
@@ -58,8 +64,6 @@
         
 //        NSLog(@"kittenFlip to front: %d", index);
     }
-    
-    frontSide = !frontSide;
 }
 
 - (void)presentVCWithId:(NSString*)newVCId
@@ -71,6 +75,10 @@
     [self addChildViewController:presentingController];
     [self.view addSubview:presentingController.view];
     presentingController.delegate = self;
+    
+//    NSLog(@"flipvc self: %@", self.view);
+//    NSLog(@"flipvc sub: %@", presentingController.view);
+//    presentingController.view.frame = self.view.frame;
 }
 
 - (void)dismissVC
@@ -94,6 +102,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     if (frontVC) {
         [self presentVCWithId:frontVC];
     } else {
@@ -103,6 +113,8 @@
 
 - (void)viewDidUnload
 {
+    [super viewDidUnload];
+    
     [self dismissVC];
 }
 

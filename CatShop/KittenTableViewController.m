@@ -13,6 +13,8 @@
 
 @implementation KittenTableViewController
 
+@synthesize tableView = _tableView;
+
 @synthesize delegate;
 
 @synthesize kittens;
@@ -26,16 +28,18 @@
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return kittens.count;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"KittenCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    
+    NSAssert(cell != nil, @"Cell with id %@ must be configured in the storyboard", cellId);
     
     Kitten *k = [kittens objectAtIndex:indexPath.row];
     
@@ -91,13 +95,6 @@
     [super awakeFromNib];
     
     kittens = [Kitten kittens];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.clearsSelectionOnViewWillAppear = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated

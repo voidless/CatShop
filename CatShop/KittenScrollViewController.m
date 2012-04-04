@@ -186,6 +186,8 @@
     scrollView.delegate = self;
     
     [self loadPage:0];
+    
+//    NSLog(@"frame: %@", self.view);
 }
 
 - (void)viewWillAppear:(BOOL)animated
