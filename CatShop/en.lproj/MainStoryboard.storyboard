@@ -134,7 +134,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="172" y="720"/>
+            <point key="canvasLocation" x="540" y="695"/>
         </scene>
         <!--Flip View Controller-->
         <scene sceneID="afs-zQ-yne">
@@ -312,7 +312,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="605" y="720"/>
+            <point key="canvasLocation" x="975" y="695"/>
         </scene>
     </scenes>
     <classes>

@@ -2,8 +2,7 @@
 
 #import "KittenFlipperDelegateHolder.h"
 
-@interface FlipViewController () {
-}
+@interface FlipViewController ()
 
 @property (strong) UIViewController<KittenFlipperDelegateHolder> *presentingController;
 
@@ -25,42 +24,42 @@
 
 #pragma mark Delegate
 
-- (void)kittenFlipWithIndex:(NSInteger)index
-{
-    if (frontSide)
-    {
-        [self flipToVCWithId:backVC];
-        
-        NSLog(@"kittenFlip to back: %d", index);
-    } else {
-        [self flipToVCWithId:frontVC];
-        
-        NSLog(@"kittenFlip to front: %d", index);
-    }
-    
-    [presentingController selectKittenAtIndex:index];
 
-    frontSide = !frontSide;
-}
-
-- (void)flipToVCWithId:(NSString*)newVCId
+- (void)flipToVCWithId:(NSString*)newVCId andIndex:(NSInteger)index
 {
     UIViewController<KittenFlipperDelegateHolder> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
     [self addChildViewController:newVC];
     
     [self transitionFromViewController:presentingController
                       toViewController:newVC
-                              duration:2.
-                               options:UIViewAnimationTransitionFlipFromLeft
-                            animations:nil
+                              duration:.3
+                               options:UIViewAnimationOptionTransitionFlipFromLeft
+                            animations:^{
+                                [newVC selectKittenAtIndex:index];
+                            }
                             completion:^(BOOL finished)
     {   
-        NSLog(@"finished: %d", finished);
+//        NSLog(@"finished: %d", finished);
         [presentingController removeFromParentViewController];
         presentingController = newVC;
         presentingController.delegate = self;
     }];
+}
+
+- (void)kittenFlipWithIndex:(NSInteger)index
+{
+    if (frontSide)
+    {
+        [self flipToVCWithId:backVC andIndex:index];
+        
+//        NSLog(@"kittenFlip to back: %d", index);
+    } else {
+        [self flipToVCWithId:frontVC andIndex:index];
+        
+//        NSLog(@"kittenFlip to front: %d", index);
+    }
     
+    frontSide = !frontSide;
 }
 
 - (void)presentVCWithId:(NSString*)newVCId

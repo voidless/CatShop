@@ -26,8 +26,6 @@
 
 @synthesize kitten;
 
-//@synthesize delegate;
-
 #pragma mark - Kitten Business
 
 

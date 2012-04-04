@@ -4,7 +4,7 @@
 
 @protocol KittenFlipperDelegateHolder <NSObject>
 
-@property id<KittenFlipperDelegate> delegate;
+@property (weak) id<KittenFlipperDelegate> delegate;
 
 - (void)selectKittenAtIndex:(NSInteger)index;
 

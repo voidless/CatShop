@@ -52,6 +52,11 @@
         CGRect frame = scrollView.frame;
         frame.origin.x = frame.size.width * page;
         kpc.view.frame = frame;
+        
+        // TODO: dirty hack
+        [kpc viewWillAppear:YES];
+        
+//        NSLog(@"load scroll cat #%d with origin %fx%f",page, frame.origin.x, frame.origin.y);
     }
 }
 
@@ -65,6 +70,7 @@
     KittenPhotoController *kpc = [viewControllers objectAtIndex:page];
     if ((NSNull *)kpc != [NSNull null])
     {
+//        NSLog(@"unload scroll cat #%d",page);
         [kpc.view removeFromSuperview];
         [kpc removeFromParentViewController];
         [viewControllers replaceObjectAtIndex:page withObject:[NSNull null]];
@@ -133,22 +139,6 @@
 }
 
 
-//- (void)kittenTableReturnClicked:(NSIndexPath*)indexPath
-//{
-//    if (indexPath)
-//    {        
-//        [self loadPage:indexPath.row];
-//        [self scrollToPage:indexPath.row];
-//    }
-//    
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-
-//- (void)kittenDescriptionReturnClicked
-//{
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-
 #pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -160,20 +150,11 @@
     {   
         kdc.kitten = [kittens objectAtIndex:currentPage];
     }
-    
-//    KittenTableViewController *tvc = segue.destinationViewController;
-//    BOOL isTableCont = [tvc isKindOfClass:[KittenTableViewController class]];
-//    
-//    if (isTableCont && [segue.identifier isEqualToString:@"modalTableSegue"])
-//    {
-////        tvc.delegate = self;
-//        
-//        [tvc markRowAtIndex:[NSIndexPath indexPathForRow:currentPage inSection:0]];
-//    }
 }
 
 - (void)selectKittenAtIndex:(NSInteger)index;
 {
+//    NSLog(@"cmd from delegate: to index: %d", index);
     [self loadPage:index];
     [self scrollToPage:index];
 }
