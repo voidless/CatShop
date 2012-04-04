@@ -2,6 +2,8 @@
 
 @protocol KittenFlipperDelegate <NSObject>
 
-- (void)kittenFlipWithIndex:(NSInteger)index;
+- (void)kittenFlip;
+
+- (void)kittenSetCurrent:(NSInteger)index;
 
 @end

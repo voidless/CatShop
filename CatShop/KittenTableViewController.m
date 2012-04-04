@@ -4,6 +4,7 @@
 
 @interface KittenTableViewController ()
 
+// TODO: remove this, use sorted
 @property (strong) NSArray *kittens;
 
 @property (strong) NSIndexPath *selectedIndexPath;
@@ -24,24 +25,37 @@
 
 - (IBAction)backButton
 {
-    [delegate kittenFlipWithIndex:selectedIndexPath.row];
+    [delegate kittenFlip];
+}
+
+- (IBAction)editButton
+{
+    BOOL isEditing = self.tableView.editing;
+    [self.tableView setEditing:!isEditing animated:YES];
 }
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"numberOfRowsInSection");
     return kittens.count;
 }
 
+- (Kitten*)kittenByIndexPath:(NSIndexPath*)idxp
+{
+    
+    
+    return [kittens objectAtIndex:idxp.row];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"KittenCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
-    NSAssert(cell != nil, @"Cell with id %@ must be configured in the storyboard", cellId);
+    NSAssert(cell != nil, @"Cell with id %@ doesn't exist", cellId);
     
-    Kitten *k = [kittens objectAtIndex:indexPath.row];
+    Kitten *k = [self kittenByIndexPath:indexPath];
     
     cell.textLabel.text = k.name;
     
@@ -55,13 +69,29 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+}
+
 #pragma mark - Table view delegate
+
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     selectedIndexPath = indexPath;
     
     [self performSegueWithIdentifier:@"DescSegue" sender:self];
+    
+    [delegate kittenSetCurrent:indexPath.row];
 }
 
 #pragma mark - Segue
@@ -95,6 +125,7 @@
     [super awakeFromNib];
     
     kittens = [Kitten kittens];
+    NSLog(@"kittens recieved: %d", kittens.count);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -103,6 +134,5 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
-
 
 @end

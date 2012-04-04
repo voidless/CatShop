@@ -35,6 +35,8 @@
     [super viewWillAppear:animated];
     
     modalImage.image = kittenImage;
+    
+    NSLog(@"vWA: %@", self);
 }
 
 #pragma mark - Rotation

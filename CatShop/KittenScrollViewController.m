@@ -6,7 +6,9 @@
 
 @interface KittenScrollViewController ()
 
+// TODO: remove this, use sorted
 @property (strong) NSArray *kittens;
+
 @property (strong) NSMutableArray *viewControllers;
 
 @property NSInteger currentPage;
@@ -54,7 +56,7 @@
         kpc.view.frame = frame;
         
         // TODO: dirty hack
-        [kpc viewWillAppear:YES];
+//        [kpc viewWillAppear:YES];
         
 //        NSLog(@"load scroll cat #%d with origin %fx%f",page, frame.origin.x, frame.origin.y);
     }
@@ -93,6 +95,8 @@
             [self unloadScrollViewWithPage:page];
         }
     }
+    
+    NSLog(@"currentController: %@", [viewControllers objectAtIndex:currentPage]);
 }
 
 - (void)loadPage:(NSInteger)page
@@ -123,6 +127,7 @@
     if (currentPage != page)
     {
         [self loadPage:page];
+        [delegate kittenSetCurrent:page];
     }
 }
 
@@ -135,7 +140,7 @@
 
 - (IBAction)kittenInfoClicked
 {
-    [delegate kittenFlipWithIndex:currentPage];
+    [delegate kittenFlip];
 }
 
 
@@ -181,20 +186,24 @@
 {
     [super viewDidLoad];
     
-    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * kittens.count,
-                                        scrollView.frame.size.height);
     scrollView.delegate = self;
     
-    [self loadPage:0];
+    currentPage = 0;
     
 //    NSLog(@"frame: %@", self.view);
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    
+    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * kittens.count,
+                                        scrollView.frame.size.height);
+    [self reloadScrollViews];
+
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+
+    NSLog(@"frame: %@", self.view);
+    [super viewWillAppear:animated];
 }
+
 
 @end

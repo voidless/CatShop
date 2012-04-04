@@ -24,6 +24,9 @@
 @synthesize fatherId;
 @synthesize motherId;
 
+#define SORT_INFO_FILENAME @"sortInfo.dat"
+
+
 #pragma mark - Static
 
 + (NSArray*) kittens
@@ -96,6 +99,52 @@
     }
     
     return (gender ? [genders objectForKey:@"male"] : [genders objectForKey:@"female"]);
+}
+
++ (NSInteger)kittensCount
+{
+    return [[self kittens] count];
+}
+
+#pragma mark Sorting
+
++ (NSMutableArray*) sortInfo
+{
+    static NSMutableArray *sortInfo;
+    if (sortInfo == nil)
+    {
+        NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *sortInfoPath = [docPath stringByAppendingPathComponent:SORT_INFO_FILENAME];
+        
+        sortInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:sortInfoPath];
+    }
+    if (sortInfo == nil)
+    {
+        sortInfo = [NSMutableArray new];
+        for (Kitten *k in [self kittens])
+        {
+            [sortInfo addObject:[NSNumber numberWithInteger:k.myId]];
+        }
+        NSLog(@"created sorted array: %@", sortInfo);
+    }
+    
+    // TODO: add new cats to the array
+    
+    return sortInfo;
+}
+
++ (Kitten*) kittenSortedAtIndex:(NSInteger)index
+{
+    NSInteger idx = [[[self sortInfo] objectAtIndex:index] integerValue];
+    return [self kittenWithKittenId:idx];
+}
+
++ (void) moveKittenSortedFromIndex:(NSInteger)sourceIdx toIndex:(NSInteger)destinationIdx
+{
+    NSMutableArray *ma = [self sortInfo];
+    NSNumber *myId = [ma objectAtIndex:sourceIdx];
+    [ma removeObjectAtIndex:sourceIdx];
+    [ma insertObject:myId atIndex:destinationIdx];
 }
 
 #pragma mark - Instance

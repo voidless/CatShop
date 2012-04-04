@@ -11,6 +11,8 @@
 @property (strong) NSString* frontVC;
 @property (strong) NSString* backVC;
 
+@property NSInteger currentIndex;
+
 @end
 
 
@@ -22,6 +24,9 @@
 @synthesize frontVC;
 @synthesize backVC;
 
+@synthesize currentIndex;
+#define CURRENT_INDEX_KEY @"currentIndex"
+
 #pragma mark Delegate
 
 
@@ -30,8 +35,10 @@
     frontSide = !frontSide;
     
     UIViewController<KittenFlipperDelegateHolder> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
+
     [self addChildViewController:newVC];
     
+    newVC.view.frame = self.view.bounds;
     [self transitionFromViewController:presentingController
                       toViewController:newVC
                               duration:.3
@@ -41,44 +48,45 @@
                             }
                             completion:^(BOOL finished)
     {   
-//        NSLog(@"finished: %d", finished);
         [presentingController removeFromParentViewController];
         presentingController = newVC;
         presentingController.delegate = self;
-        
-//        NSLog(@"flipvc self: %@", self.view);
-//        NSLog(@"flipvc sub: %@", presentingController.view);
-//        presentingController.view.frame = self.view.frame;
     }];
 }
 
-- (void)kittenFlipWithIndex:(NSInteger)index
+- (void)kittenFlip
 {
     if (frontSide)
     {
-        [self flipToVCWithId:backVC andIndex:index];
+        [self flipToVCWithId:backVC andIndex:currentIndex];
         
 //        NSLog(@"kittenFlip to back: %d", index);
     } else {
-        [self flipToVCWithId:frontVC andIndex:index];
+        [self flipToVCWithId:frontVC andIndex:currentIndex];
         
 //        NSLog(@"kittenFlip to front: %d", index);
     }
 }
 
+- (void)kittenSetCurrent:(NSInteger)index
+{
+    currentIndex = index;
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setInteger:currentIndex forKey:CURRENT_INDEX_KEY];
+    [ud synchronize];
+}
+
 - (void)presentVCWithId:(NSString*)newVCId
 {
     UIViewController<KittenFlipperDelegateHolder> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
-    [self addChildViewController:newVC];
+    newVC.view.frame = self.view.bounds;
     
     presentingController = newVC;
     [self addChildViewController:presentingController];
     [self.view addSubview:presentingController.view];
     presentingController.delegate = self;
-    
-//    NSLog(@"flipvc self: %@", self.view);
-//    NSLog(@"flipvc sub: %@", presentingController.view);
-//    presentingController.view.frame = self.view.frame;
+    [presentingController selectKittenAtIndex:currentIndex];
 }
 
 - (void)dismissVC
@@ -103,6 +111,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    currentIndex = [ud integerForKey:CURRENT_INDEX_KEY];
     
     if (frontVC) {
         [self presentVCWithId:frontVC];

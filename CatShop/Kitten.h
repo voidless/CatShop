@@ -8,6 +8,14 @@
 
 + (Kitten*) kittenWithKittenId:(NSInteger)kittenId;
 
++ (NSInteger) kittensCount;
+
+#pragma mark Sorting
+
++ (Kitten*) kittenSortedAtIndex:(NSInteger)index;
+
++ (void) moveKittenSortedFromIndex:(NSInteger)sourceIdx toIndex:(NSInteger)destinationIdx;
+
 #pragma mark - Property
 
 @property (strong) NSString *imagePath;

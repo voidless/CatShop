@@ -90,7 +90,7 @@
 			<key>mother</key>
 			<integer>0</integer>
 			<key>id</key>
-			<integer>3</integer>
+			<integer>5</integer>
 			<key>birth</key>
 			<date>2011-12-31T17:14:58Z</date>
 			<key>price</key>
@@ -110,7 +110,7 @@
 			<key>mother</key>
 			<integer>0</integer>
 			<key>id</key>
-			<integer>3</integer>
+			<integer>6</integer>
 			<key>birth</key>
 			<date>2011-12-31T17:14:58Z</date>
 			<key>price</key>
@@ -130,7 +130,7 @@
 			<key>mother</key>
 			<integer>0</integer>
 			<key>id</key>
-			<integer>3</integer>
+			<integer>7</integer>
 			<key>birth</key>
 			<date>2011-12-31T17:14:58Z</date>
 			<key>price</key>
@@ -150,7 +150,7 @@
 			<key>mother</key>
 			<integer>0</integer>
 			<key>id</key>
-			<integer>3</integer>
+			<integer>8</integer>
 			<key>birth</key>
 			<date>2011-12-31T17:14:58Z</date>
 			<key>price</key>
@@ -170,13 +170,13 @@
 			<key>mother</key>
 			<integer>0</integer>
 			<key>id</key>
-			<integer>3</integer>
+			<integer>0</integer>
 			<key>birth</key>
 			<date>2011-12-31T17:14:58Z</date>
 			<key>price</key>
 			<integer>213</integer>
 			<key>breed</key>
-			<string>Сиамская</string>
+			<string>парампампам</string>
 			<key>gender</key>
 			<false/>
 			<key>name</key>
@@ -190,7 +190,7 @@
 			<key>mother</key>
 			<integer>0</integer>
 			<key>id</key>
-			<integer>3</integer>
+			<integer>9</integer>
 			<key>birth</key>
 			<date>2011-12-31T17:14:58Z</date>
 			<key>price</key>
@@ -210,7 +210,7 @@
 			<key>mother</key>
 			<integer>0</integer>
 			<key>id</key>
-			<integer>3</integer>
+			<integer>10</integer>
 			<key>birth</key>
 			<date>2011-12-31T17:14:58Z</date>
 			<key>price</key>
