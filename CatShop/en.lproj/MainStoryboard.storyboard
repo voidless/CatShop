@@ -210,13 +210,12 @@
                                             <action selector="backButton" destination="gM3-wY-wnF" id="gKt-ft-crv"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="bpz-Va-79V"/>
+                                    <barButtonItem enabled="NO" style="plain" systemItem="flexibleSpace" id="bpz-Va-79V"/>
                                     <barButtonItem title="Сортировать" id="8jU-WN-Ixb">
                                         <connections>
                                             <action selector="editButton" destination="gM3-wY-wnF" id="FRU-Rr-wFA"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="dnM-zW-PcM"/>
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="lc1-kp-tvT">
