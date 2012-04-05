@@ -36,7 +36,7 @@
     {
         Kitten *k = [Kitten kittenSortedAtIndex:page];
         
-        UIImage *image = [UIImage imageWithContentsOfFile:k.imagePath];
+        UIImage *image = k.image;
         
         kpc = [self.storyboard instantiateViewControllerWithIdentifier:@"fullscreenView"];
         [kpc setKitten:image];

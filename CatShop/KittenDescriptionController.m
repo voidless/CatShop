@@ -31,7 +31,7 @@
 
 - (void)showKitten:(Kitten*)k
 {    
-    kittenView.image = [UIImage imageWithContentsOfFile:k.imagePath];
+    kittenView.image = k.image;
     
     self.navigationItem.title = k.name;
     

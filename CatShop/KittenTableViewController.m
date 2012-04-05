@@ -60,7 +60,7 @@
         cell.priceLabel.text = @"Не продается";
     }
     
-    cell.photoImage.image = [UIImage imageWithContentsOfFile:k.imagePath];
+    cell.photoImage.image = k.image;
     
     return cell;
 }

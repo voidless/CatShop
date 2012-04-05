@@ -7,8 +7,10 @@
 
 - (id)initWithDict:(NSDictionary*)dict;
 
-@end
+@property (strong) UIImage *_image;
+@property (strong) NSString *imagePath;
 
+@end
 
 
 @implementation Kitten
@@ -16,13 +18,15 @@
 @synthesize breed;
 @synthesize name;
 @synthesize male;
-@synthesize imagePath;
 @synthesize price;
 @synthesize birth;
+@synthesize imagePath;
 
 @synthesize myId;
 @synthesize fatherId;
 @synthesize motherId;
+
+@synthesize _image;
 
 #define SORT_INFO_FILENAME @"sortInfo.dat"
 
@@ -175,6 +179,25 @@
 
 #pragma mark - Instance
 
+
+#pragma Getters
+
+- (UIImage*)image
+{
+    if (self._image == nil) {
+        self._image = [UIImage imageWithContentsOfFile:self.imagePath];
+    }
+    return self._image;
+}
+
+- (NSString*)gender
+{
+    return [Kitten genderByBool:male];
+}
+
+#pragma Lifetime
+
+
 - (id)initWithDict:(NSDictionary*)dict
 {
 
@@ -205,11 +228,6 @@
     }
 
     return self;
-}
-
-- (NSString*)gender
-{
-    return [Kitten genderByBool:male];
 }
 
 

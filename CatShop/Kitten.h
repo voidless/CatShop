@@ -18,7 +18,8 @@
 
 #pragma mark - Property
 
-@property (strong) NSString *imagePath;
+@property (readonly) UIImage *image;
+
 @property (strong) NSString *name;
 
 @property BOOL male;
