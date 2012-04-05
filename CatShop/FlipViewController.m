@@ -35,16 +35,17 @@
     frontSide = !frontSide;
     
     UIViewController<KittenFlipperDelegateHolder> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
+    [newVC selectKittenAtIndex:index];
 
     [self addChildViewController:newVC];
     
     newVC.view.frame = self.view.bounds;
     [self transitionFromViewController:presentingController
                       toViewController:newVC
-                              duration:.3
+     // TODO: ?  0->good. 0.3->seam
+                              duration:0
                                options:UIViewAnimationOptionTransitionFlipFromLeft
                             animations:^{
-                                [newVC selectKittenAtIndex:index];
                             }
                             completion:^(BOOL finished)
     {   
@@ -59,12 +60,8 @@
     if (frontSide)
     {
         [self flipToVCWithId:backVC andIndex:currentIndex];
-        
-//        NSLog(@"kittenFlip to back: %d", index);
     } else {
         [self flipToVCWithId:frontVC andIndex:currentIndex];
-        
-//        NSLog(@"kittenFlip to front: %d", index);
     }
 }
 

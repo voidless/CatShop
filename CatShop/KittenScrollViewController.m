@@ -54,11 +54,6 @@
         CGRect frame = scrollView.frame;
         frame.origin.x = frame.size.width * page;
         kpc.view.frame = frame;
-        
-        // TODO: dirty hack
-//        [kpc viewWillAppear:YES];
-        
-//        NSLog(@"load scroll cat #%d with origin %fx%f",page, frame.origin.x, frame.origin.y);
     }
 }
 
@@ -72,7 +67,6 @@
     KittenPhotoController *kpc = [viewControllers objectAtIndex:page];
     if ((NSNull *)kpc != [NSNull null])
     {
-//        NSLog(@"unload scroll cat #%d",page);
         [kpc.view removeFromSuperview];
         [kpc removeFromParentViewController];
         [viewControllers replaceObjectAtIndex:page withObject:[NSNull null]];
@@ -95,8 +89,6 @@
             [self unloadScrollViewWithPage:page];
         }
     }
-    
-    NSLog(@"currentController: %@", [viewControllers objectAtIndex:currentPage]);
 }
 
 - (void)loadPage:(NSInteger)page
@@ -110,6 +102,7 @@
 
 - (void)scrollToPage:(NSInteger)page
 {
+    NSLog(@"scrolled to: %d", page);
     CGPoint contentOffset = scrollView.contentOffset;
     CGFloat pageWidth = scrollView.frame.size.width;
     
@@ -159,9 +152,15 @@
 
 - (void)selectKittenAtIndex:(NSInteger)index;
 {
-//    NSLog(@"cmd from delegate: to index: %d", index);
-    [self loadPage:index];
-    [self scrollToPage:index];
+    if (self.isViewLoaded && self.view.window)
+    {
+        NSLog(@"selected while visible: %d", index);
+        [self loadPage:index];
+        [self scrollToPage:index];
+    } else {
+        NSLog(@"selected while invisible: %d", index);
+        currentPage = index;
+    }
 }
 
 #pragma mark - Lifetime
@@ -187,23 +186,27 @@
     [super viewDidLoad];
     
     scrollView.delegate = self;
-    
-    currentPage = 0;
-    
-//    NSLog(@"frame: %@", self.view);
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * kittens.count,
                                         scrollView.frame.size.height);
+    
+    NSLog(@"vWA scrollView %d", currentPage);
     [self reloadScrollViews];
+    [self scrollToPage:currentPage];
 
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
-    NSLog(@"frame: %@", self.view);
     [super viewWillAppear:animated];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    NSLog(@"vDA scrollView %d", currentPage);
+}
 
 @end

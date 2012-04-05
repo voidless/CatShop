@@ -37,7 +37,6 @@
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"numberOfRowsInSection");
     return kittens.count;
 }
 
@@ -115,7 +114,12 @@
 
 - (void)selectKittenAtIndex:(NSInteger)index
 {
-    [self markRowAtIndex:[NSIndexPath indexPathForRow:index inSection:0]];
+    if (self.isViewLoaded && self.view.window)
+    {
+        [self markRowAtIndex:[NSIndexPath indexPathForRow:index inSection:0]];
+    } else {
+        selectedIndexPath = [NSIndexPath indexPathForRow:index inSection:0];;
+    }
 }
 
 #pragma mark Lifetime
@@ -125,7 +129,7 @@
     [super awakeFromNib];
     
     kittens = [Kitten kittens];
-    NSLog(@"kittens recieved: %d", kittens.count);
+    NSLog(@"kittens recieved: %d \n\n\n", kittens.count);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -133,6 +137,11 @@
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    if (selectedIndexPath)
+    {
+        [self markRowAtIndex:selectedIndexPath];
+    }
 }
 
 @end
