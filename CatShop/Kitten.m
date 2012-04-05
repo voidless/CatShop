@@ -125,9 +125,7 @@
             {
                 [sortInfo addObject:[NSNumber numberWithInteger:k.myId]];
             }
-            NSLog(@"created sorted array: %@", sortInfo);
-        } else
-            NSLog(@"loaded sorted array: %@", sortInfo);
+        }
         
         // assume kittens are loaded only once
         for (Kitten *k in [Kitten kittens])
@@ -153,7 +151,6 @@
         k = [self kittenWithKittenId:[[[self sortInfo] objectAtIndex:idx] integerValue]];
         if (k) {
             if (index == 0) {
-                NSLog(@"got id %d for index %d with actual index: %d", k.myId, _index, idx);
                 return k;
             }
             // skip 'index' number of existing kittens to allow removed kittens
