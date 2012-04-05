@@ -130,7 +130,6 @@
             NSLog(@"loaded sorted array: %@", sortInfo);
         
         // assume kittens are loaded only once
-        
         for (Kitten *k in [Kitten kittens])
         {
             if ([sortInfo indexOfObject:[NSNumber numberWithInteger:k.myId]] == NSNotFound)
@@ -143,21 +142,25 @@
     return sortInfo;
 }
 
-// cat gaps break consistency: clones will appear
 + (Kitten*) kittenSortedAtIndex:(NSInteger)index
 {
-    NSInteger idx = [[[self sortInfo] objectAtIndex:index] integerValue];
     Kitten *k = nil;
-    int loopmax = [Kitten count] + [self sortInfo].count;
-    for (int i = 0; i < loopmax; i++)
+    NSInteger _index = index;
+    
+    // assume sortInfo.count always >= [Kitten count]
+    for (int idx = 0; idx < [self sortInfo].count; idx++)
     {
-        k = [self kittenWithKittenId:idx];
+        k = [self kittenWithKittenId:[[[self sortInfo] objectAtIndex:idx] integerValue]];
         if (k) {
-            return k;
+            if (index == 0) {
+                NSLog(@"got id %d for index %d with actual index: %d", k.myId, _index, idx);
+                return k;
+            }
+            // skip 'index' number of existing kittens to allow removed kittens
+            index --;
         }
-        NSLog(@"cat lookup failed with id %d. checking next", idx);
-        idx++;
     }
+    NSAssert(k == nil, @"kitten not found with id: %d. sortTable: %@", _index, [self sortInfo]);
     return k;
 }
 

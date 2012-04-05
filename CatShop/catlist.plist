@@ -190,7 +190,7 @@
 			<key>mother</key>
 			<integer>0</integer>
 			<key>id</key>
-			<integer>9</integer>
+			<integer>12</integer>
 			<key>birth</key>
 			<date>2011-12-31T17:14:58Z</date>
 			<key>price</key>
@@ -210,7 +210,7 @@
 			<key>mother</key>
 			<integer>0</integer>
 			<key>id</key>
-			<integer>10</integer>
+			<integer>13</integer>
 			<key>birth</key>
 			<date>2011-12-31T17:14:58Z</date>
 			<key>price</key>
