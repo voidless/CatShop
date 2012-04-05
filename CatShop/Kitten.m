@@ -7,7 +7,7 @@
 
 - (id)initWithDict:(NSDictionary*)dict;
 
-@property (strong) UIImage *_image;
+@property (weak) UIImage *_image;
 @property (strong) NSString *imagePath;
 
 @end
@@ -184,10 +184,12 @@
 
 - (UIImage*)image
 {
-    if (self._image == nil) {
-        self._image = [UIImage imageWithContentsOfFile:self.imagePath];
+    UIImage *img = self._image;
+    if (img == nil) {
+        img = [UIImage imageWithContentsOfFile:self.imagePath];
+        self._image = img;
     }
-    return self._image;
+    return img;
 }
 
 - (NSString*)gender
