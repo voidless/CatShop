@@ -6,9 +6,6 @@
 
 @interface KittenScrollViewController ()
 
-// TODO: remove this, use sorted
-@property (strong) NSArray *kittens;
-
 @property (strong) NSMutableArray *viewControllers;
 
 @property NSInteger currentPage;
@@ -22,7 +19,6 @@
 @synthesize cacheNextViewsAmount;
 @synthesize delegate;
 
-@synthesize kittens;
 @synthesize viewControllers;
 @synthesize currentPage;
 
@@ -30,7 +26,7 @@
 
 - (void)loadScrollViewWithPage:(int)page
 {
-    if (page < 0 || page >= kittens.count)
+    if (page < 0 || page >= [Kitten count])
     {
         return;
     }
@@ -38,7 +34,7 @@
     KittenPhotoController *kpc = [viewControllers objectAtIndex:page];
     if ((NSNull *)kpc == [NSNull null])
     {
-        Kitten *k = [kittens objectAtIndex:page];
+        Kitten *k = [Kitten kittenSortedAtIndex:page];
         
         UIImage *image = [UIImage imageWithContentsOfFile:k.imagePath];
         
@@ -59,7 +55,7 @@
 
 - (void)unloadScrollViewWithPage:(int)page
 {
-    if (page < 0 || page >= kittens.count)
+    if (page < 0 || page >= [Kitten count])
     {
         return;
     }
@@ -80,7 +76,7 @@
     NSInteger leftLimit = currentPage - cacheNextViewsAmount;
     NSInteger rightLimit = currentPage + cacheNextViewsAmount;
     
-    for (NSInteger page = 0; page < kittens.count; page++)
+    for (NSInteger page = 0; page < [Kitten count]; page++)
     {
         if (page >= leftLimit && page <= rightLimit)
         {
@@ -102,7 +98,6 @@
 
 - (void)scrollToPage:(NSInteger)page
 {
-    NSLog(@"scrolled to: %d", page);
     CGPoint contentOffset = scrollView.contentOffset;
     CGFloat pageWidth = scrollView.frame.size.width;
     
@@ -146,7 +141,7 @@
     
     if (isDescrCont && [segue.identifier isEqualToString:@"DescSegue"])
     {   
-        kdc.kitten = [kittens objectAtIndex:currentPage];
+        kdc.kitten = [Kitten kittenSortedAtIndex:currentPage];
     }
 }
 
@@ -154,11 +149,9 @@
 {
     if (self.isViewLoaded && self.view.window)
     {
-        NSLog(@"selected while visible: %d", index);
         [self loadPage:index];
         [self scrollToPage:index];
     } else {
-        NSLog(@"selected while invisible: %d", index);
         currentPage = index;
     }
 }
@@ -169,11 +162,9 @@
 {
     [super awakeFromNib];
     
-    kittens = [Kitten kittens];
+    viewControllers = [[NSMutableArray alloc] initWithCapacity:[Kitten count]];
     
-    viewControllers = [[NSMutableArray alloc] initWithCapacity:kittens.count];
-    
-    for (NSInteger idx = 0; idx < kittens.count; idx++)
+    for (NSInteger idx = 0; idx < [Kitten count]; idx++)
     {
         [viewControllers addObject:[NSNull null]];
     }
@@ -190,23 +181,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * kittens.count,
+    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * [Kitten count],
                                         scrollView.frame.size.height);
     
-    NSLog(@"vWA scrollView %d", currentPage);
     [self reloadScrollViews];
     [self scrollToPage:currentPage];
 
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
     [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    NSLog(@"vDA scrollView %d", currentPage);
 }
 
 @end

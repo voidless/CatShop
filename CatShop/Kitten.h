@@ -8,7 +8,7 @@
 
 + (Kitten*) kittenWithKittenId:(NSInteger)kittenId;
 
-+ (NSInteger) kittensCount;
++ (NSInteger) count;
 
 #pragma mark Sorting
 

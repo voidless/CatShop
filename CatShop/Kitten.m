@@ -101,7 +101,7 @@
     return (gender ? [genders objectForKey:@"male"] : [genders objectForKey:@"female"]);
 }
 
-+ (NSInteger)kittensCount
++ (NSInteger)count
 {
     return [[self kittens] count];
 }
@@ -117,34 +117,60 @@
         NSString *sortInfoPath = [docPath stringByAppendingPathComponent:SORT_INFO_FILENAME];
         
         sortInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:sortInfoPath];
-    }
-    if (sortInfo == nil)
-    {
-        sortInfo = [NSMutableArray new];
-        for (Kitten *k in [self kittens])
+        
+        if (sortInfo == nil)
         {
-            [sortInfo addObject:[NSNumber numberWithInteger:k.myId]];
+            sortInfo = [NSMutableArray new];
+            for (Kitten *k in [self kittens])
+            {
+                [sortInfo addObject:[NSNumber numberWithInteger:k.myId]];
+            }
+            NSLog(@"created sorted array: %@", sortInfo);
+        } else
+            NSLog(@"loaded sorted array: %@", sortInfo);
+        
+        // assume kittens are loaded only once
+        
+        for (Kitten *k in [Kitten kittens])
+        {
+            if ([sortInfo indexOfObject:[NSNumber numberWithInteger:k.myId]] == NSNotFound)
+            {
+                [sortInfo addObject:[NSNumber numberWithInteger:k.myId]];
+            }
         }
-        NSLog(@"created sorted array: %@", sortInfo);
     }
-    
-    // TODO: add new cats to the array
     
     return sortInfo;
 }
 
+// cat gaps break consistency: clones will appear
 + (Kitten*) kittenSortedAtIndex:(NSInteger)index
 {
     NSInteger idx = [[[self sortInfo] objectAtIndex:index] integerValue];
-    return [self kittenWithKittenId:idx];
+    Kitten *k = nil;
+    int loopmax = [Kitten count] + [self sortInfo].count;
+    for (int i = 0; i < loopmax; i++)
+    {
+        k = [self kittenWithKittenId:idx];
+        if (k) {
+            return k;
+        }
+        NSLog(@"cat lookup failed with id %d. checking next", idx);
+        idx++;
+    }
+    return k;
 }
 
 + (void) moveKittenSortedFromIndex:(NSInteger)sourceIdx toIndex:(NSInteger)destinationIdx
 {
-    NSMutableArray *ma = [self sortInfo];
-    NSNumber *myId = [ma objectAtIndex:sourceIdx];
-    [ma removeObjectAtIndex:sourceIdx];
-    [ma insertObject:myId atIndex:destinationIdx];
+    NSMutableArray *sortInfo = [self sortInfo];
+    NSNumber *myId = [sortInfo objectAtIndex:sourceIdx];
+    [sortInfo removeObjectAtIndex:sourceIdx];
+    [sortInfo insertObject:myId atIndex:destinationIdx];
+    
+    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *sortInfoPath = [docPath stringByAppendingPathComponent:SORT_INFO_FILENAME];
+    [NSKeyedArchiver archiveRootObject:sortInfo toFile:sortInfoPath];
 }
 
 #pragma mark - Instance

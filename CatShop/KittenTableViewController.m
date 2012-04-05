@@ -4,9 +4,6 @@
 
 @interface KittenTableViewController ()
 
-// TODO: remove this, use sorted
-@property (strong) NSArray *kittens;
-
 @property (strong) NSIndexPath *selectedIndexPath;
 
 @end
@@ -18,7 +15,6 @@
 
 @synthesize delegate;
 
-@synthesize kittens;
 @synthesize selectedIndexPath;
 
 #pragma mark Actions
@@ -37,14 +33,12 @@
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return kittens.count;
+    return [Kitten count];
 }
 
 - (Kitten*)kittenByIndexPath:(NSIndexPath*)idxp
 {
-    
-    
-    return [kittens objectAtIndex:idxp.row];
+    return [Kitten kittenSortedAtIndex:idxp.row];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -70,6 +64,7 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
+    [Kitten moveKittenSortedFromIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
 }
 
 #pragma mark - Table view delegate
@@ -101,7 +96,7 @@
     if ([kdc isKindOfClass:[KittenDescriptionController class]]
         && [segue.identifier isEqualToString:@"DescSegue"])
     {
-        kdc.kitten = [kittens objectAtIndex:selectedIndexPath.row];
+        kdc.kitten = [Kitten kittenSortedAtIndex:selectedIndexPath.row];
     }
 }
 
@@ -127,9 +122,6 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
-    kittens = [Kitten kittens];
-    NSLog(@"kittens recieved: %d \n\n\n", kittens.count);
 }
 
 - (void)viewWillAppear:(BOOL)animated
