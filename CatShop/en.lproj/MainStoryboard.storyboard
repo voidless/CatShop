@@ -219,8 +219,8 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="KittenCell" textLabel="Few-4r-tfh" detailTextLabel="uGO-Kx-TOw" style="IBUITableViewCellStyleValue1" id="mGk-jC-WeK">
-                                        <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="KittenCell_old" textLabel="Few-4r-tfh" detailTextLabel="uGO-Kx-TOw" style="IBUITableViewCellStyleValue1" id="mGk-jC-WeK">
+                                        <rect key="frame" x="0.0" y="46" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
@@ -244,6 +244,40 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="KittenCell" id="hoG-go-3cf" customClass="KittenTableCellController">
+                                        <rect key="frame" x="0.0" y="91" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="JhW-JG-Xpe">
+                                                    <rect key="frame" x="6" y="4" width="35" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" id="b4a-HW-sTr">
+                                                    <rect key="frame" x="49" y="4" width="175" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="Awq-nK-BCS">
+                                                    <rect key="frame" x="112" y="4" width="168" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="b4a-HW-sTr" id="c14-do-DOO"/>
+                                            <outlet property="photoImage" destination="JhW-JG-Xpe" id="c9V-Ba-gLb"/>
+                                            <outlet property="priceLabel" destination="Awq-nK-BCS" id="6Jr-sl-Kfv"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -319,6 +353,51 @@
             <point key="canvasLocation" x="975" y="695"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="FlipViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlipViewController.h"/>
+        </class>
+        <class className="KittenDescriptionController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/KittenDescriptionController.h"/>
+            <relationships>
+                <relationship kind="action" name="showFather"/>
+                <relationship kind="action" name="showMother"/>
+                <relationship kind="outlet" name="fatherButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="kittenBirth" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="kittenBreed" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="kittenGender" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="kittenPrice" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="kittenView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="motherButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="KittenPhotoController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/KittenPhotoController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="modalImage" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="KittenScrollViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/KittenScrollViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="KittenTableCellController" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/KittenTableCellController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="photoImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="KittenTableViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/KittenTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

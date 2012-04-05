@@ -1,6 +1,7 @@
 #import "KittenTableViewController.h"
 #import "Kitten.h"
 #import "KittenDescriptionController.h"
+#import "KittenTableCellController.h"
 
 @interface KittenTableViewController ()
 
@@ -44,20 +45,22 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"KittenCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    KittenTableCellController *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
     NSAssert(cell != nil, @"Cell with id %@ doesn't exist", cellId);
     
     Kitten *k = [self kittenByIndexPath:indexPath];
     
-    cell.textLabel.text = k.name;
+    cell.nameLabel.text = k.name;
     
     if (k.price > 0)
     {
-        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"$%d", k.price];
+        cell.priceLabel.text = [[NSString alloc] initWithFormat:@"$%d", k.price];
     } else {
-        cell.detailTextLabel.text = @"Не продается";
+        cell.priceLabel.text = @"Не продается";
     }
+    
+    cell.photoImage.image = [UIImage imageWithContentsOfFile:k.imagePath];
     
     return cell;
 }
