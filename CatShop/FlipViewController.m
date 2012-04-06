@@ -42,8 +42,8 @@
     newVC.view.frame = self.view.bounds;
     [self transitionFromViewController:presentingController
                       toViewController:newVC
-     // QUESTION: ?  0->good. 0.3->seam
-                              duration:1
+     // TODO: =0 -> magic. >0 -> seam
+                              duration:0
                                options:UIViewAnimationOptionTransitionFlipFromLeft
                             animations:^{
                             }

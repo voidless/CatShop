@@ -22,7 +22,7 @@
 		D9BAC57F151A1D43004EB018 /* cat1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9BAC57C151A1D43004EB018 /* cat1.jpeg */; };
 		D9BAC580151A1D43004EB018 /* cat2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9BAC57D151A1D43004EB018 /* cat2.jpeg */; };
 		D9BAC581151A1D43004EB018 /* cat3.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9BAC57E151A1D43004EB018 /* cat3.jpeg */; };
-		D9BAC588151A2AF4004EB018 /* Kitten.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BAC587151A2AF4004EB018 /* Kitten.m */; };
+		D9BAC588151A2AF4004EB018 /* Cat.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BAC587151A2AF4004EB018 /* Cat.m */; };
 		D9BAC58E151A3173004EB018 /* gender.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9BAC58D151A3173004EB018 /* gender.plist */; };
 		D9C2524B152B4503002387EB /* FlipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C2524A152B4503002387EB /* FlipViewController.m */; };
 		D9C7D82315235937008FEEAD /* cat4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9C7D82215235937008FEEAD /* cat4.jpeg */; };
@@ -57,8 +57,8 @@
 		D9BAC57C151A1D43004EB018 /* cat1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat1.jpeg; sourceTree = "<group>"; };
 		D9BAC57D151A1D43004EB018 /* cat2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat2.jpeg; sourceTree = "<group>"; };
 		D9BAC57E151A1D43004EB018 /* cat3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat3.jpeg; sourceTree = "<group>"; };
-		D9BAC586151A2AF4004EB018 /* Kitten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kitten.h; sourceTree = "<group>"; };
-		D9BAC587151A2AF4004EB018 /* Kitten.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kitten.m; sourceTree = "<group>"; };
+		D9BAC586151A2AF4004EB018 /* Cat.h */ = {isa = PBXFileReference; fileEncoding = 4; path = Cat.h; sourceTree = "<group>"; };
+		D9BAC587151A2AF4004EB018 /* Cat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cat.m; sourceTree = "<group>"; };
 		D9BAC58D151A3173004EB018 /* gender.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = gender.plist; path = ../gender.plist; sourceTree = "<group>"; };
 		D9C25249152B4503002387EB /* FlipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipViewController.h; sourceTree = "<group>"; };
 		D9C2524A152B4503002387EB /* FlipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipViewController.m; sourceTree = "<group>"; };
@@ -84,8 +84,8 @@
 		8472A784151B5A8A0004C5D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D9BAC586151A2AF4004EB018 /* Kitten.h */,
-				D9BAC587151A2AF4004EB018 /* Kitten.m */,
+				D9BAC586151A2AF4004EB018 /* Cat.h */,
+				D9BAC587151A2AF4004EB018 /* Cat.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -296,7 +296,7 @@
 			files = (
 				D9BAC55E151A1A4D004EB018 /* main.m in Sources */,
 				D9BAC562151A1A4D004EB018 /* AppDelegate.m in Sources */,
-				D9BAC588151A2AF4004EB018 /* Kitten.m in Sources */,
+				D9BAC588151A2AF4004EB018 /* Cat.m in Sources */,
 				8472A781151B5A080004C5D8 /* KittenPhotoController.m in Sources */,
 				D9CC0A0D1522135600184556 /* KittenDescriptionController.m in Sources */,
 				D95BAEE115260DBD0042C26E /* KittenScrollViewController.m in Sources */,

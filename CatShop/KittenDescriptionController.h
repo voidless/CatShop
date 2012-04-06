@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "KittenPhotoClickDelegate.h"
 #import "KittenFlipperDelegateHolder.h"
-#import "Kitten.h"
+#import "Cat.h"
 
 @interface KittenDescriptionController : UIViewController
 <KittenPhotoClickDelegate>
@@ -24,6 +24,6 @@
 
 #pragma mark - Data
 
-@property (strong) Kitten *kitten;
+@property (strong) Cat *kitten;
 
 @end

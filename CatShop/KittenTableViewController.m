@@ -1,5 +1,5 @@
 #import "KittenTableViewController.h"
-#import "Kitten.h"
+#import "Cat.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableCellController.h"
 
@@ -34,12 +34,12 @@
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [Kitten count];
+    return [Cat count];
 }
 
-- (Kitten*)kittenByIndexPath:(NSIndexPath*)idxp
+- (Cat*)kittenByIndexPath:(NSIndexPath*)idxp
 {
-    return [Kitten kittenSortedAtIndex:idxp.row];
+    return [Cat catSortedAtIndex:idxp.row];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -49,7 +49,7 @@
     
     NSAssert(cell != nil, @"Cell with id %@ doesn't exist", cellId);
     
-    Kitten *k = [self kittenByIndexPath:indexPath];
+    Cat *k = [self kittenByIndexPath:indexPath];
     
     cell.nameLabel.text = k.name;
     
@@ -67,7 +67,7 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-    [Kitten moveKittenSortedFromIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
+    [Cat moveCatSortedFromIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
 }
 
 #pragma mark - Table view delegate
@@ -99,7 +99,7 @@
     if ([kdc isKindOfClass:[KittenDescriptionController class]]
         && [segue.identifier isEqualToString:@"DescSegue"])
     {
-        kdc.kitten = [Kitten kittenSortedAtIndex:selectedIndexPath.row];
+        kdc.kitten = [Cat catSortedAtIndex:selectedIndexPath.row];
     }
 }
 

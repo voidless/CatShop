@@ -29,8 +29,6 @@
     [super viewDidLoad];
     
     modalImageView.image = kittenImage;
-    
-    NSLog(@"vDL: %d - %@", kittenIndex, self);
 }
 
 #pragma mark - Rotation

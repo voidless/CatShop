@@ -1,5 +1,5 @@
 #import "KittenScrollViewController.h"
-#import "Kitten.h"
+#import "Cat.h"
 #import "KittenPhotoController.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableViewController.h"
@@ -26,7 +26,7 @@
 
 - (void)loadScrollViewWithPage:(int)page
 {
-    if (page < 0 || page >= [Kitten count])
+    if (page < 0 || page >= [Cat count])
     {
         return;
     }
@@ -34,7 +34,7 @@
     KittenPhotoController *kpc = [viewControllers objectAtIndex:page];
     if ((NSNull *)kpc == [NSNull null])
     {
-        Kitten *k = [Kitten kittenSortedAtIndex:page];
+        Cat *k = [Cat catSortedAtIndex:page];
         
         UIImage *image = k.image;
         
@@ -52,13 +52,12 @@
         CGRect frame = scrollView.frame;
         frame.origin.x = frame.size.width * page;
         kpc.view.frame = frame;
-        NSLog(@"kpc %d - %@", page, NSStringFromCGRect(frame));
     }
 }
 
 - (void)unloadScrollViewWithPage:(int)page
 {
-    if (page < 0 || page >= [Kitten count])
+    if (page < 0 || page >= [Cat count])
     {
         return;
     }
@@ -80,7 +79,7 @@
     NSInteger leftLimit = currentPage - cacheNextViewsAmount;
     NSInteger rightLimit = currentPage + cacheNextViewsAmount;
     
-    for (NSInteger page = 0; page < [Kitten count]; page++)
+    for (NSInteger page = 0; page < [Cat count]; page++)
     {
         if (page >= leftLimit && page <= rightLimit)
         {
@@ -107,7 +106,6 @@
     
     contentOffset.x = pageWidth * page;
     scrollView.contentOffset = contentOffset;
-    NSLog(@"CO: %@", NSStringFromCGPoint(scrollView.contentOffset));
 }
 
 #pragma mark - Events
@@ -145,7 +143,7 @@
     
     if (isDescrCont && [segue.identifier isEqualToString:@"DescSegue"])
     {   
-        kdc.kitten = [Kitten kittenSortedAtIndex:currentPage];
+        kdc.kitten = [Cat catSortedAtIndex:currentPage];
     }
 }
 
@@ -166,9 +164,9 @@
 {
     [super awakeFromNib];
     
-    viewControllers = [[NSMutableArray alloc] initWithCapacity:[Kitten count]];
+    viewControllers = [[NSMutableArray alloc] initWithCapacity:[Cat count]];
     
-    for (NSInteger idx = 0; idx < [Kitten count]; idx++)
+    for (NSInteger idx = 0; idx < [Cat count]; idx++)
     {
         [viewControllers addObject:[NSNull null]];
     }
@@ -187,24 +185,13 @@
 {
     [super viewWillAppear:animated];
 
-    NSLog(@"vWA scroll pre");
-    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * [Kitten count],
+    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * [Cat count],
                                         scrollView.frame.size.height);
     
     [self reloadScrollViews];
     [self scrollToPage:currentPage];
-    NSLog(@"vWA scroll post");
 
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-
 }
 
-
-- (void)viewDidAppear:(BOOL)animated {
-    NSLog(@"vDA pre");
-    
-    [super viewDidAppear:animated];
-    
-    NSLog(@"vDA post");
-}
 @end

@@ -1,10 +1,10 @@
 #import "KittenDescriptionController.h"
-#import "Kitten.h"
+#import "Cat.h"
 #import "KittenPhotoController.h"
 
 @interface KittenDescriptionController ()
 
-- (void)showKitten:(Kitten*)k;
+- (void)showKitten:(Cat*)k;
 
 @end
 
@@ -29,7 +29,7 @@
 #pragma mark - Kitten Business
 
 
-- (void)showKitten:(Kitten*)k
+- (void)showKitten:(Cat*)k
 {    
     kittenView.image = k.image;
     
@@ -66,7 +66,7 @@
 {
     KittenDescriptionController *kdc = [self.storyboard instantiateViewControllerWithIdentifier:@"descrView"];
     
-    kdc.kitten = [Kitten kittenWithKittenId:showId];
+    kdc.kitten = [Cat catWithId:showId];
     
     [self.navigationController pushViewController:kdc animated:YES];
 }
