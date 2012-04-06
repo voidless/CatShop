@@ -5,9 +5,12 @@
 @interface KittenScrollViewController : UIViewController
 <UIScrollViewDelegate, KittenPhotoClickDelegate, KittenFlipperDelegateHolder>
 
-@property (weak) IBOutlet UIScrollView *scrollView;
-
 // cacheNextViewsAmount must be positive
 @property NSInteger cacheNextViewsAmount;
+
+
+@property (weak) IBOutlet UIScrollView *scrollView;
+
+- (IBAction)kittenInfoClicked;
 
 @end

@@ -14,10 +14,10 @@
 #pragma mark - IBOutlet
 
 @synthesize kittenView;
-@synthesize kittenGender;
-@synthesize kittenBirth;
-@synthesize kittenBreed;
-@synthesize kittenPrice;
+@synthesize kittenGenderLabel;
+@synthesize kittenBirthLabel;
+@synthesize kittenBreedLabel;
+@synthesize kittenPriceLabel;
 
 @synthesize motherButton;
 @synthesize fatherButton;
@@ -35,21 +35,21 @@
     
     self.navigationItem.title = k.name;
     
-    kittenGender.text = k.gender;
+    kittenGenderLabel.text = k.gender;
     
-    kittenBreed.text = k.breed;
+    kittenBreedLabel.text = k.breed;
     
     if (k.price > 0)
     {
         NSString *pr = [[NSString alloc] initWithFormat:@"$ %d", k.price];
-        kittenPrice.text = pr;        
+        kittenPriceLabel.text = pr;        
     } else {
-        kittenPrice.text = @"Не продается";
+        kittenPriceLabel.text = @"Не продается";
     }
 
     NSDateFormatter *df = [NSDateFormatter new];
     [df setDateFormat:@"MMM yyyy"];
-    kittenBirth.text = [df stringFromDate:k.birth];
+    kittenBirthLabel.text = [df stringFromDate:k.birth];
     
     if (!k.motherId)
     {

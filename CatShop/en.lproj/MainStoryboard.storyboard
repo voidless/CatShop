@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="11D50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="ZAV-AM-mHH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="ZAV-AM-mHH">
     <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
+        <!--Kitten Description Controller-->
         <scene sceneID="5">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -76,7 +78,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Azl-dn-c6O">
-                                <rect key="frame" x="164" y="208" width="124" height="21"/>
+                                <rect key="frame" x="116" y="208" width="172" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -90,14 +92,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="t4Y-im-9Nc">
-                                <rect key="frame" x="164" y="266" width="124" height="21"/>
+                                <rect key="frame" x="116" y="266" width="172" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="FUb-Yu-HAU">
-                                <rect key="frame" x="164" y="295" width="124" height="21"/>
+                                <rect key="frame" x="147" y="295" width="141" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -114,7 +116,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="GmY-IK-qcp" kind="modal" identifier="modalEnlarge" id="AzH-XB-tiX"/>
+                                    <segue destination="GmY-IK-qcp" kind="modal" identifier="modalEnlarge" id="Rw9-V7-Je6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -124,10 +126,10 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="fatherButton" destination="rlL-n4-REH" id="ql9-dq-WcT"/>
-                        <outlet property="kittenBirth" destination="yxq-rX-toO" id="org-mS-uZS"/>
-                        <outlet property="kittenBreed" destination="t4Y-im-9Nc" id="Hvp-pR-1nH"/>
-                        <outlet property="kittenGender" destination="Azl-dn-c6O" id="2XN-FX-T7y"/>
-                        <outlet property="kittenPrice" destination="FUb-Yu-HAU" id="Y5H-mO-w6A"/>
+                        <outlet property="kittenBirthLabel" destination="yxq-rX-toO" id="Tle-XW-vYe"/>
+                        <outlet property="kittenBreedLabel" destination="t4Y-im-9Nc" id="ZIO-5L-gKx"/>
+                        <outlet property="kittenGenderLabel" destination="Azl-dn-c6O" id="bd1-NK-wnj"/>
+                        <outlet property="kittenPriceLabel" destination="FUb-Yu-HAU" id="zhC-1J-dYv"/>
                         <outlet property="kittenView" destination="NTu-q9-iYK" id="Rlp-Pb-NBk"/>
                         <outlet property="motherButton" destination="RzL-C6-vrj" id="oyT-z1-quH"/>
                     </connections>
@@ -135,6 +137,7 @@
             </objects>
             <point key="canvasLocation" x="540" y="695"/>
         </scene>
+        <!--Flip View Controller-->
         <scene sceneID="afs-zQ-yne">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Pg-wB-8ZT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -149,6 +152,7 @@
             </objects>
             <point key="canvasLocation" x="148" y="4"/>
         </scene>
+        <!--Kitten Scroll View Controller-->
         <scene sceneID="0sH-Cw-63i">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uVO-l5-OSB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -189,6 +193,7 @@
             </objects>
             <point key="canvasLocation" x="540" y="4"/>
         </scene>
+        <!--Kitten Table View Controller-->
         <scene sceneID="NLx-h9-d84">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OH5-GC-uGW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -249,7 +254,7 @@
                                         <rect key="frame" x="0.0" y="91" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="JhW-JG-Xpe">
@@ -297,6 +302,7 @@
             </objects>
             <point key="canvasLocation" x="975" y="4"/>
         </scene>
+        <!--Navigation Controller-->
         <scene sceneID="GV9-pg-XcD">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2E-0p-CCX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -315,6 +321,7 @@
             </objects>
             <point key="canvasLocation" x="-286" y="4"/>
         </scene>
+        <!--Kitten Photo Controller-->
         <scene sceneID="agg-oR-Lt2">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UMA-3J-fh9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -346,7 +353,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="modalImage" destination="Hgx-3s-Pjb" id="leC-gB-wNC"/>
+                        <outlet property="modalImageView" destination="Hgx-3s-Pjb" id="21i-a5-9E4"/>
                     </connections>
                 </viewController>
             </objects>
@@ -363,10 +370,10 @@
                 <relationship kind="action" name="showFather"/>
                 <relationship kind="action" name="showMother"/>
                 <relationship kind="outlet" name="fatherButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="kittenBirth" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="kittenBreed" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="kittenGender" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="kittenPrice" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="kittenBirthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="kittenBreedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="kittenGenderLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="kittenPriceLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="kittenView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="motherButton" candidateClass="UIButton"/>
             </relationships>
@@ -374,7 +381,7 @@
         <class className="KittenPhotoController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/KittenPhotoController.h"/>
             <relationships>
-                <relationship kind="outlet" name="modalImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="modalImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="KittenScrollViewController" superclassName="UIViewController">
@@ -404,6 +411,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="la1-M9-Ejf"/>
+        <segue reference="DPx-5J-p6M"/>
     </inferredMetricsTieBreakers>
 </document>

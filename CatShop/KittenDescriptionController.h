@@ -9,15 +9,15 @@
 #pragma mark - IBOutlet
 
 @property (weak) IBOutlet UIImageView *kittenView;
-@property (weak) IBOutlet UILabel *kittenGender;
-@property (weak) IBOutlet UILabel *kittenBirth;
-@property (weak) IBOutlet UILabel *kittenBreed;
-@property (weak) IBOutlet UILabel *kittenPrice;
+@property (weak) IBOutlet UILabel *kittenGenderLabel;
+@property (weak) IBOutlet UILabel *kittenBirthLabel;
+@property (weak) IBOutlet UILabel *kittenBreedLabel;
+@property (weak) IBOutlet UILabel *kittenPriceLabel;
 
 @property (weak) IBOutlet UIButton *motherButton;
 @property (weak) IBOutlet UIButton *fatherButton;
 
-#pragma mark - Action
+#pragma mark - IBAction
 
 - (IBAction)showFather;
 - (IBAction)showMother;

@@ -8,4 +8,7 @@
 
 @property (weak) IBOutlet UITableView *tableView;
 
+- (IBAction)backButton;
+- (IBAction)editButton;
+
 @end

@@ -5,9 +5,11 @@
 
 - (void)setKitten:(UIImage*)img;
 
-#pragma mark - Outlet
+#pragma mark - IB
 
-@property (weak) IBOutlet UIImageView *modalImage;
+@property (weak) IBOutlet UIImageView *modalImageView;
+
+- (IBAction)doReturn;
 
 #pragma mark - Data
 
