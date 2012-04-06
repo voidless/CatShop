@@ -93,7 +93,7 @@
         KittenPhotoController *kpc = segue.destinationViewController;
         if ([kpc isKindOfClass:[KittenPhotoController class]]) {
             kpc.delegate = self;
-            [kpc setKitten:kittenView.image];
+            kpc.kittenImage = kittenView.image;
         }
     }
 }

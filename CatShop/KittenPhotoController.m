@@ -2,8 +2,6 @@
 
 @interface KittenPhotoController ()
 
-@property (strong) UIImage *kittenImage;
-
 @end
 
 
@@ -12,6 +10,7 @@
 @synthesize modalImageView;
 
 @synthesize kittenImage;
+@synthesize kittenIndex;
 
 @synthesize delegate;
 
@@ -25,16 +24,13 @@
 
 #pragma mark - Lifetime
 
-- (void)setKitten:(UIImage*)img
+- (void)viewDidLoad
 {
-    kittenImage = img;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+    [super viewDidLoad];
     
     modalImageView.image = kittenImage;
+    
+    NSLog(@"vDL: %d - %@", kittenIndex, self);
 }
 
 #pragma mark - Rotation

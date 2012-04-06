@@ -39,17 +39,20 @@
         UIImage *image = k.image;
         
         kpc = [self.storyboard instantiateViewControllerWithIdentifier:@"fullscreenView"];
-        [kpc setKitten:image];
+        kpc.kittenImage = image;
+        kpc.kittenIndex = page;
         kpc.delegate = self;
         
         [viewControllers replaceObjectAtIndex:page withObject:kpc];
         
         [self addChildViewController:kpc];
+        [kpc didMoveToParentViewController:self];
         [scrollView addSubview:kpc.view];
         
         CGRect frame = scrollView.frame;
         frame.origin.x = frame.size.width * page;
         kpc.view.frame = frame;
+        NSLog(@"kpc %d - %@", page, NSStringFromCGRect(frame));
     }
 }
 
@@ -64,6 +67,7 @@
     if ((NSNull *)kpc != [NSNull null])
     {
         [kpc.view removeFromSuperview];
+        [kpc willMoveToParentViewController:nil];
         [kpc removeFromParentViewController];
         [viewControllers replaceObjectAtIndex:page withObject:[NSNull null]];
     }
@@ -102,8 +106,8 @@
     CGFloat pageWidth = scrollView.frame.size.width;
     
     contentOffset.x = pageWidth * page;
-    
-    [scrollView setContentOffset:contentOffset animated:NO];
+    scrollView.contentOffset = contentOffset;
+    NSLog(@"CO: %@", NSStringFromCGPoint(scrollView.contentOffset));
 }
 
 #pragma mark - Events
@@ -181,15 +185,26 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
+    NSLog(@"vWA scroll pre");
     scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * [Kitten count],
                                         scrollView.frame.size.height);
     
     [self reloadScrollViews];
     [self scrollToPage:currentPage];
+    NSLog(@"vWA scroll post");
 
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
-    [super viewWillAppear:animated];
 }
 
+
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"vDA pre");
+    
+    [super viewDidAppear:animated];
+    
+    NSLog(@"vDA post");
+}
 @end

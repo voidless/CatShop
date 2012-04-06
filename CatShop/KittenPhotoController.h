@@ -3,7 +3,7 @@
 
 @interface KittenPhotoController : UIViewController
 
-- (void)setKitten:(UIImage*)img;
+@property (strong) UIImage *kittenImage;
 
 #pragma mark - IB
 
@@ -14,5 +14,6 @@
 #pragma mark - Data
 
 @property (weak) id<KittenPhotoClickDelegate> delegate;
+@property (assign) NSUInteger kittenIndex;
 
 @end

@@ -43,16 +43,16 @@
     [self transitionFromViewController:presentingController
                       toViewController:newVC
      // QUESTION: ?  0->good. 0.3->seam
-                              duration:0
+                              duration:1
                                options:UIViewAnimationOptionTransitionFlipFromLeft
                             animations:^{
                             }
                             completion:^(BOOL finished)
-    {   
-        [presentingController removeFromParentViewController];
-        presentingController = newVC;
-        presentingController.delegate = self;
-    }];
+     {   
+         [presentingController removeFromParentViewController];
+         presentingController = newVC;
+         presentingController.delegate = self;
+     }];
 }
 
 - (void)kittenFlip
