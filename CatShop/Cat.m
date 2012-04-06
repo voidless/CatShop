@@ -8,7 +8,6 @@
 - (id)initWithDict:(NSDictionary*)dict;
 
 @property (weak) UIImage *_image;
-@property (strong) NSString *imagePath;
 
 @end
 
