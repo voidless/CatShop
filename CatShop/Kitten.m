@@ -149,6 +149,8 @@
     Kitten *k = nil;
     NSInteger _index = index;
     
+    NSAssert(index < [Kitten count], @"kittenSortedAtIndex: index %d out of range", index);
+    
     // assume sortInfo.count always >= [Kitten count]
     for (int idx = 0; idx < [self sortInfo].count; idx++)
     {
