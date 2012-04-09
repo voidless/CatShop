@@ -1,5 +1,6 @@
 #import "KittenScrollViewController.h"
 #import "Cat.h"
+#import "SortedCat.h"
 #import "KittenPhotoController.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableViewController.h"
@@ -34,7 +35,7 @@
     KittenPhotoController *kpc = [viewControllers objectAtIndex:page];
     if ((NSNull *)kpc == [NSNull null])
     {
-        Cat *k = [Cat catSortedAtIndex:page];
+        Cat *k = [SortedCat catSortedAtIndex:page];
         
         UIImage *image = k.image;
         
@@ -143,7 +144,7 @@
     
     if (isDescrCont && [segue.identifier isEqualToString:@"DescSegue"])
     {   
-        kdc.kitten = [Cat catSortedAtIndex:currentPage];
+        kdc.kitten = [SortedCat catSortedAtIndex:currentPage];
     }
 }
 

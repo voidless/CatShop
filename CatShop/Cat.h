@@ -9,12 +9,6 @@
 
 + (Cat*) catWithId:(NSInteger)CatId;
 
-#pragma mark Sorting
-
-+ (Cat*) catSortedAtIndex:(NSInteger)index;
-
-+ (void) moveCatSortedFromIndex:(NSInteger)sourceIdx toIndex:(NSInteger)destinationIdx;
-
 #pragma mark - Property
 
 @property (strong) NSString *imagePath;

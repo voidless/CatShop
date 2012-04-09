@@ -1,5 +1,6 @@
 #import "KittenTableViewController.h"
 #import "Cat.h"
+#import "SortedCat.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableCellController.h"
 
@@ -39,7 +40,7 @@
 
 - (Cat*)kittenByIndexPath:(NSIndexPath*)idxp
 {
-    return [Cat catSortedAtIndex:idxp.row];
+    return [SortedCat catSortedAtIndex:idxp.row];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,7 +68,7 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-    [Cat moveCatSortedFromIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
+    [SortedCat moveCatSortedFromIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
 }
 
 #pragma mark - Table view delegate
@@ -99,7 +100,7 @@
     if ([kdc isKindOfClass:[KittenDescriptionController class]]
         && [segue.identifier isEqualToString:@"DescSegue"])
     {
-        kdc.kitten = [Cat catSortedAtIndex:selectedIndexPath.row];
+        kdc.kitten = [SortedCat catSortedAtIndex:selectedIndexPath.row];
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84528D901532FF6600597B59 /* SortedCat.m in Sources */ = {isa = PBXBuildFile; fileRef = 84528D8F1532FF6600597B59 /* SortedCat.m */; };
 		8472A781151B5A080004C5D8 /* KittenPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8472A77F151B5A080004C5D8 /* KittenPhotoController.m */; };
 		84D3660A152E287B0030E3D2 /* KittenTableCellController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D36609152E287B0030E3D2 /* KittenTableCellController.m */; };
 		D9011145152F62CA00CFFF7C /* KittenCreateController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9011144152F62CA00CFFF7C /* KittenCreateController.m */; };
@@ -33,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84528D8E1532FF6600597B59 /* SortedCat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortedCat.h; sourceTree = "<group>"; };
+		84528D8F1532FF6600597B59 /* SortedCat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortedCat.m; sourceTree = "<group>"; };
 		8472A77E151B5A080004C5D8 /* KittenPhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenPhotoController.h; sourceTree = "<group>"; };
 		8472A77F151B5A080004C5D8 /* KittenPhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KittenPhotoController.m; sourceTree = "<group>"; };
 		8476EDEB152728C800E4AEB9 /* KittenTableReturnDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenTableReturnDelegate.h; sourceTree = "<group>"; };
@@ -93,6 +96,8 @@
 			children = (
 				D9BAC586151A2AF4004EB018 /* Cat.h */,
 				D9BAC587151A2AF4004EB018 /* Cat.m */,
+				84528D8E1532FF6600597B59 /* SortedCat.h */,
+				84528D8F1532FF6600597B59 /* SortedCat.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -190,10 +195,10 @@
 				D95BAEDD15260D8B0042C26E /* ScrollView */,
 				D9CC0A0F1522135A00184556 /* KittenDescription */,
 				8472A786151B5AAC0004C5D8 /* Enlarge */,
+				D9011142152F627800CFFF7C /* KittenCreateController */,
 				8472A784151B5A8A0004C5D8 /* Model */,
 				8472A787151B5ACD0004C5D8 /* Main */,
 				D9BAC57B151A1D3A004EB018 /* cats */,
-				D9011142152F627800CFFF7C /* KittenCreateController */,
 				D9BAC572151A1CAF004EB018 /* catlist.plist */,
 				D9BAC58D151A3173004EB018 /* gender.plist */,
 				D9BAC558151A1A4D004EB018 /* Supporting Files */,
@@ -325,6 +330,7 @@
 				D9C2524B152B4503002387EB /* FlipViewController.m in Sources */,
 				84D3660A152E287B0030E3D2 /* KittenTableCellController.m in Sources */,
 				D9011145152F62CA00CFFF7C /* KittenCreateController.m in Sources */,
+				84528D901532FF6600597B59 /* SortedCat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
