@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "Cat.h"
 
-@interface SortedCat : NSObject
+@interface SortedCat : NSManagedObject
 
 #pragma mark Sorting
 
@@ -11,6 +11,6 @@
 
 
 @property NSInteger sortRating;
-@property NSInteger myId;
+@property NSInteger catId;
 
 @end

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Cat" representedClassName="Cat" syncable="YES">
+        <attribute name="birth" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="breed" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fatherId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="male" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="motherId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="myId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="SortedCat" representedClassName="SortedCat" syncable="YES">
+        <attribute name="catId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="sortRating" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <fetchRequest name="AllCats" entity="Cat" predicateString="TRUEPREDICATE"/>
+    <elements>
+        <element name="Cat" positionX="160" positionY="192" width="128" height="180"/>
+        <element name="SortedCat" positionX="457" positionY="204" width="128" height="75"/>
+    </elements>
+</model>

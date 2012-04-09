@@ -1,11 +1,12 @@
 #import "Cat.h"
+#import "DBModel.h"
 
 
 @interface Cat ()
 
 + (NSString*) genderByBool:(BOOL)gender;
 
-- (id)initWithDict:(NSDictionary*)dict;
+- (id)initWithDict:(NSDictionary*)dict andContext:(NSManagedObjectContext *)ctx;
 
 @property (weak) UIImage *_image;
 
@@ -14,46 +15,88 @@
 
 @implementation Cat
 
-@synthesize breed;
-@synthesize name;
-@synthesize male;
-@synthesize price;
-@synthesize birth;
-@synthesize imagePath;
+@dynamic breed;
+@dynamic name;
+@dynamic male;
+@dynamic price;
+@dynamic birth;
+@dynamic imagePath;
 
-@synthesize myId;
-@synthesize fatherId;
-@synthesize motherId;
+@dynamic myId;
+@dynamic fatherId;
+@dynamic motherId;
 
 @synthesize _image;
 
 
+#pragma mark - Core Data
+
++ (NSEntityDescription *)entityFromContext:(NSManagedObjectContext *)ctx
+{
+    return [NSEntityDescription entityForName:@"Cat" inManagedObjectContext:ctx];
+}
+
++ (NSArray*)catsFromPlist:(NSString *)plistPath andContext:(NSManagedObjectContext *)ctx
+{
+    NSString *plpath = [[NSBundle mainBundle] pathForResource:plistPath ofType:@""];
+    NSAssert(plpath, @"catlist.plist not found");
+    NSDictionary *plist = [[NSDictionary alloc] initWithContentsOfFile:plpath];
+    NSAssert(plist, @"catlist.plist incorrect format: %@", plist);
+    
+    NSArray *catDict = [plist objectForKey:@"cats"];
+    NSAssert(catDict, @"catlist.plist incorrect format: %@", catDict);
+    
+    NSMutableArray *cats = [NSMutableArray new];
+    
+    for (NSDictionary *dict in catDict)
+    {
+        Cat *kitten = [[Cat alloc] initWithDict:dict andContext:ctx];
+        NSAssert(kitten, @"Error loading kitten in %@", dict);
+        [cats addObject:kitten];
+    }
+    
+    NSError *err;
+    if (![ctx save:&err]) {
+        NSLog(@"DB save error: %@", [err localizedDescription]);
+    }
+    
+    return [cats copy];
+}
+
+
 #pragma mark - Static
+
++ (NSManagedObjectContext *)context
+{
+    return [[DBModel dbModel] managedObjectContext];
+}
+
++ (NSManagedObjectModel *)model
+{
+    return [[DBModel dbModel] managedObjectModel];
+}
 
 + (NSArray*) cats
 {
     static NSArray *catArray;
+#define CAT_REQ_ALL @"AllCats"
 
     if (catArray == nil)
-    {        
-        NSString *plpath = [[NSBundle mainBundle] pathForResource:@"catlist.plist" ofType:@""];
-        NSAssert(plpath, @"catlist.plist not found");
-        NSDictionary *plist = [[NSDictionary alloc] initWithContentsOfFile:plpath];
-        NSAssert(plist, @"catlist.plist incorrect format: %@", plist);
+    {
+        NSFetchRequest *fetchRequest = [[self model] fetchRequestTemplateForName:CAT_REQ_ALL];
+//        fetchRequest.entity = [Cat entityFromContext:[self context]];
+        NSError *err;
         
-        NSArray *catDict = [plist objectForKey:@"cats"];
-        NSAssert(catDict, @"catlist.plist incorrect format: %@", catDict);
+        catArray = [[self context] executeFetchRequest:fetchRequest error:&err];
+        NSAssert(catArray,@"fetchRequest %@ failed: %@", CAT_REQ_ALL, [err localizedDescription]);
         
-        NSMutableArray *cats = [NSMutableArray new];
+        NSLog(@"loaded %d cats from DB", catArray.count);
         
-        for (NSDictionary *dict in catDict)
+        if (catArray.count == 0)
         {
-            Cat *kitten = [[Cat new] initWithDict:dict];
-            NSAssert(kitten, @"Error loading kitten in %@", dict);
-            [cats addObject:kitten];
+            NSLog(@"loading from plist");
+            catArray = [self catsFromPlist:@"catlist.plist" andContext:[self context]];
         }
-        
-        catArray = [cats copy];
     }  
     
     return catArray;
@@ -124,16 +167,23 @@
 
 - (NSString*)gender
 {
-    return [Cat genderByBool:male];
+    return [Cat genderByBool:self.male];
 }
 
 #pragma Lifetime
 
-
-- (id)initWithDict:(NSDictionary*)dict
+- (id)init
 {
+    return [self initWithEntity:[Cat entityFromContext:[Cat context]] insertIntoManagedObjectContext:[Cat context]];
+}
 
+- (BOOL)save:(NSError **)error
+{
+    return [[Cat context] save:error];
+}
 
+- (id)initWithDict:(NSDictionary*)dict andContext:(NSManagedObjectContext *)ctx
+{
 #define KITTEN_VALUE(val) \
     ({\
         id obj = val;\
@@ -144,23 +194,22 @@
         obj;\
     })
 
-    if((self = [super init])) {
-        imagePath = KITTEN_VALUE([[NSBundle mainBundle]
+    if((self = [self initWithEntity:[Cat entityFromContext:ctx] insertIntoManagedObjectContext:ctx]))
+    {
+        self.imagePath = KITTEN_VALUE([[NSBundle mainBundle]
                               pathForResource:KITTEN_VALUE([dict objectForKey:@"image"])
                               ofType:@""]);
-        breed = KITTEN_VALUE([dict objectForKey:@"breed"]);
-        male = [KITTEN_VALUE([dict objectForKey:@"gender"]) boolValue];
-        name = KITTEN_VALUE([dict objectForKey:@"name"]);
-        price = [KITTEN_VALUE([dict objectForKey:@"price"]) integerValue];
-        birth = KITTEN_VALUE([dict objectForKey:@"birth"]);
+        self.breed = KITTEN_VALUE([dict objectForKey:@"breed"]);
+        self.male = [KITTEN_VALUE([dict objectForKey:@"gender"]) boolValue];
+        self.name = KITTEN_VALUE([dict objectForKey:@"name"]);
+        self.price = [KITTEN_VALUE([dict objectForKey:@"price"]) integerValue];
+        self.birth = KITTEN_VALUE([dict objectForKey:@"birth"]);
         
-        myId = [KITTEN_VALUE([dict objectForKey:@"id"]) integerValue];
-        fatherId = [KITTEN_VALUE([dict objectForKey:@"father"]) integerValue];
-        motherId = [KITTEN_VALUE([dict objectForKey:@"mother"]) integerValue];
+        self.myId = [KITTEN_VALUE([dict objectForKey:@"id"]) integerValue];
+        self.fatherId = [KITTEN_VALUE([dict objectForKey:@"father"]) integerValue];
+        self.motherId = [KITTEN_VALUE([dict objectForKey:@"mother"]) integerValue];
     }
-
     return self;
 }
-
 
 @end

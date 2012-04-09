@@ -6,7 +6,7 @@
 
 @implementation SortedCat
 
-@synthesize myId;
+@synthesize catId;
 @synthesize sortRating;
 
 #define SORT_INFO_FILENAME @"sortInfo.dat"
