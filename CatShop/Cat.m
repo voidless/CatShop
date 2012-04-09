@@ -172,15 +172,23 @@
 
 #pragma Lifetime
 
-- (id)init
+- (BOOL)delete:(NSError **)error
 {
-    return [self initWithEntity:[Cat entityFromContext:[Cat context]] insertIntoManagedObjectContext:[Cat context]];
+    [[Cat context] deleteObject:self];
+    
+    return [[Cat context] save:error];
 }
 
 - (BOOL)save:(NSError **)error
 {
     return [[Cat context] save:error];
 }
+
+- (id)init
+{
+    return [self initWithEntity:[Cat entityFromContext:[Cat context]] insertIntoManagedObjectContext:[Cat context]];
+}
+
 
 - (id)initWithDict:(NSDictionary*)dict andContext:(NSManagedObjectContext *)ctx
 {
