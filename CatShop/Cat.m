@@ -8,6 +8,8 @@
 
 - (id)initWithDict:(NSDictionary*)dict andContext:(NSManagedObjectContext *)ctx;
 
+@property (strong) NSManagedObjectContext *context;
+
 @property (weak) UIImage *_image;
 
 #define CAT_REQ_ALL @"AllCats"
@@ -30,6 +32,7 @@
 @dynamic motherId;
 
 @synthesize _image;
+@synthesize context;
 
 
 #pragma mark - Core Data

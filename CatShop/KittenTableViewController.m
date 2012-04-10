@@ -1,9 +1,10 @@
 #import "KittenTableViewController.h"
 #import "Cat.h"
 #import "SortedCat.h"
+#import "CurrentCat.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableCellController.h"
-#import "KittenCreateTVC.h"
+#import "KittenCreateController.h"
 
 @interface KittenTableViewController ()
 
@@ -107,7 +108,9 @@
     
     [self performSegueWithIdentifier:@"DescSegue" sender:self];
     
-    [delegate kittenSetCurrent:indexPath.row];
+//    [delegate kittenSetCurrent:indexPath.row];
+    Cat *k = [SortedCat catSortedAtIndex:indexPath.row];
+    [[CurrentCat currentCat] setCurrentCatId:k.objectID];
 }
 
 #pragma mark - Segue
@@ -121,8 +124,8 @@
         kdc.kitten = [SortedCat catSortedAtIndex:selectedIndexPath.row];
     }
     
-    KittenCreateTVC *kct = segue.destinationViewController;
-    if ([kct isKindOfClass:[KittenCreateTVC class]]
+    KittenCreateController *kct = segue.destinationViewController;
+    if ([kct isKindOfClass:[KittenCreateController class]]
         && [segue.identifier isEqualToString:@"AddKitten"])
     {
         kct.delegate = self;

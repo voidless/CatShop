@@ -13,6 +13,7 @@
 
 
 - (id)init;
+
 - (void)save;
 - (void)delete;
 

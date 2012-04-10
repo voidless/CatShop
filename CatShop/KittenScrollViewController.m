@@ -1,6 +1,7 @@
 #import "KittenScrollViewController.h"
 #import "Cat.h"
 #import "SortedCat.h"
+#import "CurrentCat.h"
 #import "KittenPhotoController.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableViewController.h"
@@ -118,7 +119,10 @@
     if (currentPage != page)
     {
         [self loadPage:page];
-        [delegate kittenSetCurrent:page];
+        
+//        [delegate kittenSetCurrent:page];
+        Cat *k = [SortedCat catSortedAtIndex:page];
+        [[CurrentCat currentCat] setCurrentCatId:k.objectID];
     }
 }
 

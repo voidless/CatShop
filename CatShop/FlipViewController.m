@@ -35,7 +35,7 @@
     frontSide = !frontSide;
     
     UIViewController<KittenFlipperDelegateHolder> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
-    [newVC selectKittenAtIndex:index];
+//    [newVC selectKittenAtIndex:index];
 
     [self addChildViewController:newVC];
     
@@ -83,7 +83,7 @@
     [self addChildViewController:presentingController];
     [self.view addSubview:presentingController.view];
     presentingController.delegate = self;
-    [presentingController selectKittenAtIndex:currentIndex];
+//    [presentingController selectKittenAtIndex:currentIndex];
 }
 
 - (void)dismissVC

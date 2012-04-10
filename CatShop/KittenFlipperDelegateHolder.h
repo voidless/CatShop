@@ -6,6 +6,4 @@
 
 @property (weak) id<KittenFlipperDelegate> delegate;
 
-- (void)selectKittenAtIndex:(NSInteger)index;
-
 @end
