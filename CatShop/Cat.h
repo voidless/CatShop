@@ -14,6 +14,7 @@
 
 - (id)init;
 - (BOOL)save:(NSError **)error;
+- (BOOL)delete:(NSError **)error;
 
 #pragma mark - Property
 

@@ -43,6 +43,7 @@
 		84528D99153327B500597B59 /* DBModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DBModel.xcdatamodel; sourceTree = "<group>"; };
 		84528D9B153333E200597B59 /* DBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBModel.h; sourceTree = "<group>"; };
 		84528D9C153333E200597B59 /* DBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBModel.m; sourceTree = "<group>"; };
+		84528DA0153380AF00597B59 /* KittenCreateDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KittenCreateDelegate.h; sourceTree = "<group>"; };
 		8472A77E151B5A080004C5D8 /* KittenPhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenPhotoController.h; sourceTree = "<group>"; };
 		8472A77F151B5A080004C5D8 /* KittenPhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KittenPhotoController.m; sourceTree = "<group>"; };
 		8476EDEB152728C800E4AEB9 /* KittenTableReturnDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenTableReturnDelegate.h; sourceTree = "<group>"; };
@@ -145,6 +146,7 @@
 		D9011142152F627800CFFF7C /* KittenCreateController */ = {
 			isa = PBXGroup;
 			children = (
+				84528DA0153380AF00597B59 /* KittenCreateDelegate.h */,
 				D9011143152F62CA00CFFF7C /* KittenCreateController.h */,
 				D9011144152F62CA00CFFF7C /* KittenCreateController.m */,
 			);

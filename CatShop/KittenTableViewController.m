@@ -3,6 +3,7 @@
 #import "SortedCat.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableCellController.h"
+#import "KittenCreateController.h"
 
 @interface KittenTableViewController ()
 
@@ -30,6 +31,14 @@
 {
     BOOL isEditing = self.tableView.editing;
     [self.tableView setEditing:!isEditing animated:YES];
+}
+
+- (void)KittenCreated:(Cat*)newCat
+{
+    NSLog(@"recieved cat: %@", newCat);
+    
+    NSUInteger pIdx = [Cat count] - 1;
+    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:pIdx inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
 }
 
 #pragma mark - Table view data source
@@ -71,16 +80,35 @@
     [SortedCat moveCatSortedFromIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
 }
 
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Cat *k = [self kittenByIndexPath:indexPath];
+    
+    NSError *err;
+    if (![k delete:&err])
+    {
+        NSLog(@"cat deletion failed: %@", [err localizedDescription]);
+    } else {
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+    }
+}
+
 #pragma mark - Table view delegate
 
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
+//- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return NO;
+//}
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewCellEditingStyleNone;
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"Удалить";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,6 +129,13 @@
         && [segue.identifier isEqualToString:@"DescSegue"])
     {
         kdc.kitten = [SortedCat catSortedAtIndex:selectedIndexPath.row];
+    }
+    
+    KittenCreateController *kcc = segue.destinationViewController;
+    if ([kcc isKindOfClass:[KittenCreateController class]]
+        && [segue.identifier isEqualToString:@"AddKitten"])
+    {
+        kcc.delegate = self;
     }
 }
 

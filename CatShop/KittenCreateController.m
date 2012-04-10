@@ -11,10 +11,12 @@
 @synthesize imageView;
 @synthesize nameField;
 @synthesize maleSwitch;
-@synthesize birthLabel;
+@synthesize birthButton;
 @synthesize breedField;
 @synthesize priceField;
 @synthesize saveButton;
+
+@synthesize delegate;
 
 - (IBAction)doCancel
 {
@@ -24,15 +26,25 @@
 - (IBAction)doSave
 {
     if (nameField.text.length > 0
-        && birthLabel.text.length > 0
-        && breedField.text.length > 0
-        && priceField.text.length > 0)
+//        && birthButton.titleLabel.text.length > 0
+//        && breedField.text.length > 0
+//        && priceField.text.length > 0
+        )
     {
         Cat *newCat = [[Cat alloc] init];
         newCat.name = nameField.text;
         newCat.breed = breedField.text;
         newCat.price = [priceField.text integerValue];
-//        newCat.birth = 
+        NSError *err;
+        if (![newCat save:&err])
+        {
+            NSLog(@"Cat creation failed: %@", [err localizedDescription]);
+        }
+        
+        
+        [delegate KittenCreated:newCat];
+        
+        [self doCancel];
     }
 }
 

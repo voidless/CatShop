@@ -7,17 +7,19 @@
         <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="male" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="motherId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="myId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="myId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="sortedCat" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="SortedCat" inverseName="cat" inverseEntity="SortedCat" syncable="YES"/>
     </entity>
     <entity name="SortedCat" representedClassName="SortedCat" syncable="YES">
-        <attribute name="catId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="sortRating" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="catId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="sortRating" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <relationship name="cat" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Cat" inverseName="sortedCat" inverseEntity="Cat" syncable="YES"/>
     </entity>
     <fetchRequest name="AllCats" entity="Cat" predicateString="TRUEPREDICATE"/>
     <elements>
-        <element name="Cat" positionX="160" positionY="192" width="128" height="180"/>
-        <element name="SortedCat" positionX="457" positionY="204" width="128" height="75"/>
+        <element name="Cat" positionX="243" positionY="147" width="128" height="195"/>
+        <element name="SortedCat" positionX="493" positionY="207" width="128" height="90"/>
     </elements>
 </model>

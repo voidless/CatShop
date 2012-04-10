@@ -29,6 +29,8 @@
 @synthesize _image;
 
 
+static BOOL Cat_DB_Changed;
+
 #pragma mark - Core Data
 
 + (NSEntityDescription *)entityFromContext:(NSManagedObjectContext *)ctx
@@ -81,10 +83,14 @@
     static NSArray *catArray;
 #define CAT_REQ_ALL @"AllCats"
 
-    if (catArray == nil)
+    if (catArray == nil || Cat_DB_Changed)
     {
-        NSFetchRequest *fetchRequest = [[self model] fetchRequestTemplateForName:CAT_REQ_ALL];
-//        fetchRequest.entity = [Cat entityFromContext:[self context]];
+        Cat_DB_Changed = NO;
+        
+//        NSFetchRequest *fetchRequest = [[self model] fetchRequestTemplateForName:CAT_REQ_ALL];
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        fetchRequest.entity = [Cat entityFromContext:[self context]];
         NSError *err;
         
         catArray = [[self context] executeFetchRequest:fetchRequest error:&err];
@@ -176,17 +182,24 @@
 {
     [[Cat context] deleteObject:self];
     
-    return [[Cat context] save:error];
+    return [self save:error];
 }
 
 - (BOOL)save:(NSError **)error
 {
+    Cat_DB_Changed = YES;
     return [[Cat context] save:error];
 }
 
 - (id)init
 {
-    return [self initWithEntity:[Cat entityFromContext:[Cat context]] insertIntoManagedObjectContext:[Cat context]];
+    Cat *newCat = [self initWithEntity:[Cat entityFromContext:[Cat context]] insertIntoManagedObjectContext:[Cat context]];
+    
+    NSInteger maxId = [[[Cat cats] valueForKeyPath:@"@max.myId"] integerValue];
+    
+    newCat.myId = maxId + 1;
+    
+    return newCat;
 }
 
 
