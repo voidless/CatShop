@@ -2,17 +2,15 @@
 
 @interface Cat : NSManagedObject
 
-+ (NSArray*) cats;
-+ (NSInteger) count;
++ (NSArray*) catsFromContext:(NSManagedObjectContext *)context;
++ (NSInteger) countFromContext:(NSManagedObjectContext *)context;
 
-+ (NSArray*) catsOnSale;
++ (NSArray*) catsOnSaleFromContext:(NSManagedObjectContext *)context;
 
-+ (Cat*) catWithId:(NSInteger)CatId;
++ (Cat*) catWithId:(NSManagedObjectID*)CatId andContext:(NSManagedObjectContext *)context;
+
 
 + (NSEntityDescription *)entityFromContext:(NSManagedObjectContext *)ctx;
-
-
-- (id)init;
 
 - (void)save;
 - (void)delete;

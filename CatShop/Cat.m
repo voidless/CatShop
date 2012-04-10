@@ -1,14 +1,10 @@
 #import "Cat.h"
-#import "DBModel.h"
-
 
 @interface Cat ()
 
 + (NSString*) genderByBool:(BOOL)gender;
 
 - (id)initWithDict:(NSDictionary*)dict andContext:(NSManagedObjectContext *)ctx;
-
-@property (strong) NSManagedObjectContext *context;
 
 @property (weak) UIImage *_image;
 
@@ -32,7 +28,6 @@
 @dynamic motherId;
 
 @synthesize _image;
-@synthesize context;
 
 
 #pragma mark - Core Data
@@ -71,60 +66,57 @@
 
 #pragma mark - Static
 
-+ (NSManagedObjectContext *)context
-{
-    return [[DBModel dbModel] managedObjectContext];
-}
-
-+ (NSManagedObjectModel *)model
-{
-    return [[DBModel dbModel] managedObjectModel];
-}
-
-+ (NSArray *)execFetch:(NSFetchRequest *)request
++ (NSArray *)execFetch:(NSFetchRequest *)request withContext:(NSManagedObjectContext *)context
 {
     NSError *err;
-    NSArray *result = [[self context] executeFetchRequest:request error:&err];
+    NSArray *result = [context executeFetchRequest:request error:&err];
     NSAssert(err == nil, @"executeFetchRequest failed: %@", [err localizedDescription]);
     return result;
 }
 
-+ (NSArray *)loadFromPlist
++ (NSArray *)loadFromPlistToContext:(NSManagedObjectContext *)context
 {
-    NSArray *catArray = [self catsFromPlist:@"catlist.plist" andContext:[self context]];
+    NSArray *catArray = [self catsFromPlist:@"catlist.plist" andContext:context];
     NSLog(@"loaded %d cats from plist", catArray.count);
     return catArray;
 }
 
 #pragma mark Public methods
 
-+ (NSArray*) cats
++ (NSArray*) catsFromContext:(NSManagedObjectContext *)context
 {
-    NSArray *catArray = [self execFetch:[[self model] fetchRequestTemplateForName:CAT_REQ_ALL]];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [Cat entityFromContext:context];
+    NSArray *catArray = [self execFetch:fetchRequest withContext:context];
     
     if (catArray.count == 0) {
-        [self loadFromPlist];
+        [self loadFromPlistToContext:context];
     }
     
     return catArray;
 }
 
-+ (NSArray*) catsOnSale
++ (NSInteger)countFromContext:(NSManagedObjectContext *)context
 {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [Cat entityFromContext:[self context]];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"price > 0"];
-    
-    return [self execFetch:fetchRequest];
+    return [[self catsFromContext:context] count];
 }
 
-+ (Cat*) catWithId:(NSInteger)CatId
++ (NSArray*) catsOnSaleFromContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [Cat entityFromContext:[self context]];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"myId = %d", CatId];
+    fetchRequest.entity = [Cat entityFromContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"price > 0"];
     
-    NSArray *result = [self execFetch:fetchRequest];
+    return [self execFetch:fetchRequest withContext:context];
+}
+
++ (Cat*) catWithId:(NSManagedObjectID*)CatId andContext:(NSManagedObjectContext *)context;
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [Cat entityFromContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"self == %d", CatId];
+    
+    NSArray *result = [self execFetch:fetchRequest withContext:context];
     
     if (result.count > 0) {
         return [result objectAtIndex:0];
@@ -147,6 +139,22 @@
     NSAssert(err == nil, @"Error saving context: %@", [err localizedDescription]);
 }
 
+#pragma mark - Instance
+
+
+#pragma Getters
+
+// TODO: set _image to nil on imagePath change
+- (UIImage*)image
+{
+    UIImage *img = self._image;
+    if (img == nil) {
+        img = [UIImage imageWithContentsOfFile:self.imagePath];
+        self._image = img;
+    }
+    return img;
+}
+
 + (NSString*) genderByBool:(BOOL)gender
 {
     static NSDictionary* genders;
@@ -162,44 +170,12 @@
     return (gender ? [genders objectForKey:@"male"] : [genders objectForKey:@"female"]);
 }
 
-+ (NSInteger)count
-{
-    return [[self cats] count];
-}
-
-#pragma mark - Instance
-
-
-#pragma Getters
-
-- (UIImage*)image
-{
-    UIImage *img = self._image;
-    if (img == nil) {
-        img = [UIImage imageWithContentsOfFile:self.imagePath];
-        self._image = img;
-    }
-    return img;
-}
-
 - (NSString*)gender
 {
     return [Cat genderByBool:self.male];
 }
 
 #pragma Lifetime
-
-
-- (id)init
-{
-    Cat *newCat = [self initWithEntity:[Cat entityFromContext:[Cat context]] insertIntoManagedObjectContext:[Cat context]];
-    
-    NSInteger maxId = [[[Cat cats] valueForKeyPath:@"@max.myId"] integerValue];
-    
-    newCat.myId = maxId + 1;
-    
-    return newCat;
-}
 
 
 - (id)initWithDict:(NSDictionary*)dict andContext:(NSManagedObjectContext *)ctx
