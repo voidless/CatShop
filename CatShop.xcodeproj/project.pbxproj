@@ -18,6 +18,7 @@
 		D9011149152F670300CFFF7C /* catshop_tz.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D9011148152F670300CFFF7C /* catshop_tz.rtf */; };
 		D95BAEE115260DBD0042C26E /* KittenScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95BAEE015260DBD0042C26E /* KittenScrollViewController.m */; };
 		D95BAEE5152623FB0042C26E /* KittenTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95BAEE4152623FB0042C26E /* KittenTableViewController.m */; };
+		D98AF50E153485FD00BF93C1 /* DatePickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D98AF50D153485FD00BF93C1 /* DatePickerVC.m */; };
 		D9BAC552151A1A4D004EB018 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BAC551151A1A4D004EB018 /* UIKit.framework */; };
 		D9BAC554151A1A4D004EB018 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BAC553151A1A4D004EB018 /* Foundation.framework */; };
 		D9BAC556151A1A4D004EB018 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BAC555151A1A4D004EB018 /* CoreGraphics.framework */; };
@@ -60,6 +61,8 @@
 		D95BAEE4152623FB0042C26E /* KittenTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KittenTableViewController.m; sourceTree = "<group>"; };
 		D9623FE9152B4EE10078182E /* KittenFlipperDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KittenFlipperDelegate.h; sourceTree = "<group>"; };
 		D9623FEA152B4F1D0078182E /* KittenFlipperDelegateHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KittenFlipperDelegateHolder.h; sourceTree = "<group>"; };
+		D98AF50C153485FD00BF93C1 /* DatePickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerVC.h; sourceTree = "<group>"; };
+		D98AF50D153485FD00BF93C1 /* DatePickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerVC.m; sourceTree = "<group>"; };
 		D9BAC54D151A1A4D004EB018 /* CatShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BAC551151A1A4D004EB018 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D9BAC553151A1A4D004EB018 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -173,6 +176,15 @@
 			name = TableView;
 			sourceTree = "<group>";
 		};
+		D98AF50A153485DD00BF93C1 /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				D98AF50C153485FD00BF93C1 /* DatePickerVC.h */,
+				D98AF50D153485FD00BF93C1 /* DatePickerVC.m */,
+			);
+			name = DatePicker;
+			sourceTree = "<group>";
+		};
 		D9BAC542151A1A4D004EB018 = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +222,7 @@
 				D9CC0A0F1522135A00184556 /* KittenDescription */,
 				8472A786151B5AAC0004C5D8 /* Enlarge */,
 				D9011142152F627800CFFF7C /* KittenCreateController */,
+				D98AF50A153485DD00BF93C1 /* DatePicker */,
 				8472A784151B5A8A0004C5D8 /* Model */,
 				8472A787151B5ACD0004C5D8 /* Main */,
 				D9BAC57B151A1D3A004EB018 /* cats */,
@@ -347,6 +360,7 @@
 				84528D9A153327B500597B59 /* DBModel.xcdatamodeld in Sources */,
 				84528D9D153333E200597B59 /* DBModel.m in Sources */,
 				845553321534504900241869 /* KittenCreateTVC.m in Sources */,
+				D98AF50E153485FD00BF93C1 /* DatePickerVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

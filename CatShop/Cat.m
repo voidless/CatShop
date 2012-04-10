@@ -10,6 +10,8 @@
 
 @property (weak) UIImage *_image;
 
+#define CAT_REQ_ALL @"AllCats"
+
 @end
 
 
@@ -21,6 +23,7 @@
 @dynamic price;
 @dynamic birth;
 @dynamic imagePath;
+@dynamic rating;
 
 @dynamic myId;
 @dynamic fatherId;
@@ -28,8 +31,6 @@
 
 @synthesize _image;
 
-
-static BOOL Cat_DB_Changed;
 
 #pragma mark - Core Data
 
@@ -58,9 +59,8 @@ static BOOL Cat_DB_Changed;
     }
     
     NSError *err;
-    if (![ctx save:&err]) {
-        NSLog(@"DB save error: %@", [err localizedDescription]);
-    }
+    [ctx save:&err];
+    NSAssert(err == nil, @"DB save error: %@", [err localizedDescription]);
     
     return [cats copy];
 }
@@ -78,62 +78,70 @@ static BOOL Cat_DB_Changed;
     return [[DBModel dbModel] managedObjectModel];
 }
 
++ (NSArray *)execFetch:(NSFetchRequest *)request
+{
+    NSError *err;
+    NSArray *result = [[self context] executeFetchRequest:request error:&err];
+    NSAssert(err == nil, @"executeFetchRequest failed: %@", [err localizedDescription]);
+    return result;
+}
+
++ (NSArray *)loadFromPlist
+{
+    NSArray *catArray = [self catsFromPlist:@"catlist.plist" andContext:[self context]];
+    NSLog(@"loaded %d cats from plist", catArray.count);
+    return catArray;
+}
+
+#pragma mark Public methods
+
 + (NSArray*) cats
 {
-    static NSArray *catArray;
-#define CAT_REQ_ALL @"AllCats"
-
-    if (catArray == nil || Cat_DB_Changed)
-    {
-        Cat_DB_Changed = NO;
-        
-//        NSFetchRequest *fetchRequest = [[self model] fetchRequestTemplateForName:CAT_REQ_ALL];
-        
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        fetchRequest.entity = [Cat entityFromContext:[self context]];
-        NSError *err;
-        
-        catArray = [[self context] executeFetchRequest:fetchRequest error:&err];
-        NSAssert(catArray,@"fetchRequest %@ failed: %@", CAT_REQ_ALL, [err localizedDescription]);
-        
-        NSLog(@"loaded %d cats from DB", catArray.count);
-        
-        if (catArray.count == 0)
-        {
-            NSLog(@"loading from plist");
-            catArray = [self catsFromPlist:@"catlist.plist" andContext:[self context]];
-        }
-    }  
+    NSArray *catArray = [self execFetch:[[self model] fetchRequestTemplateForName:CAT_REQ_ALL]];
+    
+    if (catArray.count == 0) {
+        [self loadFromPlist];
+    }
     
     return catArray;
 }
 
 + (NSArray*) catsOnSale
 {
-    NSMutableArray *catArr = [NSMutableArray new];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [Cat entityFromContext:[self context]];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"price > 0"];
     
-    for (Cat *k in [self cats])
-    {
-        if (k.price > 0)
-        {
-            [catArr addObject:k];
-        }
-    }
-    
-    return [catArr copy];
+    return [self execFetch:fetchRequest];
 }
 
 + (Cat*) catWithId:(NSInteger)CatId
 {
-    for (Cat *k in [self cats])
-    {
-        if (k.myId == CatId)
-        {
-            return k;
-        }
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [Cat entityFromContext:[self context]];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"myId = %d", CatId];
+    
+    NSArray *result = [self execFetch:fetchRequest];
+    
+    if (result.count > 0) {
+        return [result objectAtIndex:0];
     }
     
     return nil;
+}
+
+- (void)delete
+{
+    [self.managedObjectContext deleteObject:self];
+    
+    [self save];
+}
+
+- (void)save
+{
+    NSError *err;
+    [self.managedObjectContext save:&err];
+    NSAssert(err == nil, @"Error saving context: %@", [err localizedDescription]);
 }
 
 + (NSString*) genderByBool:(BOOL)gender
@@ -178,18 +186,6 @@ static BOOL Cat_DB_Changed;
 
 #pragma Lifetime
 
-- (BOOL)delete:(NSError **)error
-{
-    [[Cat context] deleteObject:self];
-    
-    return [self save:error];
-}
-
-- (BOOL)save:(NSError **)error
-{
-    Cat_DB_Changed = YES;
-    return [[Cat context] save:error];
-}
 
 - (id)init
 {

@@ -13,8 +13,8 @@
 
 
 - (id)init;
-- (BOOL)save:(NSError **)error;
-- (BOOL)delete:(NSError **)error;
+- (void)save;
+- (void)delete;
 
 #pragma mark - Property
 
@@ -24,6 +24,7 @@
 @property (copy) NSDate *birth;
 @property (assign) BOOL male;
 @property (assign) NSInteger price;
+@property (assign) NSInteger rating;
 
 @property (readonly) NSString *gender;
 @property (readonly) UIImage *image;

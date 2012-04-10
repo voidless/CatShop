@@ -56,6 +56,7 @@ static BOOL Cat_DB_Changed;
 + (Cat*) catSortedAtIndex:(NSInteger)index
 {
     Cat *k = nil;
+
     NSInteger _index = index;
     
     if (Cat_old_count != [Cat count])

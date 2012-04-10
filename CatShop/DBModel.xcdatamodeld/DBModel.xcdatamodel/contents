@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1170" systemVersion="11D50d" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Cat" representedClassName="Cat" syncable="YES">
         <attribute name="birth" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="breed" optional="YES" attributeType="String" syncable="YES"/>
@@ -10,16 +10,10 @@
         <attribute name="myId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="sortedCat" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="SortedCat" inverseName="cat" inverseEntity="SortedCat" syncable="YES"/>
-    </entity>
-    <entity name="SortedCat" representedClassName="SortedCat" syncable="YES">
-        <attribute name="catId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <attribute name="sortRating" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="cat" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Cat" inverseName="sortedCat" inverseEntity="Cat" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <fetchRequest name="AllCats" entity="Cat" predicateString="TRUEPREDICATE"/>
     <elements>
         <element name="Cat" positionX="243" positionY="147" width="128" height="195"/>
-        <element name="SortedCat" positionX="493" positionY="207" width="128" height="90"/>
     </elements>
 </model>

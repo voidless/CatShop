@@ -19,7 +19,6 @@
 
 - (IBAction)doCancel
 {
-//    [self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -30,27 +29,20 @@
         return;
     }
     
-    if (nameField.text.length > 0
+//    if (nameField.text.length > 0
         //        && birthButton.titleLabel.text.length > 0
         //        && breedField.text.length > 0
         //        && priceField.text.length > 0
-        )
-    {
-        Cat *newCat = [[Cat alloc] init];
-        newCat.name = nameField.text;
-        newCat.breed = breedField.text;
-        newCat.price = [priceField.text integerValue];
-        NSError *err;
-        if (![newCat save:&err])
-        {
-            NSLog(@"Cat creation failed: %@", [err localizedDescription]);
-        }
-        
-        
-        [delegate KittenCreated:newCat];
-        
-        [self doCancel];
-    }
+
+    Cat *newCat = [[Cat alloc] init];
+    newCat.name = nameField.text;
+    newCat.breed = breedField.text;
+    newCat.price = [priceField.text integerValue];
+    [newCat save];
+    
+    [delegate KittenCreated:newCat];
+    
+    [self doCancel];
 }
 
 - (IBAction)doPhoto

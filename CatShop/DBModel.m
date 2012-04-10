@@ -41,9 +41,8 @@
         return __managedObjectModel;
     }
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"DBModel" withExtension:@"momd"];
-    NSLog(@"modelURL = %@", modelURL);
+//    NSLog(@"modelURL = %@", modelURL);
     __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-//    NSLog(@"__managedObjectModel: %@", __managedObjectModel);
     return __managedObjectModel;
 }
 

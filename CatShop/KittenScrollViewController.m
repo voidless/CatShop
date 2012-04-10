@@ -150,6 +150,10 @@
 
 - (void)selectKittenAtIndex:(NSInteger)index;
 {
+    if (index >= [Cat count]) {
+        return;
+    }
+    
     if (self.isViewLoaded && self.view.window)
     {
         [self loadPage:index];

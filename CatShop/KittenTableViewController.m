@@ -35,7 +35,7 @@
 
 - (void)KittenCreated:(Cat*)newCat
 {
-    NSLog(@"recieved cat: %@", newCat);
+//    NSLog(@"recieved cat: %@", newCat);
     
     NSUInteger pIdx = [Cat count] - 1;
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:pIdx inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
@@ -85,21 +85,11 @@
 {
     Cat *k = [self kittenByIndexPath:indexPath];
     
-    NSError *err;
-    if (![k delete:&err])
-    {
-        NSLog(@"cat deletion failed: %@", [err localizedDescription]);
-    } else {
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }
+    [k delete];
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];    
 }
 
 #pragma mark - Table view delegate
-
-//- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return NO;
-//}
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -148,6 +138,10 @@
 
 - (void)selectKittenAtIndex:(NSInteger)index
 {
+    if (index >= [Cat count]) {
+        return;
+    }
+    
     if (self.isViewLoaded && self.view.window)
     {
         [self markRowAtIndex:[NSIndexPath indexPathForRow:index inSection:0]];
