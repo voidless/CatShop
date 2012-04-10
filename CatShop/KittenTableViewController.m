@@ -3,7 +3,7 @@
 #import "SortedCat.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableCellController.h"
-#import "KittenCreateController.h"
+#import "KittenCreateTVC.h"
 
 @interface KittenTableViewController ()
 
@@ -131,11 +131,11 @@
         kdc.kitten = [SortedCat catSortedAtIndex:selectedIndexPath.row];
     }
     
-    KittenCreateController *kcc = segue.destinationViewController;
-    if ([kcc isKindOfClass:[KittenCreateController class]]
+    KittenCreateTVC *kct = segue.destinationViewController;
+    if ([kct isKindOfClass:[KittenCreateTVC class]]
         && [segue.identifier isEqualToString:@"AddKitten"])
     {
-        kcc.delegate = self;
+        kct.delegate = self;
     }
 }
 

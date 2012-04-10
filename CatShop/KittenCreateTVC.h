@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "KittenCreateDelegate.h"
 
-@interface KittenCreateController : UIViewController
+@interface KittenCreateTVC : UITableViewController
 
 @property (weak) IBOutlet UIImageView *imageView;
 
