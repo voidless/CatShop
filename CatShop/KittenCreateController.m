@@ -1,48 +1,59 @@
 #import "KittenCreateController.h"
+#import "DBHelper.h"
+#import "DatePickerController.h"
 
 @interface KittenCreateController ()
 
+@property (strong) NSManagedObjectContext *context;
+
+@property (strong) Cat *createdCat;
+
 @end
+
 
 @implementation KittenCreateController
 
-
 @synthesize imageView;
 @synthesize nameField;
-@synthesize maleSwitch;
+@synthesize maleSegCont;
 @synthesize birthButton;
 @synthesize breedField;
 @synthesize priceField;
-//@synthesize saveButton;
-
 @synthesize delegate;
 
-- (IBAction)doCancel
+@synthesize context;
+@synthesize createdCat;
+
+- (void)doReturn
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)doSave
+- (void)doSave
 {
     if (nameField.text.length == 0) {
         [nameField becomeFirstResponder];
         return;
     }
+    if (breedField.text.length == 0) {
+        [breedField becomeFirstResponder];
+        return;
+    }
+    if (priceField.text.length == 0) {
+        [priceField becomeFirstResponder];
+        return;
+    }
     
-//    if (nameField.text.length > 0
-        //        && birthButton.titleLabel.text.length > 0
-        //        && breedField.text.length > 0
-        //        && priceField.text.length > 0
-
-    Cat *newCat = [[Cat alloc] init];
-    newCat.name = nameField.text;
-    newCat.breed = breedField.text;
-    newCat.price = [priceField.text integerValue];
-    [newCat save];
+    createdCat.name = nameField.text;
+    createdCat.breed = breedField.text;
+    createdCat.price = [priceField.text integerValue];
+    createdCat.male = (maleSegCont.selectedSegmentIndex == 0);
     
-    [delegate KittenCreated:newCat];
+    NSLog(@"newCat: %@", createdCat);
+//    [newCat save];
+//    [delegate KittenCreated:newCat];
     
-    [self doCancel];
+//    [self doReturn];
 }
 
 - (IBAction)doPhoto
@@ -50,29 +61,39 @@
     
 }
 
-- (IBAction)doSelectDate
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+    DatePickerController *dpc = segue.destinationViewController;
+    if ([dpc isKindOfClass:[DatePickerController class]]
+        && [segue.identifier isEqualToString:@"DatePick"]) {
+        dpc.delegate = self;
+    }
 }
 
-//- (void)checkInput
-//{
-//    saveButton.enabled = YES;
+- (void)datePicked:(NSDate *)date withDateString:(NSString *)dateString
+{
+    createdCat.birth = date;
+    [birthButton setTitle:dateString forState:UIControlStateNormal];
+}
+
+
+//-(void) keyboardDidShow: (NSNotification *)notif {
 //}
-
--(void) keyboardDidShow: (NSNotification *)notif {
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (keyboardDidShow:)name: UIKeyboardDidShowNotification object:nil];
+    context = [[DBHelper dbHelper] managedObjectContext];
+    
+    createdCat = [[Cat alloc] initWithEntity:[Cat entityFromContext:context] insertIntoManagedObjectContext:context];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (keyboardDidShow:)name: UIKeyboardDidShowNotification object:nil];
     
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Сохранить" style:UIBarButtonItemStyleDone target:self action:@selector(doSave)];
     self.navigationItem.rightBarButtonItem = save;
     
-    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Отменить" style:UIBarButtonItemStyleBordered target:self action:@selector(doCancel)];
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Отменить" style:UIBarButtonItemStyleBordered target:self action:@selector(doReturn)];
     self.navigationItem.leftBarButtonItem = cancel;
 }
 

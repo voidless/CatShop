@@ -2,40 +2,74 @@
 
 @interface DatePickerController ()
 
+@property (strong) NSDateFormatter *dateFormatter;
+@property (strong) NSCalendar *calendar;
+
+@property (strong) NSDate *selectedDate;
+
 @end
 
-@implementation DatePickerController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+@implementation DatePickerController {
+    dispatch_once_t onceToken;
 }
 
-- (void)loadView
+@synthesize dateField;
+@synthesize datePicker;
+@synthesize delegate;
+
+@synthesize dateFormatter;
+@synthesize calendar;
+@synthesize selectedDate;
+
+- (void)dateSelected
 {
-    // If you create your views manually, you MUST override this method and use it to create your views.
-    // If you use Interface Builder to create your views, then you must NOT override this method.
+    selectedDate = datePicker.date;
+    dateField.text = [dateFormatter stringFromDate:selectedDate];
+}
+
+- (void)doSave
+{
+    if (selectedDate) {
+        [delegate datePicked:selectedDate withDateString:dateField.text];
+        [self doReturn];
+    } else {
+        [dateField becomeFirstResponder];
+    }
+}
+
+- (void)doReturn
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    
+    dispatch_once(&onceToken, ^{
+        calendar = [NSCalendar currentCalendar];
+        
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.timeStyle = NSDateFormatterNoStyle;
+        dateFormatter.dateStyle = NSDateFormatterLongStyle;
+        dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"];
+    });
+    
+    NSDate *currDate = [NSDate date];
+    NSDateComponents *offsetComponents = [NSDateComponents new];
+    [offsetComponents setYear:-1];
+    
+    [datePicker addTarget:self action:@selector(dateSelected) forControlEvents:UIControlEventValueChanged];
+    datePicker.maximumDate = currDate;
+    datePicker.minimumDate = [calendar dateByAddingComponents:offsetComponents toDate:currDate options:0];
+    
+    
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Сохранить" style:UIBarButtonItemStyleDone target:self action:@selector(doSave)];
+    self.navigationItem.rightBarButtonItem = save;
+    
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Отменить" style:UIBarButtonItemStyleBordered target:self action:@selector(doReturn)];
+    self.navigationItem.leftBarButtonItem = cancel;
 }
 
 @end
