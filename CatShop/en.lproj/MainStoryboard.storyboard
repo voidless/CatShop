@@ -375,6 +375,9 @@
                                                     <state key="highlighted">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="doGallery" destination="Hw5-2l-D5J" eventType="touchUpInside" id="Yfs-Et-Qwv"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -526,6 +529,7 @@
                     <connections>
                         <outlet property="birthButton" destination="qNs-du-iHO" id="0Cd-PJ-sVR"/>
                         <outlet property="breedField" destination="kEa-GQ-ZZ2" id="Bnz-Xf-KYw"/>
+                        <outlet property="captureButton" destination="lOC-7r-kYf" id="XHA-zS-r7n"/>
                         <outlet property="imageView" destination="7o3-x6-reJ" id="K8Z-rc-c29"/>
                         <outlet property="maleSegCont" destination="x8o-DI-3Ds" id="vLP-gb-3Ne"/>
                         <outlet property="nameField" destination="3kt-Qu-Hg2" id="Dvv-cd-Qwb"/>
@@ -646,6 +650,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <relationships>
                 <relationship kind="outlet" name="birthButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="breedField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="captureButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="maleSegCont" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>

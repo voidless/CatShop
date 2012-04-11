@@ -20,6 +20,7 @@
 @synthesize breedField;
 @synthesize priceField;
 @synthesize delegate;
+@synthesize captureButton;
 
 @synthesize context;
 @synthesize createdCat;
@@ -49,6 +50,8 @@
     createdCat.price = [priceField.text integerValue];
     createdCat.male = (maleSegCont.selectedSegmentIndex == 0);
     
+//TODO: save imageView
+    
     NSLog(@"newCat: %@", createdCat);
 //    [newCat save];
 //    [delegate KittenCreated:newCat];
@@ -56,10 +59,6 @@
 //    [self doReturn];
 }
 
-- (IBAction)doPhoto
-{
-    
-}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -77,8 +76,53 @@
 }
 
 
+#pragma mark Image Picker
+
+- (void)presentImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType
+{
+    UIImagePickerController *imagePicker = [UIImagePickerController new];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = sourceType;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+- (IBAction)doPhoto
+{
+    [self presentImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
+}
+
+- (IBAction)doGallery
+{
+    [self presentImagePickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *originalImage, *editedImage;
+    editedImage = (UIImage *) [info objectForKey:UIImagePickerControllerEditedImage];
+    originalImage = (UIImage *) [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    if (editedImage) {
+        imageView.image = editedImage;
+    } else {
+        imageView.image = originalImage;
+    }
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+#pragma mark Lifetime
+
+
 //-(void) keyboardDidShow: (NSNotification *)notif {
 //}
+
 
 - (void)viewDidLoad
 {
@@ -87,6 +131,8 @@
     context = [[DBHelper dbHelper] managedObjectContext];
     
     createdCat = [[Cat alloc] initWithEntity:[Cat entityFromContext:context] insertIntoManagedObjectContext:context];
+    
+    captureButton.hidden = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO;
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (keyboardDidShow:)name: UIKeyboardDidShowNotification object:nil];
     
