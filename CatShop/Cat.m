@@ -1,4 +1,5 @@
 #import "Cat.h"
+#import "DBHelper.h"
 
 @interface Cat ()
 
@@ -66,14 +67,6 @@
 
 #pragma mark - Static
 
-+ (NSArray *)execFetch:(NSFetchRequest *)request withContext:(NSManagedObjectContext *)context
-{
-    NSError *err;
-    NSArray *result = [context executeFetchRequest:request error:&err];
-    NSAssert(err == nil, @"executeFetchRequest failed: %@", [err localizedDescription]);
-    return result;
-}
-
 + (NSArray *)loadFromPlistToContext:(NSManagedObjectContext *)context
 {
     NSArray *catArray = [self catsFromPlist:@"catlist.plist" andContext:context];
@@ -83,11 +76,11 @@
 
 #pragma mark Public methods
 
-+ (NSArray*) catsFromContext:(NSManagedObjectContext *)context
++ (NSArray*) catsWithContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = [Cat entityFromContext:context];
-    NSArray *catArray = [self execFetch:fetchRequest withContext:context];
+    NSArray *catArray = [DBHelper execFetch:fetchRequest withContext:context];
     
     if (catArray.count == 0) {
         [self loadFromPlistToContext:context];
@@ -96,9 +89,9 @@
     return catArray;
 }
 
-+ (NSInteger)countFromContext:(NSManagedObjectContext *)context
++ (NSInteger)countWithContext:(NSManagedObjectContext *)context
 {
-    return [[self catsFromContext:context] count];
+    return [[self catsWithContext:context] count];
 }
 
 + (NSArray*) catsOnSaleFromContext:(NSManagedObjectContext *)context
@@ -107,16 +100,20 @@
     fetchRequest.entity = [Cat entityFromContext:context];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"price > 0"];
     
-    return [self execFetch:fetchRequest withContext:context];
+    return [DBHelper execFetch:fetchRequest withContext:context];
 }
 
 + (Cat*) catWithId:(NSManagedObjectID*)CatId andContext:(NSManagedObjectContext *)context;
 {
+    if (CatId == nil) {
+        return nil;
+    }
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = [Cat entityFromContext:context];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"self == %d", CatId];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"self == %@", CatId];
     
-    NSArray *result = [self execFetch:fetchRequest withContext:context];
+    NSArray *result = [DBHelper execFetch:fetchRequest withContext:context];
     
     if (result.count > 0) {
         return [result objectAtIndex:0];

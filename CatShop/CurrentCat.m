@@ -1,5 +1,6 @@
 #import "CurrentCat.h"
-#import "DBModel.h"
+#import "Cat.h"
+#import "DBHelper.h"
 
 @interface CurrentCat ()
 
@@ -16,7 +17,7 @@
 {
     if (_currentCatId == nil)
     {
-        NSPersistentStoreCoordinator *store = [[DBModel dbModel] persistentStoreCoordinator];
+        NSPersistentStoreCoordinator *store = [[DBHelper dbHelper] persistentStoreCoordinator];
         
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         NSURL *url = [ud URLForKey:CURRENT_CAT_OBJECT_KEY];
@@ -27,10 +28,13 @@
 
 - (void)setCurrentCatId:(NSManagedObjectID *)currentCatId
 {
+    NSAssert(currentCatId.isTemporaryID == NO, @"setCurrentCatId received temporary id: %@", currentCatId);
+    
     _currentCatId = currentCatId;
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setURL:[currentCatId URIRepresentation] forKey:CURRENT_CAT_OBJECT_KEY];
+    
     [ud synchronize];
 }
 

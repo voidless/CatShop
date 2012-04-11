@@ -5,10 +5,13 @@
 #import "KittenDescriptionController.h"
 #import "KittenTableCellController.h"
 #import "KittenCreateController.h"
+#import "DBHelper.h"
 
 @interface KittenTableViewController ()
 
-@property (strong) NSIndexPath *selectedIndexPath;
+@property (strong) NSManagedObjectContext *context;
+
+@property (strong) CurrentCat *currentCat;
 
 @end
 
@@ -19,7 +22,8 @@
 
 @synthesize delegate;
 
-@synthesize selectedIndexPath;
+@synthesize context;
+@synthesize currentCat;
 
 #pragma mark Actions
 
@@ -38,19 +42,19 @@
 {
 //    NSLog(@"recieved cat: %@", newCat);
     
-    NSUInteger pIdx = [Cat count] - 1;
+    NSUInteger pIdx = [Cat countWithContext:context] - 1;
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:pIdx inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
 }
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [Cat count];
+    return [Cat countWithContext:context];
 }
 
 - (Cat*)kittenByIndexPath:(NSIndexPath*)idxp
 {
-    return [SortedCat catSortedAtIndex:idxp.row];
+    return [SortedCat catSortedAtIndex:idxp.row withContext:context];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -78,7 +82,7 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-    [SortedCat moveCatSortedFromIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
+    [SortedCat moveCatSortedFromIndex:sourceIndexPath.row toIndex:destinationIndexPath.row withContext:context];
 }
 
 
@@ -104,13 +108,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    selectedIndexPath = indexPath;
+    [self setCurrentIndex:indexPath];
     
     [self performSegueWithIdentifier:@"DescSegue" sender:self];
-    
-//    [delegate kittenSetCurrent:indexPath.row];
-    Cat *k = [SortedCat catSortedAtIndex:indexPath.row];
-    [[CurrentCat currentCat] setCurrentCatId:k.objectID];
 }
 
 #pragma mark - Segue
@@ -121,7 +121,7 @@
     if ([kdc isKindOfClass:[KittenDescriptionController class]]
         && [segue.identifier isEqualToString:@"DescSegue"])
     {
-        kdc.kitten = [SortedCat catSortedAtIndex:selectedIndexPath.row];
+        kdc.kitten = [Cat catWithId:currentCat.currentCatId andContext:context];
     }
     
     KittenCreateController *kct = segue.destinationViewController;
@@ -132,6 +132,8 @@
     }
 }
 
+#pragma mark Marking
+
 - (void)markRowAtIndex:(NSIndexPath*)indexPath
 {
     [self.tableView selectRowAtIndexPath:indexPath
@@ -139,21 +141,41 @@
                           scrollPosition:UITableViewScrollPositionMiddle];
 }
 
-- (void)selectKittenAtIndex:(NSInteger)index
+- (NSIndexPath*)currentIndex
 {
-    if (index >= [Cat count]) {
-        return;
+    if (currentCat.currentCatId == nil) {
+        return 0;
     }
     
-    if (self.isViewLoaded && self.view.window)
-    {
-        [self markRowAtIndex:[NSIndexPath indexPathForRow:index inSection:0]];
-    } else {
-        selectedIndexPath = [NSIndexPath indexPathForRow:index inSection:0];;
+    NSArray *cats = [SortedCat catsSortedWithContext:context];
+    
+    NSUInteger idx = [cats indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
+        Cat *cat = (Cat *)obj;
+        *stop = ([cat.objectID isEqual:currentCat.currentCatId]);
+        return *stop;
+    }];
+    
+    if (idx != NSNotFound) {
+        return [NSIndexPath indexPathForRow:idx inSection:0];
     }
+    return 0;
 }
 
+- (void)setCurrentIndex:(NSIndexPath*)index
+{
+    currentCat.currentCatId = [[SortedCat catSortedAtIndex:index.row withContext:context] objectID];
+}
+
+
 #pragma mark Lifetime
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    context = [[DBHelper dbHelper] managedObjectContext];
+    currentCat = [CurrentCat currentCat];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -161,10 +183,7 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-    if (selectedIndexPath)
-    {
-        [self markRowAtIndex:selectedIndexPath];
-    }
+    [self markRowAtIndex:[self currentIndex]];
 }
 
 @end

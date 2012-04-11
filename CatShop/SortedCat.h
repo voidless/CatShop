@@ -5,12 +5,10 @@
 
 #pragma mark Sorting
 
-+ (Cat*) catSortedAtIndex:(NSInteger)index;
++ (NSArray*) catsSortedWithContext:(NSManagedObjectContext*)context;
 
-+ (void) moveCatSortedFromIndex:(NSInteger)sourceIdx toIndex:(NSInteger)destinationIdx;
++ (Cat*) catSortedAtIndex:(NSInteger)index withContext:(NSManagedObjectContext*)context;
 
-
-@property NSInteger sortRating;
-@property NSInteger catId;
++ (void) moveCatSortedFromIndex:(NSInteger)sourceIdx toIndex:(NSInteger)destinationIdx withContext:(NSManagedObjectContext*)context;
 
 @end

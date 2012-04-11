@@ -1,10 +1,13 @@
 #import "KittenDescriptionController.h"
 #import "Cat.h"
 #import "KittenPhotoController.h"
+#import "DBHelper.h"
 
 @interface KittenDescriptionController ()
 
 - (void)showKitten:(Cat*)k;
+
+@property (strong) NSManagedObjectContext *context;
 
 @end
 
@@ -26,11 +29,13 @@
 
 @synthesize kitten;
 
+@synthesize context;
+
 #pragma mark - Kitten Business
 
 
 - (void)showKitten:(Cat*)k
-{    
+{
     kittenView.image = k.image;
     
     self.navigationItem.title = k.name;
@@ -66,9 +71,18 @@
 {
     KittenDescriptionController *kdc = [self.storyboard instantiateViewControllerWithIdentifier:@"descrView"];
     
-    kdc.kitten = [Cat catWithId:showId];
+    NSFetchRequest *fetchReq = [[NSFetchRequest alloc] init];
+    fetchReq.entity = [Cat entityFromContext:context];
+    fetchReq.predicate = [NSPredicate predicateWithFormat:@"myId = %d", showId];
     
-    [self.navigationController pushViewController:kdc animated:YES];
+    NSArray *cats = [DBHelper execFetch:fetchReq withContext:context];
+    if (cats.count != 0)
+    {
+        kdc.kitten = [cats objectAtIndex:0];
+        [self.navigationController pushViewController:kdc animated:YES];
+    } else {
+        NSLog(@"kitten with id: %d not found", showId);
+    }
 }
 
 
@@ -112,6 +126,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    context = [[DBHelper dbHelper] managedObjectContext];
     
     [self showKitten:kitten];
 }

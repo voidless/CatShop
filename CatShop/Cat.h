@@ -2,8 +2,8 @@
 
 @interface Cat : NSManagedObject
 
-+ (NSArray*) catsFromContext:(NSManagedObjectContext *)context;
-+ (NSInteger) countFromContext:(NSManagedObjectContext *)context;
++ (NSArray*) catsWithContext:(NSManagedObjectContext *)context;
++ (NSInteger) countWithContext:(NSManagedObjectContext *)context;
 
 + (NSArray*) catsOnSaleFromContext:(NSManagedObjectContext *)context;
 

@@ -5,12 +5,14 @@
 #import "KittenPhotoController.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableViewController.h"
+#import "DBHelper.h"
 
 @interface KittenScrollViewController ()
 
 @property (strong) NSMutableArray *viewControllers;
 
-@property NSInteger currentPage;
+@property (strong) NSManagedObjectContext *context;
+@property (strong) CurrentCat *currentCat;
 
 @end
 
@@ -22,13 +24,14 @@
 @synthesize delegate;
 
 @synthesize viewControllers;
-@synthesize currentPage;
+@synthesize context;
+@synthesize currentCat;
 
 #pragma mark Load Unload
 
 - (void)loadScrollViewWithPage:(int)page
 {
-    if (page < 0 || page >= [Cat count])
+    if (page < 0 || page >= [Cat countWithContext:context])
     {
         return;
     }
@@ -36,7 +39,7 @@
     KittenPhotoController *kpc = [viewControllers objectAtIndex:page];
     if ((NSNull *)kpc == [NSNull null])
     {
-        Cat *k = [SortedCat catSortedAtIndex:page];
+        Cat *k = [SortedCat catSortedAtIndex:page withContext:context];
         
         UIImage *image = k.image;
         
@@ -59,14 +62,14 @@
 
 - (void)unloadScrollViewWithPage:(int)page
 {
-    if (page < 0 || page >= [Cat count])
+    if (page < 0 || page >= [Cat countWithContext:context])
     {
         return;
     }
     
     KittenPhotoController *kpc = [viewControllers objectAtIndex:page];
     if ((NSNull *)kpc != [NSNull null])
-    {
+    {   
         [kpc.view removeFromSuperview];
         [kpc willMoveToParentViewController:nil];
         [kpc removeFromParentViewController];
@@ -74,14 +77,41 @@
     }
 }
 
+- (NSInteger)currentPage
+{
+    if (currentCat.currentCatId == nil) {
+        return 0;
+    }
+    
+    NSArray *cats = [SortedCat catsSortedWithContext:context];
+    
+    NSUInteger idx = [cats indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
+        Cat *cat = (Cat *)obj;
+        *stop = ([cat.objectID isEqual:currentCat.currentCatId]);
+        return *stop;
+    }];
+    
+    if (idx != NSNotFound) {
+        return idx;
+    }
+    return 0;
+}
+
+- (void)setCurrentPage:(NSInteger)page
+{
+    currentCat.currentCatId = [[SortedCat catSortedAtIndex:page withContext:context] objectID];
+}
+
 - (void)reloadScrollViews
 {
     NSAssert(cacheNextViewsAmount >= 0, @"cacheNextViewsAmount must be positive. had %d", cacheNextViewsAmount);
     
+    NSInteger currentPage = [self currentPage];
+    
     NSInteger leftLimit = currentPage - cacheNextViewsAmount;
     NSInteger rightLimit = currentPage + cacheNextViewsAmount;
     
-    for (NSInteger page = 0; page < [Cat count]; page++)
+    for (NSInteger page = 0; page < [Cat countWithContext:context]; page++)
     {
         if (page >= leftLimit && page <= rightLimit)
         {
@@ -92,21 +122,16 @@
     }
 }
 
-- (void)loadPage:(NSInteger)page
-{
-    currentPage = page;
-    [self reloadScrollViews];
-}
-
 #pragma mark Actions
 
 
-- (void)scrollToPage:(NSInteger)page
+- (void)scrollToCurrentPage
 {
+    
     CGPoint contentOffset = scrollView.contentOffset;
     CGFloat pageWidth = scrollView.frame.size.width;
     
-    contentOffset.x = pageWidth * page;
+    contentOffset.x = pageWidth * [self currentPage];
     scrollView.contentOffset = contentOffset;
 }
 
@@ -116,13 +141,10 @@
 {
     CGFloat pageWidth = source.frame.size.width;
     int page = (source.contentOffset.x - pageWidth/2) / pageWidth + 1;
-    if (currentPage != page)
+    if ([self currentPage] != page)
     {
-        [self loadPage:page];
-        
-//        [delegate kittenSetCurrent:page];
-        Cat *k = [SortedCat catSortedAtIndex:page];
-        [[CurrentCat currentCat] setCurrentCatId:k.objectID];
+        [self setCurrentPage:page];
+        [self reloadScrollViews];
     }
 }
 
@@ -147,23 +169,8 @@
     BOOL isDescrCont = [kdc isKindOfClass:[KittenDescriptionController class]];
     
     if (isDescrCont && [segue.identifier isEqualToString:@"DescSegue"])
-    {   
-        kdc.kitten = [SortedCat catSortedAtIndex:currentPage];
-    }
-}
-
-- (void)selectKittenAtIndex:(NSInteger)index;
-{
-    if (index >= [Cat count]) {
-        return;
-    }
-    
-    if (self.isViewLoaded && self.view.window)
     {
-        [self loadPage:index];
-        [self scrollToPage:index];
-    } else {
-        currentPage = index;
+        kdc.kitten = [Cat catWithId:currentCat.currentCatId andContext:context];
     }
 }
 
@@ -173,9 +180,12 @@
 {
     [super awakeFromNib];
     
-    viewControllers = [[NSMutableArray alloc] initWithCapacity:[Cat count]];
+    context = [[DBHelper dbHelper] managedObjectContext];
+    currentCat = [CurrentCat currentCat];
     
-    for (NSInteger idx = 0; idx < [Cat count]; idx++)
+    viewControllers = [[NSMutableArray alloc] initWithCapacity:[Cat countWithContext:context]];
+    
+    for (NSInteger idx = 0; idx < [Cat countWithContext:context]; idx++)
     {
         [viewControllers addObject:[NSNull null]];
     }
@@ -194,11 +204,11 @@
 {
     [super viewWillAppear:animated];
 
-    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * [Cat count],
+    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * [Cat countWithContext:context],
                                         scrollView.frame.size.height);
     
     [self reloadScrollViews];
-    [self scrollToPage:currentPage];
+    [self scrollToCurrentPage];
 
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
