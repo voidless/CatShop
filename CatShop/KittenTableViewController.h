@@ -1,10 +1,10 @@
 #import <UIKit/UIKit.h>
 #import "KittenFlipperDelegateHolder.h"
-#import "KittenCreateDelegate.h"
+#import "KittenEditControllerDelegate.h"
 
 @interface KittenTableViewController : UIViewController
 <UITableViewDataSource, UITableViewDelegate,
-KittenFlipperDelegateHolder, KittenCreateDelegate>
+KittenFlipperDelegateHolder, KittenEditControllerDelegate>
 
 - (void)markRowAtIndex:(NSIndexPath*)indexPath;
 

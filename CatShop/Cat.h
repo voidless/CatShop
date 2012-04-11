@@ -26,7 +26,7 @@
 @property (assign) NSInteger rating;
 
 @property (readonly) NSString *gender;
-@property (readonly) UIImage *image;
+@property (readwrite) UIImage *image;
 
 #pragma mark - Genealogy
 

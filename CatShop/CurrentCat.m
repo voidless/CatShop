@@ -38,6 +38,7 @@
     [ud synchronize];
 }
 
+// remove this
 + (CurrentCat *)currentCat
 {
     static CurrentCat *instance;

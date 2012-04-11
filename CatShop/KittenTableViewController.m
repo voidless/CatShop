@@ -4,7 +4,7 @@
 #import "CurrentCat.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableCellController.h"
-#import "KittenCreateController.h"
+#import "KittenEditController.h"
 #import "DBHelper.h"
 
 @interface KittenTableViewController ()
@@ -38,12 +38,18 @@
     [self.tableView setEditing:!isEditing animated:YES];
 }
 
-- (void)KittenCreated:(Cat*)newCat
+- (void)kittenFinishedEditing:(Cat*)newCat
 {
 //    NSLog(@"recieved cat: %@", newCat);
+    [newCat save];
     
-    NSUInteger pIdx = [Cat countWithContext:context] - 1;
-    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:pIdx inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
+    if (self.tableView.editing)
+    {
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self currentIndex]] withRowAnimation:NO];
+    } else {
+        NSUInteger pIdx = [Cat countWithContext:context] - 1;
+        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:pIdx inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
+    }
 }
 
 #pragma mark - Table view data source
@@ -110,7 +116,12 @@
 {
     [self setCurrentIndex:indexPath];
     
-    [self performSegueWithIdentifier:@"DescSegue" sender:self];
+    if (tableView.editing) {
+        [self performSegueWithIdentifier:@"EditKitten" sender:self];
+    } else {
+        [self performSegueWithIdentifier:@"DescSegue" sender:self];
+    }
+    
 }
 
 #pragma mark - Segue
@@ -124,11 +135,17 @@
         kdc.kitten = [Cat catWithId:currentCat.currentCatId andContext:context];
     }
     
-    KittenCreateController *kct = segue.destinationViewController;
-    if ([kct isKindOfClass:[KittenCreateController class]]
-        && [segue.identifier isEqualToString:@"AddKitten"])
+    KittenEditController *kct = segue.destinationViewController;
+    if ([kct isKindOfClass:[KittenEditController class]]
+        && [segue.identifier isEqualToString:@"EditKitten"])
     {
         kct.delegate = self;
+        
+        if (self.tableView.editing) {
+            kct.catToEdit = [self kittenByIndexPath:[self currentIndex]];
+        } else {
+            kct.catToEdit = [[Cat alloc] initWithEntity:[Cat entityFromContext:context] insertIntoManagedObjectContext:context];
+        }
     }
 }
 

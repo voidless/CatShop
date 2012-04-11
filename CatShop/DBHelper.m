@@ -6,6 +6,8 @@
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
+
+// set from flipController to children
 + (DBHelper *)dbHelper
 {
     static DBHelper *instance;

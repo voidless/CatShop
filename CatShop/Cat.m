@@ -124,9 +124,38 @@
 
 - (void)delete
 {
+    // if path is not pointing to app bundle
+    if (![self.imagePath isEqualToString:[self.imagePath lastPathComponent]])
+    {
+        NSError *err;
+        [[NSFileManager defaultManager] removeItemAtPath:self.imagePath error:&err];
+        if (err) {
+            NSLog(@"cat image deletion failed: %@", [err localizedDescription]);
+        }
+    }
+    
     [self.managedObjectContext deleteObject:self];
     
-    [self save];
+    NSError *err;
+    [self.managedObjectContext save:&err];
+    NSAssert(err == nil, @"Error saving context: %@", [err localizedDescription]);
+}
+
+- (void)saveImageToDisk
+{
+    NSString *folderPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    folderPath = [folderPath stringByAppendingPathComponent:@"Images"];
+    
+    NSError *err;
+    [[NSFileManager defaultManager] createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:&err];
+    
+    // -> get folder
+    
+    NSString *imgPath = [folderPath stringByAppendingPathComponent:[[[self.objectID URIRepresentation] lastPathComponent] stringByAppendingFormat:@".png"]];
+    
+    [UIImagePNGRepresentation(self.image) writeToFile:imgPath atomically:YES];
+    
+    self.imagePath = imgPath;
 }
 
 - (void)save
@@ -134,14 +163,24 @@
     NSError *err;
     [self.managedObjectContext save:&err];
     NSAssert(err == nil, @"Error saving context: %@", [err localizedDescription]);
+    
+    [self saveImageToDisk];
+    // move to db save hook
+    
+    [self.managedObjectContext save:&err];
+    NSAssert(err == nil, @"Error saving context: %@", [err localizedDescription]);
 }
 
 #pragma mark - Instance
 
 
-#pragma Getters
+#pragma Properties
 
-// TODO: set _image to nil on imagePath change
+- (void) setImage:(UIImage *)image
+{
+    self._image = image;
+}
+
 - (UIImage*)image
 {
     UIImage *img = self._image;

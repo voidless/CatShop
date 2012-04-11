@@ -1,4 +1,5 @@
 #import "DatePickerController.h"
+#import "NSDateFormatter+CatDateFormatter.h"
 
 @interface DatePickerController ()
 
@@ -10,9 +11,7 @@
 @end
 
 
-@implementation DatePickerController {
-    dispatch_once_t onceToken;
-}
+@implementation DatePickerController
 
 @synthesize dateField;
 @synthesize datePicker;
@@ -43,18 +42,19 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder])
+    {
+        calendar = [NSCalendar currentCalendar];
+        dateFormatter = [NSDateFormatter catDateFormatter];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    dispatch_once(&onceToken, ^{
-        calendar = [NSCalendar currentCalendar];
-        
-        dateFormatter = [NSDateFormatter new];
-        dateFormatter.timeStyle = NSDateFormatterNoStyle;
-        dateFormatter.dateStyle = NSDateFormatterLongStyle;
-        dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"];
-    });
     
     NSDate *currDate = [NSDate date];
     NSDateComponents *offsetComponents = [NSDateComponents new];

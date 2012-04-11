@@ -2,6 +2,7 @@
 #import "Cat.h"
 #import "KittenPhotoController.h"
 #import "DBHelper.h"
+#import "NSDateFormatter+CatDateFormatter.h"
 
 @interface KittenDescriptionController ()
 
@@ -52,8 +53,7 @@
         kittenPriceLabel.text = @"Не продается";
     }
 
-    NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"MMM yyyy"];
+    NSDateFormatter *df = [NSDateFormatter catDateFormatter];
     kittenBirthLabel.text = [df stringFromDate:k.birth];
     
     if (!k.motherId)
