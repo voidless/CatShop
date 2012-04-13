@@ -2,17 +2,19 @@
 
 @interface Cat : NSManagedObject
 
-+ (NSArray*) catsWithContext:(NSManagedObjectContext *)context;
-+ (NSInteger) countWithContext:(NSManagedObjectContext *)context;
++ (NSArray *)catsWithContext:(NSManagedObjectContext *)context;
 
-+ (NSArray*) catsOnSaleFromContext:(NSManagedObjectContext *)context;
++ (NSInteger)countWithContext:(NSManagedObjectContext *)context;
 
-+ (Cat*) catWithId:(NSManagedObjectID*)CatId andContext:(NSManagedObjectContext *)context;
++ (NSArray *)catsOnSaleFromContext:(NSManagedObjectContext *)context;
+
++ (Cat *)catWithId:(NSManagedObjectID *)CatId andContext:(NSManagedObjectContext *)context;
 
 
 + (NSEntityDescription *)entityFromContext:(NSManagedObjectContext *)ctx;
 
 - (void)save;
+
 - (void)delete;
 
 #pragma mark - Property

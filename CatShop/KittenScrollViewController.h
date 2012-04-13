@@ -3,7 +3,7 @@
 #import "KittenFlipperDelegateHolder.h"
 
 @interface KittenScrollViewController : UIViewController
-<UIScrollViewDelegate, KittenPhotoClickDelegate, KittenFlipperDelegateHolder>
+        <UIScrollViewDelegate, KittenPhotoClickDelegate, KittenFlipperDelegateHolder>
 
 // cacheNextViewsAmount must be positive
 @property NSInteger cacheNextViewsAmount;

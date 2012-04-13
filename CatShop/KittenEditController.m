@@ -57,14 +57,14 @@
         [priceField becomeFirstResponder];
         return;
     }
-    
+
     catToEdit.name = nameField.text;
     catToEdit.breed = breedField.text;
     catToEdit.price = [priceField.text integerValue];
     catToEdit.male = (maleSegCont.selectedSegmentIndex == 0);
-    
+
     [delegate kittenFinishedEditing:catToEdit];
-    
+
     [self doReturn];
 }
 
@@ -73,7 +73,7 @@
 {
     DatePickerController *dpc = segue.destinationViewController;
     if ([dpc isKindOfClass:[DatePickerController class]]
-        && [segue.identifier isEqualToString:@"DatePick"]) {
+            && [segue.identifier isEqualToString:@"DatePick"]) {
         dpc.delegate = self;
     }
 }
@@ -89,10 +89,12 @@
 
 - (void)presentImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType
 {
-    UIImagePickerController *imagePicker = [UIImagePickerController new];
-    imagePicker.delegate = self;
-    imagePicker.sourceType = sourceType;
-    [self presentViewController:imagePicker animated:YES completion:nil];
+    if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        UIImagePickerController *imagePicker = [UIImagePickerController new];
+        imagePicker.delegate = self;
+        imagePicker.sourceType = sourceType;
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }
 }
 
 - (IBAction)doPhoto
@@ -110,17 +112,18 @@
     UIImage *originalImage, *editedImage;
     editedImage = (UIImage *) [info objectForKey:UIImagePickerControllerEditedImage];
     originalImage = (UIImage *) [info objectForKey:UIImagePickerControllerOriginalImage];
-    
+
     if (editedImage) {
         imageView.image = editedImage;
     } else {
         imageView.image = originalImage;
     }
-    
+
     catToEdit.image = imageView.image;
-    
+
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -131,8 +134,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    if (self = [super initWithCoder:aDecoder])
-    {
+    if (self = [super initWithCoder:aDecoder]) {
         context = [[DBHelper dbHelper] managedObjectContext];
         dateFormatter = [NSDateFormatter catDateFormatter];
     }
@@ -142,22 +144,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     captureButton.hidden = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO;
-    
+
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Сохранить" style:UIBarButtonItemStyleDone target:self action:@selector(doSave)];
     self.navigationItem.rightBarButtonItem = save;
-    
+
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Отменить" style:UIBarButtonItemStyleBordered target:self action:@selector(doReturn)];
     self.navigationItem.leftBarButtonItem = cancel;
 }
-    
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
+
     nameField.text = catToEdit.name;
     breedField.text = catToEdit.breed;
     priceField.text = [NSString stringWithFormat:@"%d", catToEdit.price];

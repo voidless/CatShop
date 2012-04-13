@@ -1,11 +1,10 @@
 #import "KittenTableViewController.h"
-#import "Cat.h"
-#import "SortedCat.h"
 #import "CurrentCat.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableCellController.h"
 #import "KittenEditController.h"
 #import "DBHelper.h"
+#import "Cat+SortedCat.h"
 
 @interface KittenTableViewController ()
 
@@ -38,16 +37,15 @@
     [self.tableView setEditing:!isEditing animated:YES];
 }
 
-- (void)kittenFinishedEditing:(Cat*)newCat
+- (void)kittenFinishedEditing:(Cat *)newCat
 {
 //    NSLog(@"recieved cat: %@", newCat);
     [newCat save];
-    
-    if (self.tableView.editing)
-    {
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self currentIndex]] withRowAnimation:NO];
+
+    if (self.tableView.editing) {
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self currentIndex]] withRowAnimation:UITableViewRowAnimationNone];
     } else {
-        NSUInteger pIdx = [Cat countWithContext:context] - 1;
+        NSInteger pIdx = [Cat countWithContext:context] - 1;
         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:pIdx inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
     }
 }
@@ -58,46 +56,45 @@
     return [Cat countWithContext:context];
 }
 
-- (Cat*)kittenByIndexPath:(NSIndexPath*)idxp
+- (Cat *)kittenByIndexPath:(NSIndexPath *)idxp
 {
-    return [SortedCat catSortedAtIndex:idxp.row withContext:context];
+    return [Cat catSortedAtIndex:idxp.row withContext:context];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"KittenCell";
     KittenTableCellController *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    
+
     NSAssert(cell != nil, @"Cell with id %@ doesn't exist", cellId);
-    
+
     Cat *k = [self kittenByIndexPath:indexPath];
-    
+
     cell.nameLabel.text = k.name;
-    
-    if (k.price > 0)
-    {
+
+    if (k.price > 0) {
         cell.priceLabel.text = [[NSString alloc] initWithFormat:@"$%d", k.price];
     } else {
         cell.priceLabel.text = @"Не продается";
     }
-    
+
     cell.photoImage.image = k.image;
-    
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-    [SortedCat moveCatSortedFromIndex:sourceIndexPath.row toIndex:destinationIndexPath.row withContext:context];
+    [Cat moveCatSortedFromIndex:sourceIndexPath.row toIndex:destinationIndexPath.row withContext:context];
 }
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Cat *k = [self kittenByIndexPath:indexPath];
-    
+
     [k delete];
-    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];    
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Table view delegate
@@ -115,13 +112,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self setCurrentIndex:indexPath];
-    
+
     if (tableView.editing) {
         [self performSegueWithIdentifier:@"EditKitten" sender:self];
     } else {
         [self performSegueWithIdentifier:@"DescSegue" sender:self];
     }
-    
+
 }
 
 #pragma mark - Segue
@@ -130,17 +127,15 @@
 {
     KittenDescriptionController *kdc = segue.destinationViewController;
     if ([kdc isKindOfClass:[KittenDescriptionController class]]
-        && [segue.identifier isEqualToString:@"DescSegue"])
-    {
+            && [segue.identifier isEqualToString:@"DescSegue"]) {
         kdc.kitten = [Cat catWithId:currentCat.currentCatId andContext:context];
     }
-    
+
     KittenEditController *kct = segue.destinationViewController;
     if ([kct isKindOfClass:[KittenEditController class]]
-        && [segue.identifier isEqualToString:@"EditKitten"])
-    {
+            && [segue.identifier isEqualToString:@"EditKitten"]) {
         kct.delegate = self;
-        
+
         if (self.tableView.editing) {
             kct.catToEdit = [self kittenByIndexPath:[self currentIndex]];
         } else {
@@ -151,36 +146,36 @@
 
 #pragma mark Marking
 
-- (void)markRowAtIndex:(NSIndexPath*)indexPath
+- (void)markRowAtIndex:(NSIndexPath *)indexPath
 {
     [self.tableView selectRowAtIndexPath:indexPath
-                                animated:NO
-                          scrollPosition:UITableViewScrollPositionMiddle];
+                                animated:NO scrollPosition:UITableViewScrollPositionMiddle];
 }
 
-- (NSIndexPath*)currentIndex
+- (NSIndexPath *)currentIndex
 {
     if (currentCat.currentCatId == nil) {
         return 0;
     }
-    
-    NSArray *cats = [SortedCat catsSortedWithContext:context];
-    
-    NSUInteger idx = [cats indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
-        Cat *cat = (Cat *)obj;
-        *stop = ([cat.objectID isEqual:currentCat.currentCatId]);
-        return *stop;
-    }];
-    
+
+    NSArray *cats = [Cat catsSortedWithContext:context];
+
+    NSUInteger idx = [cats indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop)
+                                                    {
+                                                        Cat *cat = (Cat *) obj;
+                                                        *stop = ([cat.objectID isEqual:currentCat.currentCatId]);
+                                                        return *stop;
+                                                    }];
+
     if (idx != NSNotFound) {
         return [NSIndexPath indexPathForRow:idx inSection:0];
     }
     return 0;
 }
 
-- (void)setCurrentIndex:(NSIndexPath*)index
+- (void)setCurrentIndex:(NSIndexPath *)index
 {
-    currentCat.currentCatId = [[SortedCat catSortedAtIndex:index.row withContext:context] objectID];
+    currentCat.currentCatId = [[Cat catSortedAtIndex:index.row withContext:context] objectID];
 }
 
 
@@ -189,7 +184,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     context = [[DBHelper dbHelper] managedObjectContext];
     currentCat = [CurrentCat currentCat];
 }
@@ -197,9 +192,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
+
     [self markRowAtIndex:[self currentIndex]];
 }
 

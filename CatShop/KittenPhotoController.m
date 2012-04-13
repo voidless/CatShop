@@ -27,7 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     modalImageView.image = kittenImage;
 }
 

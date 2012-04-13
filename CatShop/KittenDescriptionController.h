@@ -4,7 +4,7 @@
 #import "Cat.h"
 
 @interface KittenDescriptionController : UIViewController
-<KittenPhotoClickDelegate>
+        <KittenPhotoClickDelegate>
 
 #pragma mark - IBOutlet
 
@@ -20,6 +20,7 @@
 #pragma mark - IBAction
 
 - (IBAction)showFather;
+
 - (IBAction)showMother;
 
 #pragma mark - Data

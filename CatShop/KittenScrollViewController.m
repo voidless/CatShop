@@ -1,11 +1,10 @@
 #import "KittenScrollViewController.h"
 #import "Cat.h"
-#import "SortedCat.h"
 #import "CurrentCat.h"
 #import "KittenPhotoController.h"
 #import "KittenDescriptionController.h"
-#import "KittenTableViewController.h"
 #import "DBHelper.h"
+#import "Cat+SortedCat.h"
 
 @interface KittenScrollViewController ()
 
@@ -31,29 +30,27 @@
 
 - (void)loadScrollViewWithPage:(int)page
 {
-    if (page < 0 || page >= [Cat countWithContext:context])
-    {
+    if (page < 0 || page >= [Cat countWithContext:context]) {
         return;
     }
-    
+
     KittenPhotoController *kpc = [viewControllers objectAtIndex:page];
-    if ((NSNull *)kpc == [NSNull null])
-    {
-        Cat *k = [SortedCat catSortedAtIndex:page withContext:context];
-        
+    if ((NSNull *) kpc == [NSNull null]) {
+        Cat *k = [Cat catSortedAtIndex:page withContext:context];
+
         UIImage *image = k.image;
-        
+
         kpc = [self.storyboard instantiateViewControllerWithIdentifier:@"fullscreenView"];
         kpc.kittenImage = image;
         kpc.kittenIndex = page;
         kpc.delegate = self;
-        
+
         [viewControllers replaceObjectAtIndex:page withObject:kpc];
-        
+
         [self addChildViewController:kpc];
         [kpc didMoveToParentViewController:self];
         [scrollView addSubview:kpc.view];
-        
+
         CGRect frame = scrollView.frame;
         frame.origin.x = frame.size.width * page;
         kpc.view.frame = frame;
@@ -62,14 +59,12 @@
 
 - (void)unloadScrollViewWithPage:(int)page
 {
-    if (page < 0 || page >= [Cat countWithContext:context])
-    {
+    if (page < 0 || page >= [Cat countWithContext:context]) {
         return;
     }
-    
+
     KittenPhotoController *kpc = [viewControllers objectAtIndex:page];
-    if ((NSNull *)kpc != [NSNull null])
-    {   
+    if ((NSNull *) kpc != [NSNull null]) {
         [kpc.view removeFromSuperview];
         [kpc willMoveToParentViewController:nil];
         [kpc removeFromParentViewController];
@@ -82,15 +77,16 @@
     if (currentCat.currentCatId == nil) {
         return 0;
     }
-    
-    NSArray *cats = [SortedCat catsSortedWithContext:context];
-    
-    NSUInteger idx = [cats indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
-        Cat *cat = (Cat *)obj;
-        *stop = ([cat.objectID isEqual:currentCat.currentCatId]);
-        return *stop;
-    }];
-    
+
+    NSArray *cats = [Cat catsSortedWithContext:context];
+
+    NSUInteger idx = [cats indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop)
+                                                    {
+                                                        Cat *cat = (Cat *) obj;
+                                                        *stop = ([cat.objectID isEqual:currentCat.currentCatId]);
+                                                        return *stop;
+                                                    }];
+
     if (idx != NSNotFound) {
         return idx;
     }
@@ -99,22 +95,20 @@
 
 - (void)setCurrentPage:(NSInteger)page
 {
-    currentCat.currentCatId = [[SortedCat catSortedAtIndex:page withContext:context] objectID];
+    currentCat.currentCatId = [[Cat catSortedAtIndex:page withContext:context] objectID];
 }
 
 - (void)reloadScrollViews
 {
     NSAssert(cacheNextViewsAmount >= 0, @"cacheNextViewsAmount must be positive. had %d", cacheNextViewsAmount);
-    
+
     NSInteger currentPage = [self currentPage];
-    
+
     NSInteger leftLimit = currentPage - cacheNextViewsAmount;
     NSInteger rightLimit = currentPage + cacheNextViewsAmount;
-    
-    for (NSInteger page = 0; page < [Cat countWithContext:context]; page++)
-    {
-        if (page >= leftLimit && page <= rightLimit)
-        {
+
+    for (NSInteger page = 0; page < [Cat countWithContext:context]; page++) {
+        if (page >= leftLimit && page <= rightLimit) {
             [self loadScrollViewWithPage:page];
         } else {
             [self unloadScrollViewWithPage:page];
@@ -127,10 +121,10 @@
 
 - (void)scrollToCurrentPage
 {
-    
+
     CGPoint contentOffset = scrollView.contentOffset;
     CGFloat pageWidth = scrollView.frame.size.width;
-    
+
     contentOffset.x = pageWidth * [self currentPage];
     scrollView.contentOffset = contentOffset;
 }
@@ -140,9 +134,8 @@
 - (void)scrollViewDidScroll:(UIScrollView *)source
 {
     CGFloat pageWidth = source.frame.size.width;
-    int page = (source.contentOffset.x - pageWidth/2) / pageWidth + 1;
-    if ([self currentPage] != page)
-    {
+    int page = (source.contentOffset.x - pageWidth / 2) / pageWidth + 1;
+    if ([self currentPage] != page) {
         [self setCurrentPage:page];
         [self reloadScrollViews];
     }
@@ -167,9 +160,8 @@
 {
     KittenDescriptionController *kdc = segue.destinationViewController;
     BOOL isDescrCont = [kdc isKindOfClass:[KittenDescriptionController class]];
-    
-    if (isDescrCont && [segue.identifier isEqualToString:@"DescSegue"])
-    {
+
+    if (isDescrCont && [segue.identifier isEqualToString:@"DescSegue"]) {
         kdc.kitten = [Cat catWithId:currentCat.currentCatId andContext:context];
     }
 }
@@ -179,24 +171,23 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
+
     context = [[DBHelper dbHelper] managedObjectContext];
     currentCat = [CurrentCat currentCat];
-    
+
     viewControllers = [[NSMutableArray alloc] initWithCapacity:[Cat countWithContext:context]];
-    
-    for (NSInteger idx = 0; idx < [Cat countWithContext:context]; idx++)
-    {
+
+    for (NSInteger idx = 0; idx < [Cat countWithContext:context]; idx++) {
         [viewControllers addObject:[NSNull null]];
     }
-    
+
     cacheNextViewsAmount = 1;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     scrollView.delegate = self;
 }
 
@@ -205,8 +196,8 @@
     [super viewWillAppear:animated];
 
     scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * [Cat countWithContext:context],
-                                        scrollView.frame.size.height);
-    
+            scrollView.frame.size.height);
+
     [self reloadScrollViews];
     [self scrollToCurrentPage];
 

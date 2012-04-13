@@ -13,7 +13,7 @@
 
 #pragma mark - Data
 
-@property (weak) id<KittenPhotoClickDelegate> delegate;
+@property (weak) id <KittenPhotoClickDelegate> delegate;
 @property (assign) NSUInteger kittenIndex;
 
 @end

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84528D901532FF6600597B59 /* SortedCat.m in Sources */ = {isa = PBXBuildFile; fileRef = 84528D8F1532FF6600597B59 /* SortedCat.m */; };
 		84528D97153321DB00597B59 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84528D96153321DB00597B59 /* CoreData.framework */; };
 		84528D9A153327B500597B59 /* DBModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84528D98153327B500597B59 /* DBModel.xcdatamodeld */; };
 		84528D9D153333E200597B59 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84528D9C153333E200597B59 /* DBHelper.m */; };
@@ -37,11 +36,10 @@
 		D9C2524B152B4503002387EB /* FlipController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C2524A152B4503002387EB /* FlipController.m */; };
 		D9C7D82315235937008FEEAD /* cat4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D9C7D82215235937008FEEAD /* cat4.jpeg */; };
 		D9CC0A0D1522135600184556 /* KittenDescriptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CC0A0C1522135600184556 /* KittenDescriptionController.m */; };
+		D9CC0A0F1522135A00184558 /* Cat+SortedCat.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CC0A0F1522135A00184557 /* Cat+SortedCat.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		84528D8E1532FF6600597B59 /* SortedCat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortedCat.h; sourceTree = "<group>"; };
-		84528D8F1532FF6600597B59 /* SortedCat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortedCat.m; sourceTree = "<group>"; };
 		84528D96153321DB00597B59 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		84528D99153327B500597B59 /* DBModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DBModel.xcdatamodel; sourceTree = "<group>"; };
 		84528D9B153333E200597B59 /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBHelper.h; sourceTree = "<group>"; };
@@ -92,6 +90,8 @@
 		D9C7D82215235937008FEEAD /* cat4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat4.jpeg; sourceTree = "<group>"; };
 		D9CC0A0B1522135600184556 /* KittenDescriptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenDescriptionController.h; sourceTree = "<group>"; };
 		D9CC0A0C1522135600184556 /* KittenDescriptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KittenDescriptionController.m; sourceTree = "<group>"; };
+		D9CC0A0F1522135A00184557 /* Cat+SortedCat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Cat+SortedCat.m"; sourceTree = "<group>"; };
+		D9CC0A0F1522135A00184559 /* Cat+SortedCat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Cat+SortedCat.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,10 +112,10 @@
 		8472A784151B5A8A0004C5D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D9CC0A0F1522135A00184559 /* Cat+SortedCat.h */,
+				D9CC0A0F1522135A00184557 /* Cat+SortedCat.m */,
 				D9BAC586151A2AF4004EB018 /* Cat.h */,
 				D9BAC587151A2AF4004EB018 /* Cat.m */,
-				84528D8E1532FF6600597B59 /* SortedCat.h */,
-				84528D8F1532FF6600597B59 /* SortedCat.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -150,14 +150,14 @@
 			name = cell;
 			sourceTree = "<group>";
 		};
-		D9011142152F627800CFFF7C /* KittenCreateController */ = {
+		D9011142152F627800CFFF7C /* KittenEditController */ = {
 			isa = PBXGroup;
 			children = (
 				84528DA0153380AF00597B59 /* KittenEditControllerDelegate.h */,
 				845553301534504900241869 /* KittenEditController.h */,
 				845553311534504900241869 /* KittenEditController.m */,
 			);
-			name = KittenCreateController;
+			name = KittenEditController;
 			sourceTree = "<group>";
 		};
 		D95BAEDD15260D8B0042C26E /* ScrollView */ = {
@@ -252,7 +252,7 @@
 				D95BAEDD15260D8B0042C26E /* ScrollView */,
 				D9CC0A0F1522135A00184556 /* KittenDescription */,
 				8472A786151B5AAC0004C5D8 /* Enlarge */,
-				D9011142152F627800CFFF7C /* KittenCreateController */,
+				D9011142152F627800CFFF7C /* KittenEditController */,
 				D98AF50A153485DD00BF93C1 /* DatePicker */,
 				8472A784151B5A8A0004C5D8 /* Model */,
 				D98AF51015349B2200BF93C1 /* CurrentCat */,
@@ -390,13 +390,13 @@
 				D95BAEE5152623FB0042C26E /* KittenTableViewController.m in Sources */,
 				D9C2524B152B4503002387EB /* FlipController.m in Sources */,
 				84D3660A152E287B0030E3D2 /* KittenTableCellController.m in Sources */,
-				84528D901532FF6600597B59 /* SortedCat.m in Sources */,
 				84528D9A153327B500597B59 /* DBModel.xcdatamodeld in Sources */,
 				84528D9D153333E200597B59 /* DBHelper.m in Sources */,
 				845553321534504900241869 /* KittenEditController.m in Sources */,
 				D98AF50E153485FD00BF93C1 /* DatePickerController.m in Sources */,
 				D98AF51315349B4400BF93C1 /* CurrentCat.m in Sources */,
 				D9907F6F1535F68B00FB9EBE /* NSDateFormatter+CatDateFormatter.m in Sources */,
+				D9CC0A0F1522135A00184558 /* Cat+SortedCat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +443,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -462,6 +463,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

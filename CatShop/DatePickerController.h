@@ -7,6 +7,6 @@
 @property (weak) IBOutlet UIDatePicker *datePicker;
 @property (weak) IBOutlet UITextField *dateField;
 
-@property (weak) id<DatePickerDelegate> delegate;
+@property (weak) id <DatePickerDelegate> delegate;
 
 @end

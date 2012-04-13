@@ -8,6 +8,7 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 + (DBHelper *)dbHelper;
+
 + (NSArray *)execFetch:(NSFetchRequest *)request withContext:(NSManagedObjectContext *)context;
 
 @end

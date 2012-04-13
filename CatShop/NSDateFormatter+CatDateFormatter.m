@@ -8,7 +8,7 @@
     dateFormatter.timeStyle = NSDateFormatterNoStyle;
     dateFormatter.dateStyle = NSDateFormatterLongStyle;
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"];
-    
+
     return dateFormatter;
 }
 

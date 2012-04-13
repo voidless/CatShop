@@ -4,7 +4,7 @@
 #import "Cat.h"
 
 @interface KittenEditController : UITableViewController
-<DatePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+        <DatePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak) IBOutlet UIImageView *imageView;
 
@@ -16,7 +16,7 @@
 @property (weak) IBOutlet UIButton *captureButton;
 @property (weak) IBOutlet UIButton *galleryButton;
 
-@property (weak) id<KittenEditControllerDelegate> delegate;
+@property (weak) id <KittenEditControllerDelegate> delegate;
 
 @property (strong) Cat *catToEdit;
 

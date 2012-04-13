@@ -4,6 +4,6 @@
 
 @protocol KittenFlipperDelegateHolder <NSObject>
 
-@property (weak) id<KittenFlipperDelegate> delegate;
+@property (weak) id <KittenFlipperDelegate> delegate;
 
 @end

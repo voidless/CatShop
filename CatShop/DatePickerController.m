@@ -44,8 +44,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    if (self = [super initWithCoder:aDecoder])
-    {
+    if ((self = [super initWithCoder:aDecoder])) {
         calendar = [NSCalendar currentCalendar];
         dateFormatter = [NSDateFormatter catDateFormatter];
     }
@@ -55,19 +54,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     NSDate *currDate = [NSDate date];
     NSDateComponents *offsetComponents = [NSDateComponents new];
     [offsetComponents setYear:-1];
-    
+
     [datePicker addTarget:self action:@selector(dateSelected) forControlEvents:UIControlEventValueChanged];
     datePicker.maximumDate = currDate;
     datePicker.minimumDate = [calendar dateByAddingComponents:offsetComponents toDate:currDate options:0];
-    
-    
+
+
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Сохранить" style:UIBarButtonItemStyleDone target:self action:@selector(doSave)];
     self.navigationItem.rightBarButtonItem = save;
-    
+
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Отменить" style:UIBarButtonItemStyleBordered target:self action:@selector(doReturn)];
     self.navigationItem.leftBarButtonItem = cancel;
 }

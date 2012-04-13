@@ -3,6 +3,6 @@
 
 @protocol KittenEditControllerDelegate <NSObject>
 
-- (void)kittenFinishedEditing:(Cat*)newCat;
+- (void)kittenFinishedEditing:(Cat *)newCat;
 
 @end
