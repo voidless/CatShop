@@ -251,8 +251,8 @@
 		D9BAC557151A1A4D004EB018 /* CatShop */ = {
 			isa = PBXGroup;
 			children = (
-				D9C25247152B44C3002387EB /* FlipController */,
 				D95BAEE2152623D20042C26E /* TableView */,
+				D9C25247152B44C3002387EB /* FlipController */,
 				D95BAEDD15260D8B0042C26E /* ScrollView */,
 				D9CC0A0F1522135A00184556 /* KittenDescription */,
 				8472A786151B5AAC0004C5D8 /* Enlarge */,
