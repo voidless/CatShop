@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 
-#import "KittenListController.h"
 #import "CurrentCat.h"
 
 @protocol KittenListControllerDelegate;

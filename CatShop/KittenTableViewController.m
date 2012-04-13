@@ -33,7 +33,6 @@
 
 - (void)kittenFinishedEditing:(Cat *)newCat
 {
-//    NSLog(@"recieved cat: %@", newCat);
     [newCat save];
 
     if (self.tableView.editing) {
@@ -176,11 +175,6 @@
 
 
 #pragma mark Lifetime
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {

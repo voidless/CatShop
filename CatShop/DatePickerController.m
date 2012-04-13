@@ -44,13 +44,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (void)awakeFromNib
 {
-    if ((self = [super initWithCoder:aDecoder])) {
-        calendar = [NSCalendar currentCalendar];
-        dateFormatter = [NSDateFormatter catDateFormatter];
-    }
-    return self;
+    calendar = [NSCalendar currentCalendar];
+    dateFormatter = [NSDateFormatter catDateFormatter];
 }
 
 - (void)viewDidLoad
@@ -66,9 +63,9 @@
     self.navigationItem.leftBarButtonItem = cancel;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
 
     NSDate *currDate = [NSDate date];
     NSDateComponents *offsetComponents = [NSDateComponents new];

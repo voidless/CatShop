@@ -162,15 +162,6 @@
 
 #pragma mark - Lifetime
 
-//- (void)awakeFromNib
-//{
-//    [super awakeFromNib];
-//
-////    context = [[DBHelper dbHelper] managedObjectContext];
-////    currentCat = [CurrentCat new];
-//
-//}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

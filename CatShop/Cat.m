@@ -67,7 +67,6 @@
 + (NSArray *)loadFromPlistToContext:(NSManagedObjectContext *)context
 {
     NSArray *catArray = [self catsFromPlist:@"catlist.plist" andContext:context];
-    NSLog(@"loaded %d cats from plist", catArray.count);
     return catArray;
 }
 
@@ -112,20 +111,6 @@
         NSLog(@"Fetching catWithId failed: %@", [err localizedDescription]);
     }
     return cat;
-
-//TODO: test this
-//
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//    fetchRequest.entity = [Cat entityFromContext:context];
-//    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"self == %@", CatId];
-//
-//    NSArray *result = [DBManager execFetch:fetchRequest withContext:context];
-//
-//    if (result.count > 0) {
-//        return [result objectAtIndex:0];
-//    }
-//
-//    return nil;
 }
 
 - (void)delete
@@ -182,9 +167,7 @@
 
         self.imagePath = imgPath;
         image = nil;
-        NSLog(@"imgPath: %@", imgPath);
     }
-
 }
 
 - (void)save
