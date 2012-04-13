@@ -17,6 +17,6 @@
 
 @protocol KittenListControllerDelegate <NSObject>
 
-- (void)kittenListControllerDidFinish:(UIViewController<KittenListController> *)controller;
+- (void)kittenListControllerDidFinish:(UIViewController <KittenListController> *)controller;
 
 @end

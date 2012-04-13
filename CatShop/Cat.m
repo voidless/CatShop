@@ -105,14 +105,14 @@
     if (CatId == nil) {
         return nil;
     }
-  
+
     NSError *err;
-    Cat *cat = (Cat *)[context existingObjectWithID:CatId error:&err];
+    Cat *cat = (Cat *) [context existingObjectWithID:CatId error:&err];
     if (err) {
         NSLog(@"Fetching catWithId failed: %@", [err localizedDescription]);
     }
     return cat;
-    
+
 //TODO: test this
 //
 //    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

@@ -9,7 +9,7 @@
     NSFetchRequest *fetchReq = [[NSFetchRequest alloc] init];
     fetchReq.entity = [Cat entityFromContext:context];
     fetchReq.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"rating" ascending:NO]];
-    
+
     return [context execFetch:fetchReq];
 }
 

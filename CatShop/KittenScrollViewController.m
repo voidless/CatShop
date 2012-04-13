@@ -73,15 +73,15 @@
 
     NSArray *cats = [Cat catsSortedWithContext:context];
 
-    NSUInteger idx = [cats indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop)
-                                                    {
-                                                        Cat *cat = (Cat *) obj;
-                                                        *stop = ([cat.objectID isEqual:currentCat.currentCatId]);
-                                                        return *stop;
-                                                    }];
+    NSUInteger index = [cats indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop)
+                                                      {
+                                                          Cat *cat = (Cat *) obj;
+                                                          *stop = ([cat.objectID isEqual:currentCat.currentCatId]);
+                                                          return *stop;
+                                                      }];
 
-    if (idx != NSNotFound) {
-        return idx;
+    if (index != NSNotFound) {
+        return index;
     }
     return 0;
 }
@@ -174,13 +174,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     viewControllers = [[NSMutableArray alloc] initWithCapacity:[Cat countWithContext:context]];
-    
+
     for (NSInteger idx = 0; idx < [Cat countWithContext:context]; idx++) {
         [viewControllers addObject:[NSNull null]];
     }
-    
+
     cacheNextViewsAmount = 1;
 }
 

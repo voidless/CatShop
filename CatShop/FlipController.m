@@ -1,6 +1,5 @@
 #import "FlipController.h"
 #import "DBManager.h"
-#import "CurrentCat.h"
 
 @interface FlipController ()
 
@@ -58,7 +57,7 @@
                                        }];
 }
 
-- (void)kittenListControllerDidFinish:(UIViewController<KittenListController> *)controller
+- (void)kittenListControllerDidFinish:(UIViewController <KittenListController> *)controller
 {
     if (frontSide) {
         [self flipToVCWithId:backVC];
@@ -71,10 +70,10 @@
 {
     UIViewController <KittenListController> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
     presentingController = newVC;
-    
+
     presentingController.context = [dbManager managedObjectContext];
     presentingController.currentCat = currentCat;
-    
+
     presentingController.view.frame = self.view.bounds;
 
     [self addChildViewController:presentingController];
@@ -99,7 +98,7 @@
     backVC = @"KittenTableVC";
 
     frontSide = YES;
-    
+
     dbManager = [DBManager new];
     currentCat = [[CurrentCat alloc] initWithContext:[dbManager managedObjectContext]];
 }

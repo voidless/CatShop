@@ -69,11 +69,11 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
     NSDate *currDate = [NSDate date];
     NSDateComponents *offsetComponents = [NSDateComponents new];
     [offsetComponents setYear:-1];
-    
+
     datePicker.maximumDate = currDate;
     datePicker.minimumDate = [calendar dateByAddingComponents:offsetComponents toDate:currDate options:0];
 
