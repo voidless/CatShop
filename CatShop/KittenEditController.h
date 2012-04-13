@@ -4,7 +4,7 @@
 #import "Cat.h"
 
 @interface KittenEditController : UITableViewController
-        <DatePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+        <DatePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
 @property (weak) IBOutlet UIImageView *imageView;
 

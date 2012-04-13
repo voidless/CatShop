@@ -7,9 +7,6 @@
 
 - (id)initWithDict:(NSDictionary *)dict andContext:(NSManagedObjectContext *)ctx;
 
-@property (strong) UIImage *_image;
-@property BOOL imageNeedToSave;
-
 #define CAT_REQ_ALL @"AllCats"
 
 @end
@@ -29,8 +26,7 @@
 @dynamic fatherId;
 @dynamic motherId;
 
-@synthesize _image;
-@synthesize imageNeedToSave;
+@synthesize image;
 
 
 #pragma mark - Core Data
@@ -162,8 +158,7 @@
 
 - (void)saveImageToDisk
 {
-    if (self._image && self.imageNeedToSave) {
-        self.imageNeedToSave = NO;
+    if (image) {
         [self deleteImageFromDisk];
 
         CFUUIDRef uuid = CFUUIDCreate(nil);
@@ -172,9 +167,12 @@
 
         NSString *imgPath = [[self imageFolder] stringByAppendingPathComponent:[uuidStr stringByAppendingFormat:@".png"]];
 
-        [UIImagePNGRepresentation(self._image) writeToFile:imgPath atomically:YES];
+        if (![UIImagePNGRepresentation(image) writeToFile:imgPath atomically:YES]) {
+            NSLog(@"Error saving image for cat %@ to path: %@", self.objectID, imgPath);
+        }
 
         self.imagePath = imgPath;
+        image = nil;
         NSLog(@"imgPath: %@", imgPath);
     }
 
@@ -201,20 +199,14 @@
 
 #pragma Properties
 
-- (void)setImage:(UIImage *)image
+- (void)setImage:(UIImage *)img
 {
-    self._image = image;
-    self.imageNeedToSave = YES;
+    image = img;
 }
 
 - (UIImage *)image
 {
-    UIImage *img = self._image;
-    if (img == nil) {
-        img = [UIImage imageWithContentsOfFile:self.imagePath];
-        self._image = img;
-    }
-    return img;
+    return image ? image : [UIImage imageWithContentsOfFile:self.imagePath];
 }
 
 + (NSString *)genderByBool:(BOOL)gender

@@ -21,6 +21,8 @@
 @synthesize calendar;
 @synthesize selectedDate;
 
+@synthesize date;
+
 - (void)dateSelected
 {
     selectedDate = datePicker.date;
@@ -55,20 +57,28 @@
 {
     [super viewDidLoad];
 
-    NSDate *currDate = [NSDate date];
-    NSDateComponents *offsetComponents = [NSDateComponents new];
-    [offsetComponents setYear:-1];
-
     [datePicker addTarget:self action:@selector(dateSelected) forControlEvents:UIControlEventValueChanged];
-    datePicker.maximumDate = currDate;
-    datePicker.minimumDate = [calendar dateByAddingComponents:offsetComponents toDate:currDate options:0];
-
 
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Сохранить" style:UIBarButtonItemStyleDone target:self action:@selector(doSave)];
     self.navigationItem.rightBarButtonItem = save;
 
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Отменить" style:UIBarButtonItemStyleBordered target:self action:@selector(doReturn)];
     self.navigationItem.leftBarButtonItem = cancel;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    NSDate *currDate = [NSDate date];
+    NSDateComponents *offsetComponents = [NSDateComponents new];
+    [offsetComponents setYear:-1];
+    
+    datePicker.maximumDate = currDate;
+    datePicker.minimumDate = [calendar dateByAddingComponents:offsetComponents toDate:currDate options:0];
+
+    datePicker.date = date ? date : currDate;
+    [self dateSelected];
 }
 
 @end

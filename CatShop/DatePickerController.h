@@ -9,4 +9,6 @@
 
 @property (weak) id <DatePickerDelegate> delegate;
 
+@property (strong) NSDate *date;
+
 @end

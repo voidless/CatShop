@@ -29,6 +29,7 @@
 @synthesize context;
 @synthesize dateFormatter;
 
+#pragma mark Events
 
 - (void)doReturn
 {
@@ -58,16 +59,32 @@
         return;
     }
 
-    catToEdit.name = nameField.text;
-    catToEdit.breed = breedField.text;
-    catToEdit.price = [priceField.text integerValue];
-    catToEdit.male = (maleSegCont.selectedSegmentIndex == 0);
-
     [delegate kittenFinishedEditing:catToEdit];
 
     [self doReturn];
 }
 
+- (IBAction)doneEditingName
+{
+    catToEdit.name = nameField.text;
+}
+
+- (IBAction)doneEditingBreed
+{
+    catToEdit.breed = breedField.text;
+}
+
+- (IBAction)doneEditingPrice
+{
+    catToEdit.price = [priceField.text integerValue];
+}
+
+- (IBAction)doneEditingGender
+{
+    catToEdit.male = (maleSegCont.selectedSegmentIndex == 0);
+}
+
+#pragma mark Child Controllers
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -75,6 +92,7 @@
     if ([dpc isKindOfClass:[DatePickerController class]]
             && [segue.identifier isEqualToString:@"DatePick"]) {
         dpc.delegate = self;
+        dpc.date = catToEdit.birth;
     }
 }
 
@@ -129,6 +147,13 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 
 #pragma mark Lifetime
 
