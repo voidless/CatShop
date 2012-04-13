@@ -1,17 +1,11 @@
 #import "KittenScrollViewController.h"
-#import "Cat.h"
-#import "CurrentCat.h"
+#import "Cat+SortedCat.h"
 #import "KittenPhotoController.h"
 #import "KittenDescriptionController.h"
-#import "DBHelper.h"
-#import "Cat+SortedCat.h"
 
 @interface KittenScrollViewController ()
 
 @property (strong) NSMutableArray *viewControllers;
-
-@property (strong) NSManagedObjectContext *context;
-@property (strong) CurrentCat *currentCat;
 
 @end
 
@@ -42,7 +36,6 @@
 
         kpc = [self.storyboard instantiateViewControllerWithIdentifier:@"fullscreenView"];
         kpc.kittenImage = image;
-        kpc.kittenIndex = page;
         kpc.delegate = self;
 
         [viewControllers replaceObjectAtIndex:page withObject:kpc];
@@ -150,7 +143,7 @@
 
 - (IBAction)kittenInfoClicked
 {
-    [delegate kittenFlip];
+    [delegate kittenListControllerDidFinish:self];
 }
 
 
@@ -163,32 +156,32 @@
 
     if (isDescrCont && [segue.identifier isEqualToString:@"DescSegue"]) {
         kdc.kitten = [Cat catWithId:currentCat.currentCatId andContext:context];
+        kdc.context = context;
     }
 }
 
 #pragma mark - Lifetime
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-
-    context = [[DBHelper dbHelper] managedObjectContext];
-    currentCat = [CurrentCat currentCat];
-
-    viewControllers = [[NSMutableArray alloc] initWithCapacity:[Cat countWithContext:context]];
-
-    for (NSInteger idx = 0; idx < [Cat countWithContext:context]; idx++) {
-        [viewControllers addObject:[NSNull null]];
-    }
-
-    cacheNextViewsAmount = 1;
-}
+//- (void)awakeFromNib
+//{
+//    [super awakeFromNib];
+//
+////    context = [[DBHelper dbHelper] managedObjectContext];
+////    currentCat = [CurrentCat new];
+//
+//}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    scrollView.delegate = self;
+    
+    viewControllers = [[NSMutableArray alloc] initWithCapacity:[Cat countWithContext:context]];
+    
+    for (NSInteger idx = 0; idx < [Cat countWithContext:context]; idx++) {
+        [viewControllers addObject:[NSNull null]];
+    }
+    
+    cacheNextViewsAmount = 1;
 }
 
 - (void)viewWillAppear:(BOOL)animated

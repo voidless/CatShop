@@ -1,11 +1,8 @@
 #import "KittenEditController.h"
-#import "DBHelper.h"
 #import "DatePickerController.h"
 #import "NSDateFormatter+CatDateFormatter.h"
 
 @interface KittenEditController ()
-
-@property (strong) NSManagedObjectContext *context;
 
 @property (strong) NSDateFormatter *dateFormatter;
 
@@ -157,13 +154,9 @@
 
 #pragma mark Lifetime
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (void)awakeFromNib
 {
-    if (self = [super initWithCoder:aDecoder]) {
-        context = [[DBHelper dbHelper] managedObjectContext];
-        dateFormatter = [NSDateFormatter catDateFormatter];
-    }
-    return self;
+    dateFormatter = [NSDateFormatter catDateFormatter];
 }
 
 - (void)viewDidLoad

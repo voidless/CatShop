@@ -1,5 +1,5 @@
 #import "Cat+SortedCat.h"
-#import "DBHelper.h"
+#import "NSManagedObjectContext+CatShopUtilities.h"
 
 
 @implementation Cat (SortedCat)
@@ -9,8 +9,8 @@
     NSFetchRequest *fetchReq = [[NSFetchRequest alloc] init];
     fetchReq.entity = [Cat entityFromContext:context];
     fetchReq.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"rating" ascending:NO]];
-
-    return [DBHelper execFetch:fetchReq withContext:context];
+    
+    return [context execFetch:fetchReq];
 }
 
 + (Cat *)catSortedAtIndex:(NSInteger)index withContext:(NSManagedObjectContext *)context
@@ -19,7 +19,7 @@
     fetchReq.entity = [Cat entityFromContext:context];
     fetchReq.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"rating" ascending:NO]];
 
-    NSArray *cats = [DBHelper execFetch:fetchReq withContext:context];
+    NSArray *cats = [context execFetch:fetchReq];
 
     if (cats.count > index) {
         return [cats objectAtIndex:index];
@@ -33,7 +33,7 @@
     fetchReq.entity = [Cat entityFromContext:context];
     fetchReq.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"rating" ascending:NO]];
 
-    NSMutableArray *cats = [[DBHelper execFetch:fetchReq withContext:context] mutableCopy];
+    NSMutableArray *cats = [[context execFetch:fetchReq] mutableCopy];
 
     Cat *cat = [cats objectAtIndex:sourceIdx];
     [cats removeObjectAtIndex:sourceIdx];

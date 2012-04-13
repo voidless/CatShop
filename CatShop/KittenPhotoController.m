@@ -7,10 +7,9 @@
 
 @implementation KittenPhotoController
 
-@synthesize modalImageView;
+@synthesize imageView;
 
 @synthesize kittenImage;
-@synthesize kittenIndex;
 
 @synthesize delegate;
 
@@ -28,7 +27,7 @@
 {
     [super viewDidLoad];
 
-    modalImageView.image = kittenImage;
+    imageView.image = kittenImage;
 }
 
 #pragma mark - Rotation

@@ -19,5 +19,6 @@
 @property (weak) id <KittenEditControllerDelegate> delegate;
 
 @property (strong) Cat *catToEdit;
+@property (strong) NSManagedObjectContext *context;
 
 @end

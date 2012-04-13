@@ -164,6 +164,9 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" id="yPL-jX-rwC">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0Qr-bF-5nz" id="ve9-Qz-aFh"/>
+                                </connections>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="1Ps-a5-RQE">
                                 <rect key="frame" x="5" y="4" width="18" height="19"/>
@@ -643,7 +646,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="modalImageView" destination="Hgx-3s-Pjb" id="21i-a5-9E4"/>
+                        <outlet property="imageView" destination="Hgx-3s-Pjb" id="4Vk-0T-uzh"/>
                     </connections>
                 </viewController>
             </objects>
@@ -725,6 +728,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="la1-M9-Ejf"/>
+        <segue reference="DPx-5J-p6M"/>
     </inferredMetricsTieBreakers>
 </document>

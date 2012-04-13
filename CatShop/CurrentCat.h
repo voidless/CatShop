@@ -3,8 +3,8 @@
 
 @interface CurrentCat : NSObject
 
-+ (CurrentCat *)currentCat;
-
 @property (strong) NSManagedObjectID *currentCatId;
+
+- (id)initWithContext:(NSManagedObjectContext *)context;
 
 @end

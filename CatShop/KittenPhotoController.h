@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import "KittenPhotoClickDelegate.h"
+#import "KittenPhotoControllerDelegate.h"
 
 @interface KittenPhotoController : UIViewController
 
@@ -7,13 +7,12 @@
 
 #pragma mark - IB
 
-@property (weak) IBOutlet UIImageView *modalImageView;
+@property (weak) IBOutlet UIImageView *imageView;
 
 - (IBAction)doReturn;
 
 #pragma mark - Data
 
-@property (weak) id <KittenPhotoClickDelegate> delegate;
-@property (assign) NSUInteger kittenIndex;
+@property (weak) id <KittenPhotoControllerDelegate> delegate;
 
 @end

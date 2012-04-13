@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		84528D97153321DB00597B59 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84528D96153321DB00597B59 /* CoreData.framework */; };
 		84528D9A153327B500597B59 /* DBModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84528D98153327B500597B59 /* DBModel.xcdatamodeld */; };
-		84528D9D153333E200597B59 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84528D9C153333E200597B59 /* DBHelper.m */; };
+		84528D9D153333E200597B59 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84528D9C153333E200597B59 /* DBManager.m */; };
 		845553321534504900241869 /* KittenEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845553311534504900241869 /* KittenEditController.m */; };
 		8472A781151B5A080004C5D8 /* KittenPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8472A77F151B5A080004C5D8 /* KittenPhotoController.m */; };
 		84D3660A152E287B0030E3D2 /* KittenTableCellController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D36609152E287B0030E3D2 /* KittenTableCellController.m */; };
@@ -19,6 +19,7 @@
 		D95BAEE5152623FB0042C26E /* KittenTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95BAEE4152623FB0042C26E /* KittenTableViewController.m */; };
 		D98AF50E153485FD00BF93C1 /* DatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98AF50D153485FD00BF93C1 /* DatePickerController.m */; };
 		D98AF51315349B4400BF93C1 /* CurrentCat.m in Sources */ = {isa = PBXBuildFile; fileRef = D98AF51215349B4400BF93C1 /* CurrentCat.m */; };
+		D98B53A615386EFD00D5FA82 /* NSManagedObjectContext+CatShopUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D98B53A515386EFD00D5FA82 /* NSManagedObjectContext+CatShopUtilities.m */; };
 		D9907F6F1535F68B00FB9EBE /* NSDateFormatter+CatDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D9907F6E1535F68B00FB9EBE /* NSDateFormatter+CatDateFormatter.m */; };
 		D9BAC552151A1A4D004EB018 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BAC551151A1A4D004EB018 /* UIKit.framework */; };
 		D9BAC554151A1A4D004EB018 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9BAC553151A1A4D004EB018 /* Foundation.framework */; };
@@ -42,8 +43,8 @@
 /* Begin PBXFileReference section */
 		84528D96153321DB00597B59 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		84528D99153327B500597B59 /* DBModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DBModel.xcdatamodel; sourceTree = "<group>"; };
-		84528D9B153333E200597B59 /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBHelper.h; sourceTree = "<group>"; };
-		84528D9C153333E200597B59 /* DBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBHelper.m; sourceTree = "<group>"; };
+		84528D9B153333E200597B59 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		84528D9C153333E200597B59 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		84528DA0153380AF00597B59 /* KittenEditControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KittenEditControllerDelegate.h; sourceTree = "<group>"; };
 		845553301534504900241869 /* KittenEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenEditController.h; sourceTree = "<group>"; };
 		845553311534504900241869 /* KittenEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KittenEditController.m; sourceTree = "<group>"; };
@@ -52,19 +53,20 @@
 		849A776C1535A93200AE25DF /* DatePickerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DatePickerDelegate.h; sourceTree = "<group>"; };
 		84D36608152E287B0030E3D2 /* KittenTableCellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenTableCellController.h; sourceTree = "<group>"; };
 		84D36609152E287B0030E3D2 /* KittenTableCellController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KittenTableCellController.m; sourceTree = "<group>"; };
-		84F67E1A1523CCE50088D118 /* KittenPhotoClickDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenPhotoClickDelegate.h; sourceTree = "<group>"; };
+		84F67E1A1523CCE50088D118 /* KittenPhotoControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenPhotoControllerDelegate.h; sourceTree = "<group>"; };
 		D9011146152F66E600CFFF7C /* gender.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gender.plist; sourceTree = "<group>"; };
 		D9011148152F670300CFFF7C /* catshop_tz.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = catshop_tz.rtf; sourceTree = "<group>"; };
 		D95BAEDF15260DBD0042C26E /* KittenScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenScrollViewController.h; sourceTree = "<group>"; };
 		D95BAEE015260DBD0042C26E /* KittenScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KittenScrollViewController.m; sourceTree = "<group>"; };
 		D95BAEE3152623FB0042C26E /* KittenTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KittenTableViewController.h; sourceTree = "<group>"; };
 		D95BAEE4152623FB0042C26E /* KittenTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KittenTableViewController.m; sourceTree = "<group>"; };
-		D9623FE9152B4EE10078182E /* KittenFlipperDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KittenFlipperDelegate.h; sourceTree = "<group>"; };
-		D9623FEA152B4F1D0078182E /* KittenFlipperDelegateHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KittenFlipperDelegateHolder.h; sourceTree = "<group>"; };
+		D9623FEA152B4F1D0078182E /* KittenListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KittenListController.h; sourceTree = "<group>"; };
 		D98AF50C153485FD00BF93C1 /* DatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerController.h; sourceTree = "<group>"; };
 		D98AF50D153485FD00BF93C1 /* DatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerController.m; sourceTree = "<group>"; };
 		D98AF51115349B4400BF93C1 /* CurrentCat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentCat.h; sourceTree = "<group>"; };
 		D98AF51215349B4400BF93C1 /* CurrentCat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentCat.m; sourceTree = "<group>"; };
+		D98B53A415386EFD00D5FA82 /* NSManagedObjectContext+CatShopUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+CatShopUtilities.h"; sourceTree = "<group>"; };
+		D98B53A515386EFD00D5FA82 /* NSManagedObjectContext+CatShopUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+CatShopUtilities.m"; sourceTree = "<group>"; };
 		D9907F6D1535F68B00FB9EBE /* NSDateFormatter+CatDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CatDateFormatter.h"; sourceTree = "<group>"; };
 		D9907F6E1535F68B00FB9EBE /* NSDateFormatter+CatDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CatDateFormatter.m"; sourceTree = "<group>"; };
 		D9BAC54D151A1A4D004EB018 /* CatShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,7 +125,7 @@
 		8472A786151B5AAC0004C5D8 /* Enlarge */ = {
 			isa = PBXGroup;
 			children = (
-				84F67E1A1523CCE50088D118 /* KittenPhotoClickDelegate.h */,
+				84F67E1A1523CCE50088D118 /* KittenPhotoControllerDelegate.h */,
 				8472A77E151B5A080004C5D8 /* KittenPhotoController.h */,
 				8472A77F151B5A080004C5D8 /* KittenPhotoController.m */,
 			);
@@ -192,8 +194,10 @@
 		D98AF50F15349AEF00BF93C1 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				84528D9B153333E200597B59 /* DBHelper.h */,
-				84528D9C153333E200597B59 /* DBHelper.m */,
+				84528D9B153333E200597B59 /* DBManager.h */,
+				84528D9C153333E200597B59 /* DBManager.m */,
+				D98B53A415386EFD00D5FA82 /* NSManagedObjectContext+CatShopUtilities.h */,
+				D98B53A515386EFD00D5FA82 /* NSManagedObjectContext+CatShopUtilities.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -294,8 +298,7 @@
 		D9C25247152B44C3002387EB /* FlipController */ = {
 			isa = PBXGroup;
 			children = (
-				D9623FE9152B4EE10078182E /* KittenFlipperDelegate.h */,
-				D9623FEA152B4F1D0078182E /* KittenFlipperDelegateHolder.h */,
+				D9623FEA152B4F1D0078182E /* KittenListController.h */,
 				D9C25249152B4503002387EB /* FlipController.h */,
 				D9C2524A152B4503002387EB /* FlipController.m */,
 			);
@@ -391,12 +394,13 @@
 				D9C2524B152B4503002387EB /* FlipController.m in Sources */,
 				84D3660A152E287B0030E3D2 /* KittenTableCellController.m in Sources */,
 				84528D9A153327B500597B59 /* DBModel.xcdatamodeld in Sources */,
-				84528D9D153333E200597B59 /* DBHelper.m in Sources */,
+				84528D9D153333E200597B59 /* DBManager.m in Sources */,
 				845553321534504900241869 /* KittenEditController.m in Sources */,
 				D98AF50E153485FD00BF93C1 /* DatePickerController.m in Sources */,
 				D98AF51315349B4400BF93C1 /* CurrentCat.m in Sources */,
 				D9907F6F1535F68B00FB9EBE /* NSDateFormatter+CatDateFormatter.m in Sources */,
 				D9CC0A0F1522135A00184558 /* Cat+SortedCat.m in Sources */,
+				D98B53A615386EFD00D5FA82 /* NSManagedObjectContext+CatShopUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

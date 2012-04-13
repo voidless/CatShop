@@ -1,13 +1,11 @@
 #import "KittenDescriptionController.h"
 #import "KittenPhotoController.h"
-#import "DBHelper.h"
 #import "NSDateFormatter+CatDateFormatter.h"
+#import "NSManagedObjectContext+CatShopUtilities.h"
 
 @interface KittenDescriptionController ()
 
 - (void)showKitten:(Cat *)k;
-
-@property (strong) NSManagedObjectContext *context;
 
 @end
 
@@ -71,7 +69,7 @@
     fetchReq.entity = [Cat entityFromContext:context];
     fetchReq.predicate = [NSPredicate predicateWithFormat:@"myId = %d", showId];
 
-    NSArray *cats = [DBHelper execFetch:fetchReq withContext:context];
+    NSArray *cats = [context execFetch:fetchReq];
     if (cats.count != 0) {
         kdc.kitten = [cats objectAtIndex:0];
         [self.navigationController pushViewController:kdc animated:YES];
@@ -120,8 +118,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    context = [[DBHelper dbHelper] managedObjectContext];
 
     [self showKitten:kitten];
 }

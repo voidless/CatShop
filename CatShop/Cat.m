@@ -1,5 +1,5 @@
 #import "Cat.h"
-#import "DBHelper.h"
+#import "NSManagedObjectContext+CatShopUtilities.h"
 
 @interface Cat ()
 
@@ -77,7 +77,7 @@
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = [Cat entityFromContext:context];
-    NSArray *catArray = [DBHelper execFetch:fetchRequest withContext:context];
+    NSArray *catArray = [context execFetch:fetchRequest];
 
     if (catArray.count == 0) {
         [self loadFromPlistToContext:context];
@@ -97,7 +97,7 @@
     fetchRequest.entity = [Cat entityFromContext:context];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"price > 0"];
 
-    return [DBHelper execFetch:fetchRequest withContext:context];
+    return [context execFetch:fetchRequest];
 }
 
 + (Cat *)catWithId:(NSManagedObjectID *)CatId andContext:(NSManagedObjectContext *)context;
@@ -105,18 +105,27 @@
     if (CatId == nil) {
         return nil;
     }
-
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [Cat entityFromContext:context];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"self == %@", CatId];
-
-    NSArray *result = [DBHelper execFetch:fetchRequest withContext:context];
-
-    if (result.count > 0) {
-        return [result objectAtIndex:0];
+  
+    NSError *err;
+    Cat *cat = (Cat *)[context existingObjectWithID:CatId error:&err];
+    if (err) {
+        NSLog(@"Fetching catWithId failed: %@", [err localizedDescription]);
     }
-
-    return nil;
+    return cat;
+    
+//TODO: test this
+//
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//    fetchRequest.entity = [Cat entityFromContext:context];
+//    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"self == %@", CatId];
+//
+//    NSArray *result = [DBManager execFetch:fetchRequest withContext:context];
+//
+//    if (result.count > 0) {
+//        return [result objectAtIndex:0];
+//    }
+//
+//    return nil;
 }
 
 - (void)delete

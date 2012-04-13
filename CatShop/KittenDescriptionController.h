@@ -1,10 +1,9 @@
 #import <UIKit/UIKit.h>
-#import "KittenPhotoClickDelegate.h"
-#import "KittenFlipperDelegateHolder.h"
+#import "KittenPhotoControllerDelegate.h"
 #import "Cat.h"
 
 @interface KittenDescriptionController : UIViewController
-        <KittenPhotoClickDelegate>
+        <KittenPhotoControllerDelegate>
 
 #pragma mark - IBOutlet
 
@@ -26,5 +25,6 @@
 #pragma mark - Data
 
 @property (strong) Cat *kitten;
+@property (strong) NSManagedObjectContext *context;
 
 @end

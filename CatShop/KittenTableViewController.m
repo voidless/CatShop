@@ -1,16 +1,10 @@
 #import "KittenTableViewController.h"
-#import "CurrentCat.h"
+#import "Cat+SortedCat.h"
 #import "KittenDescriptionController.h"
 #import "KittenTableCellController.h"
 #import "KittenEditController.h"
-#import "DBHelper.h"
-#import "Cat+SortedCat.h"
 
 @interface KittenTableViewController ()
-
-@property (strong) NSManagedObjectContext *context;
-
-@property (strong) CurrentCat *currentCat;
 
 @end
 
@@ -28,7 +22,7 @@
 
 - (IBAction)backButton
 {
-    [delegate kittenFlip];
+    [delegate kittenListControllerDidFinish:self];
 }
 
 - (IBAction)editButton
@@ -129,12 +123,14 @@
     if ([kdc isKindOfClass:[KittenDescriptionController class]]
             && [segue.identifier isEqualToString:@"DescSegue"]) {
         kdc.kitten = [Cat catWithId:currentCat.currentCatId andContext:context];
+        kdc.context = context;
     }
 
     KittenEditController *kct = segue.destinationViewController;
     if ([kct isKindOfClass:[KittenEditController class]]
             && [segue.identifier isEqualToString:@"EditKitten"]) {
         kct.delegate = self;
+        kct.context = context;
 
         if (self.tableView.editing) {
             kct.catToEdit = [self kittenByIndexPath:[self currentIndex]];
@@ -184,9 +180,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    context = [[DBHelper dbHelper] managedObjectContext];
-    currentCat = [CurrentCat currentCat];
 }
 
 - (void)viewWillAppear:(BOOL)animated

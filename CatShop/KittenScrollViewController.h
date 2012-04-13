@@ -1,13 +1,12 @@
 #import <UIKit/UIKit.h>
-#import "KittenPhotoClickDelegate.h"
-#import "KittenFlipperDelegateHolder.h"
+#import "KittenListController.h"
+#import "KittenPhotoControllerDelegate.h"
 
 @interface KittenScrollViewController : UIViewController
-        <UIScrollViewDelegate, KittenPhotoClickDelegate, KittenFlipperDelegateHolder>
+        <UIScrollViewDelegate, KittenPhotoControllerDelegate, KittenListController>
 
 // cacheNextViewsAmount must be positive
 @property NSInteger cacheNextViewsAmount;
-
 
 @property (weak) IBOutlet UIScrollView *scrollView;
 

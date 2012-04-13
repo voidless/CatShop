@@ -1,53 +1,47 @@
 #import "CurrentCat.h"
-#import "DBHelper.h"
 
 @interface CurrentCat ()
 
 #define CURRENT_CAT_OBJECT_KEY @"currentCatObjectKey"
 
+@property (strong) NSManagedObjectContext *context;
+
 @end
 
 
-@implementation CurrentCat {
-    NSManagedObjectID *_currentCatId;
+@implementation CurrentCat
+
+@synthesize currentCatId;
+@synthesize context;
+
+- (id)initWithContext:(NSManagedObjectContext *)ctx
+{
+    if ((self = [self init])) {
+        context = ctx;
+    }
+    return self;
 }
 
 - (NSManagedObjectID *)currentCatId
 {
-    if (_currentCatId == nil) {
-        NSPersistentStoreCoordinator *store = [[DBHelper dbHelper] persistentStoreCoordinator];
-
+    if (currentCatId == nil) {
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         NSURL *url = [ud URLForKey:CURRENT_CAT_OBJECT_KEY];
-        _currentCatId = [store managedObjectIDForURIRepresentation:url];
+        currentCatId = [[context persistentStoreCoordinator] managedObjectIDForURIRepresentation:url];
     }
-    return _currentCatId;
+    return currentCatId;
 }
 
-- (void)setCurrentCatId:(NSManagedObjectID *)currentCatId
+- (void)setCurrentCatId:(NSManagedObjectID *)catId
 {
     NSAssert(currentCatId.isTemporaryID == NO, @"setCurrentCatId received temporary id: %@", currentCatId);
 
-    _currentCatId = currentCatId;
+    currentCatId = catId;
 
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setURL:[currentCatId URIRepresentation] forKey:CURRENT_CAT_OBJECT_KEY];
 
     [ud synchronize];
-}
-
-// remove this
-+ (CurrentCat *)currentCat
-{
-    static CurrentCat *instance;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^
-    {
-        instance = [[self alloc] init];
-    });
-
-    return instance;
 }
 
 @end

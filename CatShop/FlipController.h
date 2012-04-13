@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
-#import "KittenFlipperDelegate.h"
+#import "KittenListController.h"
 
-@interface FlipController : UIViewController <KittenFlipperDelegate>
+@interface FlipController : UIViewController <KittenListControllerDelegate>
 
 @end

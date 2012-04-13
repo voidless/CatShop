@@ -1,15 +1,18 @@
 #import "FlipController.h"
-
-#import "KittenFlipperDelegateHolder.h"
+#import "DBManager.h"
+#import "CurrentCat.h"
 
 @interface FlipController ()
 
-@property (strong) UIViewController <KittenFlipperDelegateHolder> *presentingController;
+@property (strong) UIViewController <KittenListController> *presentingController;
 
 @property BOOL frontSide;
 
 @property (strong) NSString *frontVC;
 @property (strong) NSString *backVC;
+
+@property (strong) DBManager *dbManager;
+@property (strong) CurrentCat *currentCat;
 
 @end
 
@@ -22,6 +25,9 @@
 @synthesize frontVC;
 @synthesize backVC;
 
+@synthesize dbManager;
+@synthesize currentCat;
+
 #pragma mark Delegate
 
 
@@ -29,7 +35,9 @@
 {
     frontSide = !frontSide;
 
-    UIViewController <KittenFlipperDelegateHolder> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
+    UIViewController <KittenListController> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
+    newVC.context = [dbManager managedObjectContext];
+    newVC.currentCat = currentCat;
 
     [self addChildViewController:newVC];
 
@@ -50,7 +58,7 @@
                                        }];
 }
 
-- (void)kittenFlip
+- (void)kittenListControllerDidFinish:(UIViewController<KittenListController> *)controller
 {
     if (frontSide) {
         [self flipToVCWithId:backVC];
@@ -61,10 +69,14 @@
 
 - (void)presentVCWithId:(NSString *)newVCId
 {
-    UIViewController <KittenFlipperDelegateHolder> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
-    newVC.view.frame = self.view.bounds;
-
+    UIViewController <KittenListController> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
     presentingController = newVC;
+    
+    presentingController.context = [dbManager managedObjectContext];
+    presentingController.currentCat = currentCat;
+    
+    presentingController.view.frame = self.view.bounds;
+
     [self addChildViewController:presentingController];
     [self.view addSubview:presentingController.view];
     presentingController.delegate = self;
@@ -87,6 +99,9 @@
     backVC = @"KittenTableVC";
 
     frontSide = YES;
+    
+    dbManager = [DBManager new];
+    currentCat = [[CurrentCat alloc] initWithContext:[dbManager managedObjectContext]];
 }
 
 - (void)viewDidLoad
