@@ -1,10 +1,10 @@
 #import <UIKit/UIKit.h>
 #import "KittenEditControllerDelegate.h"
-#import "DatePickerDelegate.h"
+#import "DatePickerControllerDelegate.h"
 #import "Cat.h"
 
 @interface KittenEditController : UITableViewController
-        <DatePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
+        <DatePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
 @property (weak) IBOutlet UIImageView *imageView;
 
