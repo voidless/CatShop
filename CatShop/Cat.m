@@ -3,11 +3,7 @@
 
 @interface Cat ()
 
-+ (NSString *)genderByBool:(BOOL)gender;
-
 - (id)initWithDict:(NSDictionary *)dict andContext:(NSManagedObjectContext *)ctx;
-
-#define CAT_REQ_ALL @"AllCats"
 
 @end
 
@@ -36,6 +32,17 @@
     return [NSEntityDescription entityForName:@"Cat" inManagedObjectContext:ctx];
 }
 
+- (void)willSave
+{
+    if ([self isDeleted]) {
+        [self deleteImageFromDisk];
+    } else {
+        [self saveImageToDisk];
+    }
+}
+
+#pragma mark - Plist
+
 + (NSArray *)catsFromPlist:(NSString *)plistPath andContext:(NSManagedObjectContext *)ctx
 {
     NSString *plpath = [[NSBundle mainBundle] pathForResource:plistPath ofType:@""];
@@ -61,16 +68,13 @@
     return [cats copy];
 }
 
-
-#pragma mark - Static
-
 + (NSArray *)loadFromPlistToContext:(NSManagedObjectContext *)context
 {
     NSArray *catArray = [self catsFromPlist:@"catlist.plist" andContext:context];
     return catArray;
 }
 
-#pragma mark Public methods
+#pragma mark -
 
 + (NSArray *)catsWithContext:(NSManagedObjectContext *)context
 {
@@ -113,16 +117,7 @@
     return cat;
 }
 
-- (void)delete
-{
-    [self deleteImageFromDisk];
-
-    [self.managedObjectContext deleteObject:self];
-
-    NSError *err;
-    [self.managedObjectContext save:&err];
-    NSAssert(err == nil, @"Error saving context: %@", [err localizedDescription]);
-}
+#pragma mark -
 
 - (NSString *)imageFolder
 {
@@ -177,17 +172,16 @@
     NSAssert(err == nil, @"Error saving context: %@", [err localizedDescription]);
 }
 
-- (void)willSave
+- (void)delete
 {
-    if ([self isDeleted]) {
-        [self deleteImageFromDisk];
-    } else {
-        [self saveImageToDisk];
-    }
+    [self deleteImageFromDisk];
+    
+    [self.managedObjectContext deleteObject:self];
+    
+    NSError *err;
+    [self.managedObjectContext save:&err];
+    NSAssert(err == nil, @"Error saving context: %@", [err localizedDescription]);
 }
-
-#pragma mark - Instance
-
 
 #pragma Properties
 
@@ -220,8 +214,7 @@
     return [Cat genderByBool:self.male];
 }
 
-#pragma Lifetime
-
+#pragma mark - Lifetime
 
 - (id)initWithDict:(NSDictionary *)dict andContext:(NSManagedObjectContext *)ctx
 {
