@@ -155,7 +155,7 @@
 
     NSArray *cats = [Cat catsSortedWithContext:context];
 
-    NSUInteger idx = [cats indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop)
+    NSUInteger idx = [cats indexOfObjectPassingTest:^(id obj, NSUInteger index, BOOL *stop)
                                                     {
                                                         Cat *cat = (Cat *) obj;
                                                         *stop = ([cat.objectID isEqual:currentCat.currentCatId]);

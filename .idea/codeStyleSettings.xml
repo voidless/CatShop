@@ -37,6 +37,9 @@
             <option name="com.jetbrains.objc.lang.OCDeclarationKind" value="DeallocMethod" />
           </class>
         </Objective-C-extensions>
+        <XML>
+          <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+        </XML>
         <codeStyleSettings language="ObjectiveC">
           <option name="BLANK_LINES_AROUND_CLASS" value="2" />
           <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1" />
