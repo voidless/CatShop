@@ -13,7 +13,7 @@
     return [context execFetch:fetchReq];
 }
 
-+ (Cat *)catSortedAtIndex:(NSInteger)index withContext:(NSManagedObjectContext *)context
++ (Cat *)catSortedAtIndex:(NSUInteger)index withContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchReq = [[NSFetchRequest alloc] init];
     fetchReq.entity = [Cat entityFromContext:context];
@@ -27,7 +27,7 @@
     return nil;
 }
 
-+ (void)moveCatSortedFromIndex:(NSInteger)sourceIdx toIndex:(NSInteger)destinationIdx withContext:(NSManagedObjectContext *)context
++ (void)moveCatSortedFromIndex:(NSUInteger)sourceIdx toIndex:(NSUInteger)destinationIdx withContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchReq = [[NSFetchRequest alloc] init];
     fetchReq.entity = [Cat entityFromContext:context];

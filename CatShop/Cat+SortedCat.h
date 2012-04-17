@@ -5,8 +5,8 @@
 
 + (NSArray *)catsSortedWithContext:(NSManagedObjectContext *)context;
 
-+ (Cat *)catSortedAtIndex:(NSInteger)index withContext:(NSManagedObjectContext *)context;
++ (Cat *)catSortedAtIndex:(NSUInteger)index withContext:(NSManagedObjectContext *)context;
 
-+ (void)moveCatSortedFromIndex:(NSInteger)sourceIdx toIndex:(NSInteger)destinationIdx withContext:(NSManagedObjectContext *)context;
++ (void)moveCatSortedFromIndex:(NSUInteger)sourceIdx toIndex:(NSUInteger)destinationIdx withContext:(NSManagedObjectContext *)context;
 
 @end

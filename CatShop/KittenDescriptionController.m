@@ -72,6 +72,7 @@
     NSArray *cats = [context execFetch:fetchReq];
     if (cats.count != 0) {
         kdc.kitten = [cats objectAtIndex:0];
+        kdc.context = context;
         [self.navigationController pushViewController:kdc animated:YES];
     } else {
         NSLog(@"kitten with id: %d not found", showId);

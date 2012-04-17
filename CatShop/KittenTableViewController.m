@@ -51,7 +51,7 @@
 
 - (Cat *)kittenByIndexPath:(NSIndexPath *)idxp
 {
-    return [Cat catSortedAtIndex:idxp.row withContext:context];
+    return [Cat catSortedAtIndex:(NSUInteger)idxp.row withContext:context];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -78,7 +78,7 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-    [Cat moveCatSortedFromIndex:sourceIndexPath.row toIndex:destinationIndexPath.row withContext:context];
+    [Cat moveCatSortedFromIndex:(NSUInteger)sourceIndexPath.row toIndex:(NSUInteger)destinationIndexPath.row withContext:context];
 }
 
 
@@ -121,8 +121,8 @@
     KittenDescriptionController *kdc = segue.destinationViewController;
     if ([kdc isKindOfClass:[KittenDescriptionController class]]
             && [segue.identifier isEqualToString:@"DescSegue"]) {
-        kdc.kitten = [Cat catWithId:currentCat.currentCatId andContext:context];
         kdc.context = context;
+        kdc.kitten = [Cat catWithId:currentCat.currentCatId andContext:context];
     }
 
     KittenEditController *kct = segue.destinationViewController;
@@ -170,7 +170,7 @@
 
 - (void)setCurrentIndex:(NSIndexPath *)index
 {
-    currentCat.currentCatId = [[Cat catSortedAtIndex:index.row withContext:context] objectID];
+    currentCat.currentCatId = [[Cat catSortedAtIndex:(NSUInteger)index.row withContext:context] objectID];
 }
 
 

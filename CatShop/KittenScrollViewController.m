@@ -50,14 +50,14 @@
     }
 }
 
-- (void)unloadScrollViewWithPage:(int)page
+- (void)unloadScrollViewWithPage:(NSUInteger)page
 {
-    if (page < 0 || page >= [Cat countWithContext:context]) {
+    if (page >= [Cat countWithContext:context]) {
         return;
     }
 
     KittenPhotoController *kpc = [viewControllers objectAtIndex:page];
-    if ((NSNull *) kpc != [NSNull null]) {
+    if ((id) kpc != [NSNull null]) {
         [kpc.view removeFromSuperview];
         [kpc willMoveToParentViewController:nil];
         [kpc removeFromParentViewController];
@@ -86,7 +86,7 @@
     return 0;
 }
 
-- (void)setCurrentPage:(NSInteger)page
+- (void)setCurrentPage:(NSUInteger)page
 {
     currentCat.currentCatId = [[Cat catSortedAtIndex:page withContext:context] objectID];
 }
@@ -127,7 +127,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)source
 {
     CGFloat pageWidth = source.frame.size.width;
-    int page = (int) ((source.contentOffset.x - pageWidth / 2) / pageWidth + 1);
+    NSUInteger page = (NSUInteger) ((source.contentOffset.x - pageWidth / 2) / pageWidth + 1);
     if ([self currentPage] != page) {
         [self setCurrentPage:page];
         [self reloadScrollViews];
