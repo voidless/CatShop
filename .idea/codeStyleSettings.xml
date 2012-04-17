@@ -7,6 +7,7 @@
           <option name="METHOD_BRACE_PLACEMENT" value="2" />
           <option name="FUNCTION_BRACE_PLACEMENT" value="2" />
           <option name="SPACE_BEFORE_PROPERTY_ATTRIBUTES_PARENTHESES" value="true" />
+          <option name="INTRODUCE_CONST_VARS" value="false" />
         </Objective-C>
         <Objective-C-extensions>
           <option name="GENERATE_INSTANCE_VARIABLES_FOR_PROPERTIES" value="ASK" />

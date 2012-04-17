@@ -85,7 +85,7 @@
     return catArray;
 }
 
-+ (NSInteger)countWithContext:(NSManagedObjectContext *)context
++ (NSUInteger)countWithContext:(NSManagedObjectContext *)context
 {
     return [[self catsWithContext:context] count];
 }

@@ -4,7 +4,7 @@
 
 + (NSArray *)catsWithContext:(NSManagedObjectContext *)context;
 
-+ (NSInteger)countWithContext:(NSManagedObjectContext *)context;
++ (NSUInteger)countWithContext:(NSManagedObjectContext *)context;
 
 + (NSArray *)catsOnSaleFromContext:(NSManagedObjectContext *)context;
 

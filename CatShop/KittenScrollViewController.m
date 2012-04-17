@@ -22,14 +22,14 @@
 
 #pragma mark Load Unload
 
-- (void)loadScrollViewWithPage:(int)page
+- (void)loadScrollViewWithPage:(NSUInteger)page
 {
-    if (page < 0 || page >= [Cat countWithContext:context]) {
+    if (page >= [Cat countWithContext:context]) {
         return;
     }
 
     KittenPhotoController *kpc = [viewControllers objectAtIndex:page];
-    if ((NSNull *) kpc == [NSNull null]) {
+    if ((id)kpc == [NSNull null]) {
         Cat *k = [Cat catSortedAtIndex:page withContext:context];
 
         UIImage *image = k.image;
@@ -100,7 +100,7 @@
     NSInteger leftLimit = currentPage - cacheNextViewsAmount;
     NSInteger rightLimit = currentPage + cacheNextViewsAmount;
 
-    for (NSInteger page = 0; page < [Cat countWithContext:context]; page++) {
+    for (NSUInteger page = 0; page < [Cat countWithContext:context]; page++) {
         if (page >= leftLimit && page <= rightLimit) {
             [self loadScrollViewWithPage:page];
         } else {
@@ -127,7 +127,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)source
 {
     CGFloat pageWidth = source.frame.size.width;
-    int page = (source.contentOffset.x - pageWidth / 2) / pageWidth + 1;
+    int page = (int) ((source.contentOffset.x - pageWidth / 2) / pageWidth + 1);
     if ([self currentPage] != page) {
         [self setCurrentPage:page];
         [self reloadScrollViews];

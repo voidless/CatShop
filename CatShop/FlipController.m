@@ -3,7 +3,7 @@
 
 @interface FlipController ()
 
-@property (strong) UIViewController <KittenListController> *presentingController;
+@property (strong) UIViewController <KittenListController> *currentController;
 
 @property BOOL frontSide;
 
@@ -18,7 +18,7 @@
 
 @implementation FlipController
 
-@synthesize presentingController;
+@synthesize currentController;
 
 @synthesize frontSide;
 @synthesize frontVC;
@@ -41,7 +41,7 @@
     [self addChildViewController:newVC];
 
     newVC.view.frame = self.view.bounds;
-    [self transitionFromViewController:presentingController
+    [self transitionFromViewController:currentController
                       toViewController:newVC
             // TODO: =0 -> magic. >0 -> seam
                               duration:0
@@ -51,9 +51,9 @@
                                        }
                             completion:^(BOOL finished)
                                        {
-                                           [presentingController removeFromParentViewController];
-                                           presentingController = newVC;
-                                           presentingController.delegate = self;
+                                           [currentController removeFromParentViewController];
+                                           currentController = newVC;
+                                           currentController.delegate = self;
                                        }];
 }
 
@@ -69,23 +69,23 @@
 - (void)presentVCWithId:(NSString *)newVCId
 {
     UIViewController <KittenListController> *newVC = [self.storyboard instantiateViewControllerWithIdentifier:newVCId];
-    presentingController = newVC;
+    currentController = newVC;
 
-    presentingController.context = [dbManager managedObjectContext];
-    presentingController.currentCat = currentCat;
+    currentController.context = [dbManager managedObjectContext];
+    currentController.currentCat = currentCat;
 
-    presentingController.view.frame = self.view.bounds;
+    currentController.view.frame = self.view.bounds;
 
-    [self addChildViewController:presentingController];
-    [self.view addSubview:presentingController.view];
-    presentingController.delegate = self;
+    [self addChildViewController:currentController];
+    [self.view addSubview:currentController.view];
+    currentController.delegate = self;
 }
 
 - (void)dismissVC
 {
-    [presentingController.view removeFromSuperview];
-    [presentingController removeFromParentViewController];
-    presentingController = nil;
+    [currentController.view removeFromSuperview];
+    [currentController removeFromParentViewController];
+    currentController = nil;
 }
 
 #pragma mark Lifetime
